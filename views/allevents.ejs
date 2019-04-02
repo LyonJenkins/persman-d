@@ -17,7 +17,7 @@
         <tbody>
         <% events.forEach(function(event) { %>
             <tr>
-                <td scope="col"><%=event.title%></td>
+                <td scope="col"><a href="/calendar/event/<%=event._id%>"><%=event.title%></a></td>
                 <td scope="col"><%=event.start%></td>
                 <td scope="col"><%=event.startTime%></td>
                 <td scope="col"><%=event.description%></td>
