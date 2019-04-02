@@ -37,7 +37,7 @@ router.get("/opcenter/newrequests", isLoggedIn, function(req, res){
             })
         }
     })
-})
+});
 
 router.get("/opcenter/allrequests", isLoggedIn, function(req, res){
     if(!req.user.role) return res.redirect("/");
@@ -54,7 +54,7 @@ router.get("/opcenter/allrequests", isLoggedIn, function(req, res){
             })
         }
     })
-})
+});
 
 router.get("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
     if(!req.user.role) return res.redirect("/");

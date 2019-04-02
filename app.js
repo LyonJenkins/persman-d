@@ -4,7 +4,7 @@ const express = require("express"), app = express(), bodyParser = require("body-
     listUsersRoutes = require("./routes/listusers"), opCenterRoutes = require("./routes/opcenter"),
     userRoutes = require("./routes/user.js"), calendarRoutes = require("./routes/calendar.js");
 
-mongoose.connect("mongodb://localhost:27017/persman", {useNewUrlParser: true})
+mongoose.connect("mongodb://localhost:27017/persman", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static('public'));

@@ -75,7 +75,7 @@ router.post("/listusers/edit", isLoggedIn, function(req,res){
             res.redirect("/listusers");
         }
      });
- })
+ });
 
 
 function isLoggedIn(req,res,next){
