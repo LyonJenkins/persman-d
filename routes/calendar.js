@@ -1,4 +1,4 @@
-const express = require("express"), router = express.Router(), User = require("../models/user"), Calendar = require("../models/calendar"), Event = require("../models/eventspecifics");
+const express = require("express"), router = express.Router(), User = require("../models/user"), Calendar = require("../models/calendar"), Event = require("../models/eventspecifics"), async = require("async");
 
 router.get("/calendar", isLoggedIn, function(req, res){
     Calendar.find({}, function(err, allEvents){
@@ -53,20 +53,27 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
                 console.log(err);
             }
             foundEvent = foundEvent[0];
-            foundEvent.attendingList.forEach(function(attendee){
-                if(attendee.username === req.user.username) {
-                    res.redirect("/");
-                }
+            async.forEachOf(foundEvent.attendingList, (attendee, key, callback) => {
+                    if(attendee.username === req.user.username) {
+                        return res.redirect(`/calendar/event/${req.params.id}`);
+                    }
+            }, err => {
+                if(err) console.log(err);
+                let userList = foundEvent.attendingList;
+                userList.push(req.user);
+                Event.findOneAndUpdate({_id:foundEvent._id}, {$set:{attendingList: userList}}, function(err, event){
+                    if(err) {
+                        console.log(err);
+                    }
+                });
+                return res.redirect(`/calendar/event/${req.params.id}`)
             });
-            let userList = foundEvent.attendingList;
-            userList.push(req.user);
-            Event.findOneAndUpdate({_id:foundEvent._id}, {$set:{attendingList: userList}}, function(err, event){
-                if(err) {
-                    console.log(err);
-                }
-            })
+            // foundEvent.attendingList.forEach(function(attendee){
+            //     if(attendee.username === req.user.username) {
+            //         return res.redirect(`/calendar/event/${req.params.id}`);
+            //     }
+            // });
         });
-        res.redirect(`/calendar/event/${req.params.id}`)
     } else if(req.body.type === "unregister"){
         Event.find({eventID: req.params.id}, function(err,foundEvent){
             if(err) {
