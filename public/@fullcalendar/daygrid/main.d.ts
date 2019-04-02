@@ -1,4 +1,5 @@
 declare module "@fullcalendar/daygrid/DayGridDateProfileGenerator" {
+    // @ts-ignore
     import { DateProfileGenerator, DateRange } from "../core";
     export { DayGridDateProfileGenerator as default, DayGridDateProfileGenerator };
     class DayGridDateProfileGenerator extends DateProfileGenerator {
