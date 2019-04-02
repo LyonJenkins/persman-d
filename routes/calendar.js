@@ -32,7 +32,7 @@ router.get("/calendar/event", isLoggedIn, function(req,res){
 
 router.post("/calendar/event", isLoggedIn, function(req,res){
     if(!req.user.role) return res.redirect("/");
-    Calendar.create({title: req.body.eventname, start:req.body.eventstart, description:req.body.desc}, function(err, doc){
+    Calendar.create({title: req.body.eventname, start:req.body.eventstart, description:req.body.desc, startTime:req.body.eventtime}, function(err, doc){
         if(err) {
             console.log(err);
         }

@@ -6,12 +6,14 @@
     <div class="row">
         <div class="col-sm" style="text-align: center;"><div><h3>Event Description</h3></div></div>
         <div class="col-sm" style="text-align: center;"><div><h3>Date</h3></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h3>Start Time</h3></div></div>
         <div class="col-sm" style="text-align: center;"><div><h3>Register</h3></div></div>
         <div class="col-sm" style="text-align: center;"><div><h3>Unregister</h3></div></div>
     </div>
     <div class="row">
         <div class="col-sm" style="text-align: center;"><%=event.description%></div>
         <div class="col-sm" style="text-align: center;"><%=event.start%></div>
+        <div class="col-sm" style="text-align: center;"><%=event.startTime%></div>
         <div class="col-sm" style="text-align: center;">
             <form action="/calendar/event/<%=event._id%>/users" method="POST">
                 <div class="form-group">

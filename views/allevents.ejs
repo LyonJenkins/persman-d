@@ -9,6 +9,7 @@
         <tr>
             <th class="th-sm">Event Name</th>
             <th class="th-sm">Event Start</th>
+            <th class="th-sm">Event Start Time</th>
             <th class="th-sm">Event Description</th>
             <th class="th-sm">Delete</th>
         </tr>
@@ -18,6 +19,7 @@
             <tr>
                 <td scope="col"><%=event.title%></td>
                 <td scope="col"><%=event.start%></td>
+                <td scope="col"><%=event.startTime%></td>
                 <td scope="col"><%=event.description%></td>
                 <td class="align-middle">
                     <form action="/calendar/events/<%=event._id%>" method="post">
