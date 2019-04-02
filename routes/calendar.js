@@ -53,6 +53,11 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
                 console.log(err);
             }
             foundEvent = foundEvent[0];
+            foundEvent.attendingList.forEach(function(attendee){
+                if(attendee.username === req.user.username) {
+                    res.redirect("/");
+                }
+            });
             let userList = foundEvent.attendingList;
             userList.push(req.user);
             Event.findOneAndUpdate({_id:foundEvent._id}, {$set:{attendingList: userList}}, function(err, event){
@@ -61,6 +66,7 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
                 }
             })
         });
+        res.redirect(`/calendar/event/${req.params.id}`)
     } else if(req.body.type === "unregister"){
         Event.find({eventID: req.params.id}, function(err,foundEvent){
             if(err) {
@@ -79,8 +85,8 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
                 }
             })
         });
+        res.redirect(`/calendar/event/${req.params.id}`)
     }
-    res.redirect(`/calendar/event/${req.params.id}`)
 });
 
 router.get("/calendar/events", isLoggedIn, function(req,res){
