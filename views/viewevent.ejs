@@ -1,0 +1,71 @@
+<% include partials/header %>
+
+<div class="container white" style="text-align:center; margin-top: 1%; padding-top:1%; padding-bottom:1%; width: 100%;">
+
+    <h3 style="text-align: center; margin-bottom: 1%;">Viewing <strong><%=event.title%></strong></h3>
+    <div class="row">
+        <div class="col-sm" style="text-align: center;"><div><h3>Event Description</h3></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h3>Date</h3></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h3>Register</h3></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h3>Unregister</h3></div></div>
+    </div>
+    <div class="row">
+        <div class="col-sm" style="text-align: center;"><%=event.description%></div>
+        <div class="col-sm" style="text-align: center;"><%=event.start%></div>
+        <div class="col-sm" style="text-align: center;">
+            <form action="/calendar/event/<%=event._id%>/users" method="POST">
+                <div class="form-group">
+                    <button class="btn btn-success btn-sm">Register</button>
+                    <input class="form-control" type="hidden" name="type" value="register">
+                </div>
+            </form>
+        </div>
+        <div class="col-sm" style="text-align: center;">
+            <form action="/calendar/event/<%=event._id%>/users" method="POST">
+                <div class="form-group">
+                    <button class="btn btn-danger btn-sm">Unregister</button>
+                    <input class="form-control" type="hidden" name="type" value="unregister">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="margin-top: 1%; width: 100%;">
+        <div class="table-header">
+            <h3>Attending Users</h3>
+        </div>
+        <table class="table white table-bordered table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Rank</th>
+                <th scope="col">MOS</th>
+                <th scope="col">Status</th>
+                <th scope="col">Unit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% list.forEach(function(user) { %>
+            <tr>
+                <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
+                <td class="align-middle"><%=user.rank%></td>
+                <td class="align-middle"><%=user.position%></td>
+                <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+                <% if(user.unit.squad == "none") { %>
+                <td class="align-middle"><%=user.unit.platoon%></td>
+                <% } else { %>
+                <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
+                <% } %>
+            </tr>
+            <% }) %>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+</div>
+
+<% include partials/footer %>
+

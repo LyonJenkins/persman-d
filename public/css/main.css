@@ -1,0 +1,102 @@
+.choosen {
+    padding-top: 1%;
+    margin-top: 0%;
+    text-align:center;
+}
+
+.table-header {
+    padding: 1%;
+    width: 100%;
+    background-color:white;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .padding {
+        padding-top: 17%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .padding {
+        padding-top: 20%;
+    }
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .3);
+}
+
+body {
+    background-image: url("/images/143rdimage.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+.white {
+    background-color:white;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+bottom: .5em;
+}
+
+table {
+    font-size: .875rem;
+    
+}
+
+.Retired {
+    display: inline-block;
+    background-color: #1a4182; 
+    padding: .1rem .25rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+    color: white; 
+    border: 1px solid transparent;
+    font-weight: 400;
+}
+
+.Active {
+    display: inline-block;
+    background-color: #208710; 
+    color: white; 
+    padding: .1rem .25rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+    border: 1px solid transparent;
+    font-weight: 400;
+}
+
+.Leave {
+    display: inline-block;
+    background-color: #e87809; 
+    color: white; 
+    padding: .1rem .25rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+    border: 1px solid transparent;
+    font-weight: 400;
+}
+
+#calendar {
+    max-width: 100%;
+    margin: 0 auto;
+}

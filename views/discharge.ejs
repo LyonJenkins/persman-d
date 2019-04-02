@@ -1,0 +1,24 @@
+<% include partials/header %>
+
+<div class="container white" style="margin-top: 1%; padding: 1%;">  
+    <h3 style="text-align: center;">Operations Center</h3>
+    <form action="/opcenter/discharge/" method="POST">
+
+        <h4>Request a Discharge</h4>
+        
+        <label for="reason">Reason</label>
+        <div class="form-group"><input class="form-control" id="reason" type="text" name="reason" placeholder="enter a reason">
+            <small class="form-text text-muted">The max length of a reason is 160 characters. If you have more thoughts to express, contact a high ranking member.</small>
+        </div>           
+        <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=user._id%>"></div>               
+        
+        <div class="form-group"><button class="btn btn-primary" >Submit</button></div>
+    </form>   
+</div>
+
+
+<script>
+ document.getElementById("reason").maxLength = "160";
+</script>
+
+<% include partials/footer %>

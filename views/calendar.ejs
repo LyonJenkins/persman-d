@@ -1,0 +1,39 @@
+<% include partials/header %>
+
+<div class="white container" style="margin-top: 1%">
+
+    <meta charset='utf-8' />
+    <link href='/packages/core/main.css' rel='stylesheet' />
+    <link href='/packages/daygrid/main.css' rel='stylesheet' />
+    <script src='/packages/core/main.js'></script>
+    <script src='/packages/interaction/main.js'></script>
+    <script src='/packages/daygrid/main.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'interaction', 'dayGrid' ],
+                defaultDate: Date.now(),
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: [
+                    <% allEvents.forEach(function(event){ %>
+                    {
+                        url: "/calendar/event/<%=event._id%>",
+                        title: "<%=event.title%>",
+                        start: "<%=event.start%>"
+                    },
+                    <%} ); %>
+                ]
+            });
+
+            calendar.render();
+        });
+
+    </script>
+
+<div id='calendar'></div>
+</div>
+
+<% include partials/footer %>

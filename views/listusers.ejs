@@ -1,0 +1,162 @@
+<% include partials/header %>
+
+<!--Members only for Crusader Company-->
+
+
+<div class="container" style="margin-top: 1%">  
+    <div class="table-header">
+      <h3>Crusader Company</h3>
+    </div>
+    <table class="table white table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Rank</th>
+          <th scope="col">MOS</th>
+          <th scope="col">Status</th>
+          <th scope="col">Unit</th>
+          <% if(priv) { %>
+          <th scope="col">Edit</th>
+          <% } %>
+        </tr>
+      </thead>
+      <tbody>
+    <% users.forEach(function(user) { %>
+      <% if(user.status != "Retired") { %>
+      <% if(user.unit.company == "Crusader Company") { %>
+          <% if(user.unit.platoon == "Company HQ") { %>
+            <tr>
+              <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
+              <td class="align-middle"><%=user.rank%></td>
+              <td class="align-middle"><%=user.position%></td>
+              <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+              <% if(user.unit.squad == "none") { %>
+              <td class="align-middle"><%=user.unit.platoon%></td>
+              <% } else { %>
+              <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
+              <% } %>
+              <% if(priv) { %>
+              </td>
+                <td class="align-middle">
+                  <form action="/listusers/edit/<%=user._id%>" method="get">
+                    <button class="btn btn-warning btn-sm">Edit User</button>
+                </form>
+                </td>
+              <% } %>
+            </tr>
+          <% } %>
+          <% if(user.unit.platoon == "First Platoon") { %>
+            <tr>
+              <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
+              <td class="align-middle"><%=user.rank%></td>
+              <td class="align-middle"><%=user.position%></td>
+              <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+              <% if(user.unit.squad == "none") { %>
+              <td class="align-middle"><%=user.unit.platoon%></td>
+              <% } else { %>
+              <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
+              <% } %>
+              <% if(priv) { %>
+               </td>
+                <td class="align-middle">
+                  <form action="/listusers/edit/<%=user._id%>" method="get">
+                    <button class="btn btn-warning btn-sm">Edit User</button>
+                </form>
+                </td>
+              <% } %>
+            </tr>
+          <% } %>
+        <% } %>
+      <% } %>
+    <% }) %>
+    </table>
+</div>
+
+<!--Only retired members-->
+
+<div class="container">  
+    <div class="table-header">
+      <h3>Retired Members</h3>
+    </div>
+    <table class="table white table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Rank</th>
+          <th scope="col">MOS</th>
+          <th scope="col">Status</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+    <% users.forEach(function(user) { %>
+      <% if(user.status == "Retired") { %>
+        <tr>
+          <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
+          <td class="align-middle"><%=user.rank%></td>
+          <td class="align-middle"><%=user.position%></td>
+          <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+          <% if(priv) { %>
+          </td>
+          <td class="align-middle">
+            <form action="/listusers/edit/<%=user._id%>" method="get">
+              <button class="btn btn-warning btn-sm">Edit User</button>
+           </form>
+            </td>
+          <% } %>
+        </tr>
+      <% } %>
+    <% }) %>
+    </table>
+</div>
+
+
+<!--All Members, retired or not-->
+
+
+<% if(priv) { %>
+<div class="container">  
+    <div class="table-header">
+      <h3>All Members</h3>
+    </div>
+    <table class="table white table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Rank</th>
+          <th scope="col">MOS</th>
+          <th scope="col">Status</th>
+          <% if(priv) { %>
+          <th scope="col">Admin Privileges</th>
+          <th scope="col">Delete</th>
+          <th scope="col">Edit</th>
+          <% } %>
+        </tr>
+      </thead>
+      <tbody>
+    <% users.forEach(function(user) { %>
+        <tr>
+          <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
+          <td class="align-middle"><%=user.rank%></td>
+          <td class="align-middle"><%=user.position%></td>
+          <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+          <% if(priv) { %>
+            <td class="align-middle"><%=user.role%></td>
+            <td class="align-middle">
+            <form action="/listusers/delete/<%=user._id%>" method="post">
+                <button class="btn btn-danger btn-sm">Delete User</button>
+            </form>
+          </td>
+          <td class="align-middle">
+            <form action="/listusers/edit/<%=user._id%>" method="get">
+              <button class="btn btn-warning btn-sm">Edit User</button>
+           </form>
+            </td>
+          <% } %>
+        </tr>
+    <% }) %>
+    </table>
+</div>
+<% } %>
+
+<% include partials/footer %>

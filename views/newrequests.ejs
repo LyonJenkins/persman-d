@@ -1,0 +1,46 @@
+<% include partials/header %>
+
+<div class="container choosen">  
+    <div class="table-header">
+      <h3>New User Requests</h3>
+    </div>
+    <table class="table white table-bordered table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Request Type</th>
+          <th scope="col">User</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Open</th>
+        </tr>
+      </thead>
+      <tbody>
+    <% discharges.forEach(function(discharge) { %>
+     <% for(var i = 0; i < users.length; i++) { %>
+      <%  if(discharge.read == false) { %>
+        <% if(users[i]._id == discharge.ownerID) { %>
+          <% var user = users[i]; %>
+          <tr>
+          <td><%=discharge.requestType%></td>
+          <td><%=user.username%></td>
+          <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
+            <td></td>
+            <% } else if(user.unit.squad == "") { %>
+            <td><%=user.unit.platoon%>, <%=user.unit.company%></td>
+            <% } else { %>
+            <td><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></td>
+            <% } %>
+        <td>
+            <form action="/opcenter/viewrequest/<%=discharge._id%>" method="get">
+              <button class="btn btn-primary btn-sm">Open Request</button>
+           </form>
+           <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=user._id%>"></div>               
+        </td>
+        </tr>
+        <% } %>
+        <% } %>
+      <% } %>
+    <% }) %>
+    </table>
+</div>
+
+<% include partials/footer %>

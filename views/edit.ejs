@@ -1,0 +1,101 @@
+<% include partials/header %>
+
+<div class="container white" style="margin-top: 1%; padding: 1%;">
+    <form action="/listusers/edit" method="POST">
+        <h2>Change user details for <strong><%=user.username%></strong></h2>
+
+        <label for="name">Username</label>
+        <div class="form-group"><input class="form-control" type="text" name="name" value="<%=user.username%>" disabled></div>
+
+        <label for="id">ID</label>
+        <div class="form-group"><input class="form-control" type="text" name="id" value="<%=user._id%>"></div>
+
+        <div class="form-group">
+            <label for="MOS">MOS</label>
+            <select class="form-control" id="MOS" name="position">
+                <option><%=user.position%></option>
+                <option>11X</option>
+                <option>none</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="company">Company</label>
+            <select class="form-control" id="company" name="company">
+                <option><%=user.unit.company%></option>
+                <option>Crusader Company</option>
+                <option>none</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="platoon">Platoon</label>
+            <select class="form-control" id="platoon" name="platoon">
+                <option><%=user.unit.platoon%></option>
+                <option>First Platoon</option>
+                <option>Second Platoon</option>
+                <option>Third Platoon</option>
+                <option>Fourth Platoon</option>
+                <option>Company HQ</option>
+                <option>none</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="squad">Squad</label>
+            <select class="form-control" id="squad" name="squad">
+                <option><%=user.unit.squad%></option>
+                <option>First Squad</option>
+                <option>Second Squad</option>
+                <option>Third Squad</option>
+                <option>Fourth Squad</option>
+                <option>none</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Change Status</label>
+            <select class="form-control" id="status" name="status">
+                <option><%=user.status%></option>
+                <option>Active</option>
+                <option>Leave of Absence</option>
+                <option>Away Without Leave</option>
+                <option>Reserve</option>
+                <option>Retired</option>
+                <option>none</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="rank">Select Rank</label>
+            <select class="form-control" id="rank" name="rank">
+                <option><%=user.rank%></option>
+                <option>PVT</option>
+                <option>PV2</option>
+                <option>PFC</option>
+                <option>SPC</option>
+                <option>CPL</option>
+                <option>SGT</option>
+                <option>SSG</option>
+                <option>SFC</option>
+                <option>MSG</option>
+                <option>1SG</option>
+                <option>SGM</option>
+                <option>CSM</option>
+                <option>WO1</option>
+                <option>CW2</option>
+                <option>CW3</option>
+                <option>CW4</option>
+                <option>CW5</option>
+                <option>2LT</option>
+                <option>1LT</option>
+                <option>CPT</option>
+                <option>none</option>
+            </select>
+        </div>
+            
+        <div class="form-group"><button class="btn btn-primary" >Submit</button></div>
+    </form>
+</div>
+
+<% include partials/footer %>
