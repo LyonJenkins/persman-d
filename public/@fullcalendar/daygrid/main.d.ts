@@ -36,6 +36,7 @@ declare module "@fullcalendar/daygrid/Popover" {
 }
 
 declare module "@fullcalendar/daygrid/SimpleDayGridEventRenderer" {
+    // @ts-ignore
     import { FgEventRenderer, Seg } from "../core";
     export { SimpleDayGridEventRenderer as default, SimpleDayGridEventRenderer };
     abstract class SimpleDayGridEventRenderer extends FgEventRenderer {
@@ -51,6 +52,7 @@ declare module "@fullcalendar/daygrid/SimpleDayGridEventRenderer" {
 }
 
 declare module "@fullcalendar/daygrid/DayGridEventRenderer" {
+    // @ts-ignore
     import { Seg } from "../core";
     import DayGrid from "@fullcalendar/daygrid/DayGrid";
     import SimpleDayGridEventRenderer from "@fullcalendar/daygrid/SimpleDayGridEventRenderer";
@@ -77,6 +79,7 @@ declare module "@fullcalendar/daygrid/DayGridEventRenderer" {
 }
 
 declare module "@fullcalendar/daygrid/DayGridMirrorRenderer" {
+    // @ts-ignore
     import { Seg } from "../core";
     import DayGridEventRenderer from "@fullcalendar/daygrid/DayGridEventRenderer";
     export { DayGridMirrorRenderer as default, DayGridMirrorRenderer };
@@ -86,6 +89,7 @@ declare module "@fullcalendar/daygrid/DayGridMirrorRenderer" {
 }
 
 declare module "@fullcalendar/daygrid/DayGridFillRenderer" {
+    // @ts-ignore
     import { FillRenderer, Seg } from "../core";
     import DayGrid, { DayGridSeg } from "@fullcalendar/daygrid/DayGrid";
     export { DayGridFillRenderer as default, DayGridFillRenderer };
@@ -100,6 +104,7 @@ declare module "@fullcalendar/daygrid/DayGridFillRenderer" {
 }
 
 declare module "@fullcalendar/daygrid/DayTile" {
+    // @ts-ignore
     import { DateComponent, Seg, Hit, DateMarker, ComponentContext, EventInstanceHash } from "../core";
     import SimpleDayGridEventRenderer from "@fullcalendar/daygrid/SimpleDayGridEventRenderer";
     export interface DayTileProps {
@@ -132,6 +137,7 @@ declare module "@fullcalendar/daygrid/DayTile" {
 }
 
 declare module "@fullcalendar/daygrid/DayBgRow" {
+    // @ts-ignore
     import { ComponentContext, DateMarker, DateProfile } from "../core";
     export interface DayBgCell {
         date: DateMarker;
@@ -151,6 +157,7 @@ declare module "@fullcalendar/daygrid/DayBgRow" {
 }
 
 declare module "@fullcalendar/daygrid/DayGrid" {
+    // @ts-ignore
     import { PositionCache, DateMarker, DateComponent, EventSegUiInteractionState, Seg, DateProfile } from "../core";
     import Popover from "@fullcalendar/daygrid/Popover";
     import DayGridEventRenderer from "@fullcalendar/daygrid/DayGridEventRenderer";
@@ -261,6 +268,7 @@ declare module "@fullcalendar/daygrid/DayGrid" {
 }
 
 declare module "@fullcalendar/daygrid/AbstractDayGridView" {
+    // @ts-ignore
     import { ScrollComponent, View, ComponentContext, ViewSpec, DateProfileGenerator } from "../core";
     import DayGrid from "@fullcalendar/daygrid/DayGrid";
     export { DayGridView as default, DayGridView };
@@ -293,6 +301,7 @@ declare module "@fullcalendar/daygrid/AbstractDayGridView" {
 }
 
 declare module "@fullcalendar/daygrid/SimpleDayGrid" {
+    // @ts-ignore
     import { DateProfile, EventStore, EventUiHash, DateSpan, EventInteractionState, DayTable, Duration, DateComponent, DateRange, Slicer, Hit, ComponentContext } from "../core";
     import { default as DayGrid, DayGridSeg } from "@fullcalendar/daygrid/DayGrid";
     export interface SimpleDayGridProps {
@@ -323,6 +332,7 @@ declare module "@fullcalendar/daygrid/SimpleDayGrid" {
 }
 
 declare module "@fullcalendar/daygrid/DayGridView" {
+    // @ts-ignore
     import { DayHeader, ComponentContext, ViewSpec, DateProfileGenerator, DateProfile, ViewProps, DayTable } from "../core";
     import AbstractDayGridView from "@fullcalendar/daygrid/AbstractDayGridView";
     import SimpleDayGrid from "@fullcalendar/daygrid/SimpleDayGrid";
@@ -345,6 +355,7 @@ declare module "@fullcalendar/daygrid" {
     export { default as AbstractDayGridView } from "@fullcalendar/daygrid/AbstractDayGridView";
     export { default as DayGridView, buildDayTable as buildBasicDayTable } from "@fullcalendar/daygrid/DayGridView";
     export { default as DayBgRow } from "@fullcalendar/daygrid/DayBgRow";
+    // @ts-ignore
     const _default_5: import("@fullcalendar/core/plugin-system").PluginDef;
     export default _default_5;
 }
