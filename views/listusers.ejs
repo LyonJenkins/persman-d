@@ -97,7 +97,6 @@
           <td class="align-middle"><%=user.position%></td>
           <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
           <% if(priv) { %>
-          </td>
           <td class="align-middle">
             <form action="/listusers/edit/<%=user._id%>" method="get">
               <button class="btn btn-warning btn-sm">Edit User</button>
