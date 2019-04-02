@@ -83,6 +83,31 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
     res.redirect(`/calendar/event/${req.params.id}`)
 });
 
+router.get("/calendar/events", isLoggedIn, function(req,res){
+    if(!req.user.role) return res.redirect("/");
+    Calendar.find({}, function(err, foundEvents){
+       if(err) {
+           console.log(err);
+       }
+       res.render("allevents", {events : foundEvents});
+    });
+});
+
+router.post("/calendar/events/:id", isLoggedIn, function(req, res){
+    if(!req.user.role) return res.redirect("/");
+    Calendar.findByIdAndDelete(req.params.id, err => {
+        if(err) {
+            console.log(err);
+        }
+    });
+    Event.findOneAndDelete({eventID: req.params.id}, err => {
+       if(err) {
+           console.log(err);
+       }
+    });
+    res.redirect("/calendar/events");
+});
+
  function isLoggedIn(req,res,next){
      if(req.isAuthenticated()){
          return next();

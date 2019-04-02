@@ -1,0 +1,32 @@
+<% include partials/header %>
+
+<div class="container choosen">
+    <div class="table-header">
+        <h3>All Calendar Events</h3>
+    </div>
+    <table class="table white table-bordered table-sm" id="dtBasicExample">
+        <thead>
+        <tr>
+            <th class="th-sm">Event Name</th>
+            <th class="th-sm">Event Start</th>
+            <th class="th-sm">Event Description</th>
+            <th class="th-sm">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% events.forEach(function(event) { %>
+            <tr>
+                <td scope="col"><%=event.title%></td>
+                <td scope="col"><%=event.start%></td>
+                <td scope="col"><%=event.description%></td>
+                <td class="align-middle">
+                    <form action="/calendar/events/<%=event._id%>" method="post">
+                        <button class="btn btn-danger btn-sm">Delete Event</button>
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</div>
+
+<% include partials/footer %>
