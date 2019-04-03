@@ -38,7 +38,7 @@
               <% if(priv) { %>
               </td>
                 <td class="align-middle">
-                  <form action="/listusers/edit/<%=user._id%>" method="get">
+                  <form action="/user/edit/<%=user._id%>" method="get">
                     <button class="btn btn-warning btn-sm">Edit User</button>
                 </form>
                 </td>
@@ -59,7 +59,7 @@
               <% if(priv) { %>
                </td>
                 <td class="align-middle">
-                  <form action="/listusers/edit/<%=user._id%>" method="get">
+                  <form action="/user/edit/<%=user._id%>" method="get">
                     <button class="btn btn-warning btn-sm">Edit User</button>
                 </form>
                 </td>
@@ -98,7 +98,7 @@
           <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
           <% if(priv) { %>
           <td class="align-middle">
-            <form action="/listusers/edit/<%=user._id%>" method="get">
+            <form action="/user/edit/<%=user._id%>" method="get">
               <button class="btn btn-warning btn-sm">Edit User</button>
            </form>
             </td>
@@ -142,12 +142,12 @@
           <% if(priv) { %>
             <td class="align-middle"><%=user.role%></td>
             <td class="align-middle">
-            <form action="/listusers/delete/<%=user._id%>" method="post">
+            <form action="/user/delete/<%=user._id%>" method="post">
                 <button class="btn btn-danger btn-sm">Delete User</button>
             </form>
           </td>
           <td class="align-middle">
-            <form action="/listusers/edit/<%=user._id%>" method="get">
+            <form action="/user/edit/<%=user._id%>" method="get">
               <button class="btn btn-warning btn-sm">Edit User</button>
            </form>
             </td>
