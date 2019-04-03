@@ -1,19 +1,59 @@
 <% include partials/header %>
 
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        function getNewTime(time, addHours, addMinutes) {
+            let hours = time.slice(0,2);
+            let minutes = time.slice(3,5);
+            hours = parseInt(hours);
+            minutes = parseInt(minutes);
+            hours+=addHours;
+            minutes+=addMinutes;
+            if(minutes === 60) {
+                minutes=0;
+                hours++;
+            }
+            if(hours > 24) {
+                hours-=24;
+            } else if(hours < 0) {
+                hours+=24;
+            }
+            hours = hours.toString()
+            minutes = minutes.toString()
+            if(minutes === "0") {
+                minutes = "00";
+            }
+            if(hours.length === 1) {
+                hours = "0"+hours;
+            }
+            console.log(hours)
+            console.log(minutes);
+            return `${hours}:${minutes}`
+        }
+        let CST = document.getElementById('cst').innerText=getNewTime("<%=event.startTime%>", -1, 0);
+        let PST = document.getElementById('pst').innerText=getNewTime("<%=event.startTime%>", -3, 0);
+        let CET = document.getElementById('cet').innerText=getNewTime("<%=event.startTime%>", 6, 0);
+        });
+
+
+</script>
+
 <div class="container white" style="text-align:center; margin-top: 1%; padding-top:1%; padding-bottom:1%; width: 100%;">
 
-    <h3 style="text-align: center; margin-bottom: 1%;">Viewing <strong><%=event.title%></strong></h3>
+    <h1 style="text-align: center; margin-bottom: 1%;">Viewing <strong><%=event.title%></strong></h1>
     <div class="row">
-        <div class="col-sm" style="text-align: center;"><div><h3>Description</h3></div></div>
-        <div class="col-sm" style="text-align: center;"><div><h3>Date</h3></div></div>
-        <div class="col-sm" style="text-align: center;"><div><h3>Start Time</h3></div></div>
+    </div>
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col-sm" style="text-align: center;"><div><h3>Event Description</h3></div></div>
         <div class="col-sm" style="text-align: center;"><div><h3>Register</h3></div></div>
         <div class="col-sm" style="text-align: center;"><div><h3>Unregister</h3></div></div>
     </div>
+
     <div class="row">
-        <div class="col-sm" style="text-align: center;"><%=event.description%></div>
-        <div class="col-sm" style="text-align: center;"><%=event.start%></div>
-        <div class="col-sm" style="text-align: center;"><%=event.startTime%></div>
+        <div class="col-sm" style="text-align: center;"><div><%=event.description%></div></div>
         <div class="col-sm" style="text-align: center;">
             <form action="/calendar/event/<%=event._id%>/users" method="POST">
                 <div class="form-group">
@@ -30,6 +70,20 @@
                 </div>
             </form>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-sm" style="text-align: center;"><div><h5>Date</h5></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h5>Start Time EST</h5></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h5>Start Time CST</h5></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h5>Start Time PST</h5></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h5>Start Time CET</h5></div></div>
+    </div>
+    <div class="row">
+        <div class="col-sm" style="text-align: center; font-weight:bold;"><%=event.start%></div>
+        <div class="col-sm" style="text-align: center; font-weight:bold;"><div><%=event.startTime%></div></div>
+        <div class="col-sm" style="text-align: center;"><div><div id="cst" style="font-weight:bold;"></div></div></div>
+        <div class="col-sm" style="text-align: center;"><div><div id="pst" style="font-weight:bold;"></div></div></div>
+        <div class="col-sm" style="text-align: center;"><div><div id="cet" style="font-weight:bold;"></div></div></div>
     </div>
     <div style="margin-top: 1%; width: 100%;">
         <div class="table-header">
