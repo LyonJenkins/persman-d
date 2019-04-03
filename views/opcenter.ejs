@@ -1,22 +1,32 @@
 <% include partials/header %>
 
-<div class="container white" style="margin-top: 1%; padding: 1%;">  
-    <h3 style="text-align: center; margin-bottom: 1%;">Operations Center</h3>
+<div class="container white" style="margin-top: 1%; padding: 1%">
+    <h1 style="text-align: center; margin-bottom: 1%;">Operations Center</h1>
+    <hr>
     <div class="row">
         <div class="col-sm" style="text-align: center;"><a href="/opcenter/discharge" style="color: white;"><button class="btn btn-primary btn-sm">Request a discharge</button></a> </div>
     </div>
 </div>
 
 <% if(priv) { %>
-<div class="container white" style="margin-top: 1%; padding: 1%;">  
-        <h3 style="text-align: center; margin-bottom: 1%;">Administration Center</h3>
-        <div class="row">
-            <div class="col-sm" style="text-align: center;"><a href="/opcenter/newrequests" style="color: white;"><button class="btn btn-primary btn-sm">View new requests</button></a> </div>
-            <div class="col-sm" style="text-align: center;"><a href="/opcenter/allrequests" style="color: white;"><button class="btn btn-primary btn-sm">View all requests</button></a> </div>
-            <div class="col-sm" style="text-align: center;"><a href="/calendar/event" style="color: white;"><button class="btn btn-primary btn-sm">Create a new calendar event</button></a> </div>
-            <div class="col-sm" style="text-align: center;"><a href="/calendar/events" style="color: white;"><button class="btn btn-primary btn-sm">View all calendar events</button></a> </div>
-        </div>
-</div>
+<div class="container white" style="margin-top: 1%; padding: 1%; height: 500px;">
+
+
+
+    <h1 style="text-align: center; margin-bottom: 1%;">Administration Center</h1>
+    <hr>
+    <br>
+    <div class="row">
+        <div class="col-5" style="text-align: center"><div style="background-color: #e9ecef; height: 400%"><h3>View Requests</h3></div></div>
+        <div class="col-5 offset-sm-2" style="text-align: center"><h3>Create and View Events</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-2" style="text-align: center;"><a href="/opcenter/newrequests" style="color: white;"><button style="margin-left: 10%; width: 100%; height: 100%;" class="btn btn-primary btn-md">View requests</button></a> </div>
+        <div class="col-2 offset-sm-1" style="text-align: center;"><a href="/opcenter/allrequests" style="color: white;"><button style=" width: 100%;" class="btn btn-primary btn-md">View all requests</button></a> </div>
+<!--        <div class="col-2 offset-md-4" style="text-align: center;"><a href="/calendar/event" style="color: white;"><button style="width: 100%;" class="btn btn-primary btn-md">Create an event</button></a> </div>-->
+<!--        <div class="col-2" style="text-align: center;"><a href="/calendar/events" style="color: white;"><button style="width: 100%;" class="btn btn-primary btn-md">View all events</button></a> </div>-->
+    </div>
+    </div>
 <% } %>
 
 
