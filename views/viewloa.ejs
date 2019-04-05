@@ -1,0 +1,87 @@
+<% include partials/header %>
+
+<div class="container white" style="text-align: left; margin-top: 1%; padding-top:1%;">
+
+    <h3 style="text-align: center;">Viewing Leave of Absence</h3>
+
+    <% for(var i = 0; i < users.length; i++) { %>
+        <% if(users[i]._id == loa.ownerID) { %>
+          <% var user = users[i]; %>
+
+        <table class="table white table-bordered table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Rank</th>
+                <th scope="col">MOS</th>
+                <th scope="col">Status</th>
+                <th scope="col">Unit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
+                <td class="align-middle"><%=user.rank%></td>
+                <td class="align-middle"><%=user.position%></td>
+                <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+                <% if(user.unit.squad == "none" && user.unit.platoon == "none" && user.unit.company == "none") { %>
+                <td class="align-middle"></td>
+                <% } else if(user.unit.squad == "") { %>
+                <td class="align-middle"><%=user.unit.platoon%>, <%=user.unit.company%></td>
+                <% } else { %>
+                <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></td>
+                <% } %>
+              </tr>
+        </table>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12" style="text-align: center; padding-bottom: 0;"><div class="name"><h3>LOA Reason</h3></div></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12" style="text-align: left; background-color: #e9ecef; padding-top: 1%;">
+                    <p><%=loa.reason%></p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container white" style="margin-top: 1%; padding: 1%; height: 500px;">
+            <div class="row">
+                <div class="col-4 offset-sm-1" style="text-align: center"><div class="name" style="background-color: #e9ecef; height: 300%;"><h3>Approve</h3></div></div>
+                <div class="col-4 offset-sm-2" style="text-align: center"><div class="name" style="background-color: #e9ecef; height: 300%"><h3>Deny</h3></div></div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-sm-1" style="text-align: center;">
+                    <form action="/opcenter/loa/approve" method="POST">
+                        <% if(!loa.read) { %>
+                            <div class="form-group"><button class="btn btn-success" style="width: 50%;">Approve</button></div>
+                        <% } else { %>
+                            <div class="form-group"><button class="btn btn-success" style="width: 50%;" disabled>Approve</button></div>
+                        <% } %>
+                        <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=loa._id%>"></div>
+                    </form>
+                </div>
+                <div class="col-2 offset-md-3" style="text-align: center;">
+                    <form action="/opcenter/loa/deny" method="POST">
+                        <% if(!loa.read) { %>
+                            <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>
+                        <% } else { %>
+                            <div class="form-group"><button class="btn btn-danger" style="width: 50%;" disabled>Deny</button></div>
+                        <% } %>
+                        <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=loa._id%>"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <% } %>
+      <% } %>
+
+
+
+
+</div>
+
+<% include partials/footer %>

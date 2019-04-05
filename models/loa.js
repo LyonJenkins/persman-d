@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const LOASchema = new mongoose.Schema({
-    actionType: String,
+    actionType: {type: String, default: "Leave"},
     reason: String,
+    leaveDate: Date,
+    returnDate: Date,
     read: {type: Boolean, default: false},
 });
 

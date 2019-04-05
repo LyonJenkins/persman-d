@@ -53,12 +53,40 @@
             <form action="/opcenter/viewrequest/<%=discharge._id%>" method="get">
               <button class="btn btn-primary btn-sm">Open Request</button>
            </form>
-           <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=user._id%>"></div>               
+           <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=user._id%>"></div>
+            <div class="form-group"><input class="form-control" type="hidden" name="type" value="<%=discharge.actionType%>"></div>
         </td>
         </tr>
         <% } %>
         <% } %>
       <% } %>
+    <% }) %>
+    <% loas.forEach(function(loa) { %>
+        <% for(var i = 0; i < users.length; i++) { %>
+            <%  if(loa.read == false) { %>
+                <% if(users[i]._id == loa.ownerID) { %>
+                    <% var user = users[i]; %>
+                    <tr>
+                        <td><%=loa.requestType%></td>
+                        <td><%=user.username%></td>
+                        <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
+                            <td></td>
+                        <% } else if(user.unit.squad == "") { %>
+                        <td><%=user.unit.platoon%>, <%=user.unit.company%></td>
+                        <% } else { %>
+                        <td><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></td>
+                        <% } %>
+                        <td>
+                            <form action="/opcenter/viewrequest/<%=loa._id%>" method="get">
+                                <button class="btn btn-primary btn-sm">Open Request</button>
+                            </form>
+                            <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=user._id%>"></div>
+                            <div class="form-group"><input class="form-control" type="hidden" name="type" value="<%=loa.actionType%>"></div>
+                        </td>
+                    </tr>
+                <% } %>
+            <% } %>
+        <% } %>
     <% }) %>
     </table>
 </div>

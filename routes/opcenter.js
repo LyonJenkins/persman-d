@@ -1,4 +1,4 @@
-const express = require("express"), router = express.Router(), User = require("../models/user"), Discharge = require("../models/discharge");
+const express = require("express"), router = express.Router(), User = require("../models/user"), Discharge = require("../models/discharge"), Leave = require("../models/loa");;
 
 router.get("/opcenter", isLoggedIn, function(req, res){
     res.render("opcenter", {priv: req.user.role});
@@ -69,19 +69,36 @@ router.post("/opcenter/requests", isLoggedIn, function(req, res){
 
 router.get("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
     if(!req.user.role) return res.redirect("/");
-    Discharge.findById(req.params.id, function(err, foundDischarge){
-        if(err) {
-            console.log(err);
-        } else {
-            User.find({}, function(err, allUsers){
-                if(err) {
-                    console.log(err);
-                } else {
-                    res.render("viewdischarge", {discharge: foundDischarge, users: allUsers});
-                }
-            })
-        }
-    });
+    if(req.body.requestType === "Discharge") {
+        Discharge.findById(req.params.id, function(err, foundDischarge){
+            if(err) {
+                console.log(err);
+            } else {
+                User.find({}, function(err, allUsers){
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        res.render("viewdischarge", {discharge: foundDischarge, users: allUsers});
+                    }
+                })
+            }
+        });
+    } else if(req.body.requestType === "Leave") {
+        Leave.findById(req.params.id, function(err, foundLeave){
+            if(err) {
+                console.log(err);
+            } else {
+                User.find({}, function(err, allUsers){
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        res.render("viewloa", {loa: foundLeave, users: allUsers});
+                    }
+                })
+            }
+        });
+    }
+
 });
 
 router.post("/opcenter/discharge/approve", isLoggedIn, function(req,res){
