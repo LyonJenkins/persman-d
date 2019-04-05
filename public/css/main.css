@@ -100,3 +100,8 @@ table {
     max-width: 100%;
     margin: 0 auto;
 }
+
+.name {
+    border-radius: .2rem;
+    border: 10px solid transparent;
+}

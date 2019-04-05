@@ -22,36 +22,47 @@ router.post("/opcenter/discharge", isLoggedIn, function(req, res){
     });
 });
 
-router.get("/opcenter/newrequests", isLoggedIn, function(req, res){
+router.get("/opcenter/requests", isLoggedIn, function(req, res){
     if(!req.user.role) return res.redirect("/");
-    Discharge.find({}, function(err, allDischarges){
-        if(err) {
-           console.log(err);
-        } else {
-            User.find({}, function(err, allUsers){
-                if(err) {
-                    console.log(err);
-                } else {
-                    res.render("newrequests", {discharges: allDischarges, users: allUsers});
-                }
-            })
-        }
-    })
+    // Discharge.find({}, function(err, allDischarges){
+    //     if(err) {
+    //        console.log(err);
+    //     } else {
+    //         User.find({}, function(err, allUsers){
+    //             if(err) {
+    //                 console.log(err);
+    //             } else {
+    //                 res.render("newrequests", {discharges: allDischarges, users: allUsers});
+    //             }
+    //         })
+    //     }
+    // })
+    return res.render("requests", {discharges: []});
 });
 
-router.get("/opcenter/allrequests", isLoggedIn, function(req, res){
+router.post("/opcenter/requests", isLoggedIn, function(req, res){
     if(!req.user.role) return res.redirect("/");
+    let users;
+    User.find({}, function(err, allUsers){
+        if(err) {
+            console.log(err);
+        }
+        users = allUsers;
+    });
     Discharge.find({}, function(err, allDischarges){
         if(err) {
-           console.log(err);
-        } else {
-            User.find({}, function(err, allUsers){
-                if(err) {
-                    console.log(err);
-                } else {
-                    res.render("allrequests", {discharges: allDischarges, users: allUsers});
+            console.log(err);
+        }
+        if(req.body.type === "All Requests") {
+            res.render("requests", {users: users, discharges:allDischarges})
+        } else if(req.body.type === "New Requests") {
+            let filteredDischarges = [];
+            for(let i = 0; i < allDischarges.length; i++) {
+                if(allDischarges[i].read === false) {
+                    filteredDischarges.push(allDischarges[i]);
                 }
-            })
+            }
+            res.render("requests", {users: users, discharges:filteredDischarges});
         }
     })
 });
@@ -99,7 +110,7 @@ router.post("/opcenter/discharge/approve", isLoggedIn, function(req,res){
                     }
                 });
             });
-            res.redirect("/opcenter/newrequests")
+            res.redirect("/opcenter/requests")
         }
     });
 });
@@ -114,7 +125,7 @@ router.post("/opcenter/discharge/deny", isLoggedIn, function(req,res){
                 if(err) {
                     res.redirect("/");
                 } else {
-                    res.redirect("/opcenter/newrequests");
+                    res.redirect("/opcenter/requests");
                 }
             });
         }

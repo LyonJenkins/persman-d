@@ -1,14 +1,14 @@
 <% include partials/header %>
 
-<div class="container white" style="text-align:center; margin-top: 1%; padding-top:1%;">
+<div class="container white" style="text-align: left; margin-top: 1%; padding-top:1%;">
 
-    <h3>Viewing Discharge</h3>
+    <h3 style="text-align: center;">Viewing Discharge</h3>
 
     <% for(var i = 0; i < users.length; i++) { %>
         <% if(users[i]._id == discharge.ownerID) { %>
           <% var user = users[i]; %>
 
-        <table class="table white">
+        <table class="table white table-bordered table-sm">
             <thead>
               <tr>
                 <th scope="col">Name</th>
@@ -20,70 +20,67 @@
             </thead>
             <tbody>
               <tr>
-                <td><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
-                <td><%=user.rank%></td>
-                <td><%=user.position%></td>
-                <td><%=user.status%></td>
+                <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
+                <td class="align-middle"><%=user.rank%></td>
+                <td class="align-middle"><%=user.position%></td>
+                <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
                 <% if(user.unit.squad == "none" && user.unit.platoon == "none" && user.unit.company == "none") { %>
-                <td></td>
+                <td class="align-middle"></td>
                 <% } else if(user.unit.squad == "") { %>
-                <td><%=user.unit.platoon%>, <%=user.unit.company%></td>
+                <td class="align-middle"><%=user.unit.platoon%>, <%=user.unit.company%></td>
                 <% } else { %>
-                <td><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></td>
+                <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></td>
                 <% } %>
               </tr>
         </table>
 
-        <table class="table white">
-            <thead>
-              <tr>
-                <th scope="col">Discharge Reason</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><%=discharge.reason%></td>
-              </tr>
-        </table>
-        
-        <table class="table white">
-                <thead>
-                  <tr>
-                    <th scope="col">Approve</th>
-                    <th scope="col">Deny</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                        <form action="/opcenter/discharge/approve" method="POST">
-                            <% if(!discharge.read) { %>
+        <div class="container">
+            <div class="row">
+                <div class="col-12" style="text-align: center; padding-bottom: 0;"><div class="name"><h3>Discharge Reason</h3></div></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12" style="text-align: left; background-color: #e9ecef; padding-top: 1%;">
+                    <p><%=discharge.reason%></p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container white" style="margin-top: 1%; padding: 1%; height: 500px;">
+            <div class="row">
+                <div class="col-4 offset-sm-1" style="text-align: center"><div class="name" style="background-color: #e9ecef; height: 300%;"><h3>Approve</h3></div></div>
+                <div class="col-4 offset-sm-2" style="text-align: center"><div class="name" style="background-color: #e9ecef; height: 300%"><h3>Deny</h3></div></div>
+            </div>
+            <div class="row">
+                <div class="col-4 offset-sm-1" style="text-align: center;">
+                    <form action="/opcenter/discharge/approve" method="POST">
+                        <% if(!discharge.read) { %>
                             <div class="form-group">
-                                    <label for="discharge">Set Discharge Type</label>
-                                    <select class="form-control m-sm-auto " id="discharge" name="dischargeType" style="width: 50%; text-align: center;"> 
-                                        <option>Honorable</option>
-                                        <option>Dishonorable</option>
-                                    </select>
+                                <select class="form-control m-sm-auto " id="discharge" name="dischargeType" style="width: 50%; text-align: center;">
+                                    <option>Honorable</option>
+                                    <option>Dishonorable</option>
+                                </select>
                             </div>
-                            <div class="form-group"><button class="btn btn-success" style="width: 50%;">Approve Discharge</button></div>
-                            <% } else { %>
-                            <div class="form-group"><button class="btn btn-success" style="width: 50%;" disabled>Approve Discharge</button></div>
-                            <% } %>
-                            <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=discharge._id%>"></div>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/opcenter/discharge/deny" method="POST">
-                            <% if(!discharge.read) { %>
-                            <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny Discharge</button></div> 
-                            <% } else { %>
-                            <div class="form-group"><button class="btn btn-danger" style="width: 50%;" disabled>Deny Discharge</button></div> 
-                            <% } %>
-                            <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=discharge._id%>"></div>
-                        </form>
-                    </td>
-                  </tr>
-            </table>
+                            <div class="form-group"><button class="btn btn-success" style="width: 50%;">Approve</button></div>
+                        <% } else { %>
+                            <div class="form-group"><button class="btn btn-success" style="width: 50%;" disabled>Approve</button></div>
+                        <% } %>
+                        <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=discharge._id%>"></div>
+                    </form>
+                </div>
+                <div class="col-2 offset-md-3" style="text-align: center;">
+                    <form action="/opcenter/discharge/deny" method="POST">
+                        <% if(!discharge.read) { %>
+                            <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>
+                        <% } else { %>
+                            <div class="form-group"><button class="btn btn-danger" style="width: 50%;" disabled>Deny </button></div>
+                        <% } %>
+                        <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=discharge._id%>"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <% } %>
       <% } %>

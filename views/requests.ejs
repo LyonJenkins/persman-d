@@ -1,10 +1,30 @@
 <% include partials/header %>
+<div class="container white" style="margin-top: 1%; padding: 1%">
+    <div class="container">
+        <% if(discharges !== []) { %>
+            <div class="row">
+                <form action="/opcenter/requests" method="POST">
+                    <h3>Load Users</h3>
 
-<div class="container choosen">  
-    <div class="table-header">
-      <h3>New User Requests</h3>
+                    <div class="form-group">
+                        <label for="type">Request Type</label>
+                        <select class="form-control" id="type" name="type">
+                            <option>All Requests</option>
+                            <option>New Requests</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group"><button class="btn btn-success">Submit</button></div>
+                </form>
+            </div>
+        <% } %>
     </div>
-    <table class="table white table-bordered table-sm">
+
+
+    <div class="table-header">
+      <h3>User Requests</h3>
+    </div>
+    <table class="table white table-bordered table-sm" style="text-align: left;">
       <thead>
         <tr>
           <th scope="col">Request Type</th>
