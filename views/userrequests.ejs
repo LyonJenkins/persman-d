@@ -1,0 +1,60 @@
+<% include partials/header %>
+<div class="container white" style="margin-top: 1%; padding: 1%">
+
+    <div class="table-header">
+        <h3>Your Requests</h3>
+    </div>
+    <table class="table white table-bordered table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Request Type</th>
+            <th scope="col">Request Reason</th>
+            <th scope="col">Status</th>
+            <th scope="col">Open</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% discharges.forEach(function(discharge) { %>
+            <tr>
+                <td class="align-middle"><%=discharge.requestType%></td>
+                <td class="align-middle"><%=discharge.reason%></td>
+                <% let read; %>
+                <% if(discharge.read === true) { %>
+                    <% read = "Read"%>
+                <%} else { %>
+                    <% read = "Unread"%>
+                <% } %>
+                <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+                <td class="align-middle">
+                    <form action="/opcenter/viewrequest/<%=discharge._id%>" method="post">
+                        <input class="form-control" type="hidden" name="requestType" value="Discharge">
+                        <button class="btn btn-primary btn-sm">Open Request</button>
+                        <input class="form-control" type="hidden" name="id" value="<%=user._id%>">
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+        <% leaves.forEach(function(loa) { %>
+            <tr>
+                <td class="align-middle"><%=loa.requestType%></td>
+                <td class="align-middle"><%=loa.reason%></td>
+                <% let read; %>
+                <% if(loa.read === true) { %>
+                    <% read = "Read"%>
+                <%} else { %>
+                    <% read = "Unread"%>
+                <% } %>
+                <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+                <td class="align-middle">
+                    <form action="/opcenter/viewrequest/<%=loa._id%>" method="post">
+                        <button class="btn btn-primary btn-sm">Open Request</button>
+                        <input class="form-control" type="hidden" name="id" value="<%=user._id%>">
+                        <input class="form-control" type="hidden" name="requestType" value="Leave">
+                    </form>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</div>
+
+<% include partials/footer %>

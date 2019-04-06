@@ -54,7 +54,7 @@
             </div>
             <div class="row">
                 <div class="col-4 offset-sm-1" style="text-align: center;">
-                    <form action="/opcenter/:id" method="POST">
+                    <form action="/opcenter/<%=discharge._id%>" method="POST">
                         <% if(!discharge.read) { %>
                             <div class="form-group">
                                 <select class="form-control m-sm-auto " id="discharge" name="dischargeType" style="width: 50%; text-align: center;">
@@ -72,7 +72,7 @@
                     </form>
                 </div>
                 <div class="col-2 offset-md-3" style="text-align: center;">
-                    <form action="/opcenter/:id" method="POST">
+                    <form action="/opcenter/<%=discharge._id%>" method="POST">
                         <% if(!discharge.read) { %>
                             <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>
                         <% } else { %>
