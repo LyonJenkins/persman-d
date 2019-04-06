@@ -17,7 +17,7 @@ router.get("/opcenter/loa", isLoggedIn, function(req, res){
 });
 
 router.post("/opcenter/discharge", isLoggedIn, function(req, res){
-    Discharge.create({reason: req.body.reason, ownerID: req.body.id}, function(err, doc){
+    Discharge.create({reason: req.body.reason, ownerID: req.body.id}, function(err){
         if(err) {
             console.log(err);
         } else {
@@ -27,12 +27,12 @@ router.post("/opcenter/discharge", isLoggedIn, function(req, res){
 });
 
 router.post("/opcenter/loa", isLoggedIn, function(req, res){
-    User.findByIdAndUpdate({_id: req.user._id}, {$set:{status: "Leave of Absence"}}, function(err, user){
+    User.findByIdAndUpdate({_id: req.user._id}, {$set:{status: "Leave of Absence"}}, function(err){
         if(err) {
             console.log(err);
         }
     });
-    Leave.create({reason: req.body.reason, leaveDate: req.body.begindate, returnDate: req.body.enddate, ownerID: req.body.id}, function(err, doc){
+    Leave.create({reason: req.body.reason, leaveDate: req.body.begindate, returnDate: req.body.enddate, ownerID: req.body.id}, function(err){
         if(err) {
             console.log(err);
         } else {
@@ -126,7 +126,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
 router.post("/opcenter/:id/", isLoggedIn, function(req,res){
     if(!req.user.role) return res.redirect("/");
     if(req.body.requestType === "Leave") {
-        Leave.findByIdAndUpdate({_id: req.body.id}, {read: true}, function(err, foundLeave){
+        Leave.findByIdAndUpdate({_id: req.body.id}, {read: true}, function(err){
             if(err) {
                 console.log(err);
             }
@@ -137,12 +137,12 @@ router.post("/opcenter/:id/", isLoggedIn, function(req,res){
                 if(err) {
                     console.log(err);
                 } else {
-                    Discharge.findOneAndUpdate({_id: req.body.id}, {$set:{type:req.body.dischargeType, read:true}}, function(err,discharge){
+                    Discharge.findOneAndUpdate({_id: req.body.id}, {$set:{type:req.body.dischargeType, read:true}}, function(err){
                         if(err) {
                             console.log(err);
                         }
                     });
-                    User.findOneAndUpdate({_id: foundDischarge.ownerID}, {$set:{status:"Retired", unit: {company: "none", platoon: "none", squad:"none"}, rank:"none"}}, function(err,user){
+                    User.findOneAndUpdate({_id: foundDischarge.ownerID}, {$set:{status:"Retired", unit: {company: "none", platoon: "none", squad:"none"}, rank:"none"}}, function(err){
                         if(err) {
                             console.log(err);
                         }
@@ -150,7 +150,7 @@ router.post("/opcenter/:id/", isLoggedIn, function(req,res){
                 }
             });
         } else {
-            Discharge.findOneAndUpdate({_id: req.body.id}, {$set:{read: true}}, function(err, foundDischarge){
+            Discharge.findOneAndUpdate({_id: req.body.id}, {$set:{read: true}}, function(err){
                 if(err) {
                     console.log(err);
                 }
@@ -161,10 +161,10 @@ router.post("/opcenter/:id/", isLoggedIn, function(req,res){
 });
 
 function isLoggedIn(req,res,next){
- if(req.isAuthenticated()){
+    if(req.isAuthenticated()){
      return next();
- }
- res.redirect("/login");
+    }
+    res.redirect("/login");
 }
 
  module.exports = router;
