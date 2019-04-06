@@ -96,6 +96,30 @@ table {
     font-weight: 400;
 }
 
+.Read {
+    display: inline-block;
+    background-color: #208710;
+    color: white;
+    padding: .1rem .25rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+    border: 1px solid transparent;
+    font-weight: 400;
+}
+
+.Unread {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    padding: .1rem .25rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+    border: 1px solid transparent;
+    font-weight: 400;
+}
+
 #calendar {
     max-width: 100%;
     margin: 0 auto;
