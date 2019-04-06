@@ -54,7 +54,7 @@
             </div>
             <div class="row">
                 <div class="col-4 offset-sm-1" style="text-align: center;">
-                    <form action="/opcenter/discharge/approve" method="POST">
+                    <form action="/opcenter/:id" method="POST">
                         <% if(!discharge.read) { %>
                             <div class="form-group">
                                 <select class="form-control m-sm-auto " id="discharge" name="dischargeType" style="width: 50%; text-align: center;">
@@ -66,17 +66,21 @@
                         <% } else { %>
                             <div class="form-group"><button class="btn btn-success" style="width: 50%;" disabled>Approve</button></div>
                         <% } %>
-                        <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=discharge._id%>"></div>
+                        <input class="form-control" type="hidden" name="requestType" value="Discharge">
+                        <input class="form-control" type="hidden" name="id" value="<%=discharge._id%>">
+                        <input class="form-control" type="hidden" name="approve" value="1">
                     </form>
                 </div>
                 <div class="col-2 offset-md-3" style="text-align: center;">
-                    <form action="/opcenter/discharge/deny" method="POST">
+                    <form action="/opcenter/:id" method="POST">
                         <% if(!discharge.read) { %>
                             <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>
                         <% } else { %>
                             <div class="form-group"><button class="btn btn-danger" style="width: 50%;" disabled>Deny </button></div>
                         <% } %>
-                        <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=discharge._id%>"></div>
+                        <input class="form-control" type="hidden" name="requestType" value="Discharge">
+                        <input class="form-control" type="hidden" name="id" value="<%=discharge._id%>">
+                        <input class="form-control" type="hidden" name="approve" value="0">
                     </form>
                 </div>
             </div>

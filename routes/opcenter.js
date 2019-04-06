@@ -12,6 +12,10 @@ router.get("/opcenter/discharge", isLoggedIn, function(req, res){
     res.render("discharge", {user:req.user});
 });
 
+router.get("/opcenter/loa", isLoggedIn, function(req, res){
+    res.render("loa", {user:req.user});
+});
+
 router.post("/opcenter/discharge", isLoggedIn, function(req, res){
     Discharge.create({reason: req.body.reason, ownerID: req.body.id}, function(err, doc){
         if(err) {
@@ -22,52 +26,71 @@ router.post("/opcenter/discharge", isLoggedIn, function(req, res){
     });
 });
 
+router.post("/opcenter/loa", isLoggedIn, function(req, res){
+    User.findByIdAndUpdate({_id: req.user._id}, {$set:{status: "Leave of Absence"}}, function(err, user){
+        if(err) {
+            console.log(err);
+        }
+    });
+    Leave.create({reason: req.body.reason, leaveDate: req.body.begindate, returnDate: req.body.enddate, ownerID: req.body.id}, function(err, doc){
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect("/opcenter")
+        }
+    });
+});
+
+
 router.get("/opcenter/requests", isLoggedIn, function(req, res){
     if(!req.user.role) return res.redirect("/");
-    // Discharge.find({}, function(err, allDischarges){
-    //     if(err) {
-    //        console.log(err);
-    //     } else {
-    //         User.find({}, function(err, allUsers){
-    //             if(err) {
-    //                 console.log(err);
-    //             } else {
-    //                 res.render("newrequests", {discharges: allDischarges, users: allUsers});
-    //             }
-    //         })
-    //     }
-    // })
-    return res.render("requests", {discharges: []});
+    return res.render("requests", {discharges: [], loas: []});
 });
 
 router.post("/opcenter/requests", isLoggedIn, function(req, res){
     if(!req.user.role) return res.redirect("/");
-    let users;
+    let foundUsers = [];
     User.find({}, function(err, allUsers){
         if(err) {
             console.log(err);
         }
-        users = allUsers;
+        foundUsers = allUsers;
     });
+    let leaves = [];
+    Leave.find({}, function(err, allLeaves){
+       if(err) {
+           console.log(err);
+       }
+        if(req.body.type === "All Requests") {
+            leaves = allLeaves;
+        } else if(req.body.type === "New Requests") {
+            for(let i = 0; i < allLeaves.length; i++) {
+                if(allLeaves[i].read === false) {
+                    leaves.push(allLeaves[i]);
+                }
+            }
+        }
+    });
+    let filteredDischarges = [];
     Discharge.find({}, function(err, allDischarges){
         if(err) {
             console.log(err);
         }
         if(req.body.type === "All Requests") {
-            res.render("requests", {users: users, discharges:allDischarges})
+            res.render("requests", {users: foundUsers, discharges:allDischarges, loas:leaves})
         } else if(req.body.type === "New Requests") {
-            let filteredDischarges = [];
             for(let i = 0; i < allDischarges.length; i++) {
                 if(allDischarges[i].read === false) {
                     filteredDischarges.push(allDischarges[i]);
                 }
             }
-            res.render("requests", {users: users, discharges:filteredDischarges});
+            res.render("requests", {users: foundUsers, discharges:filteredDischarges, loas:leaves});
         }
-    })
+    });
 });
 
-router.get("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
+router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
+    console.log(req.body.requestType);
     if(!req.user.role) return res.redirect("/");
     if(req.body.requestType === "Discharge") {
         Discharge.findById(req.params.id, function(err, foundDischarge){
@@ -98,72 +121,50 @@ router.get("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
             }
         });
     }
-
 });
 
-router.post("/opcenter/discharge/approve", isLoggedIn, function(req,res){
+router.post("/opcenter/:id/", isLoggedIn, function(req,res){
     if(!req.user.role) return res.redirect("/");
-    Discharge.findById(req.body.id, function(err, foundDischarge){
-        if(err) {
-            console.log(err);
-        } else {
-            Discharge.findOneAndUpdate({_id: req.body.id}, {$set:{type:req.body.dischargeType}}, function(err,doc){
+    if(req.body.requestType === "Leave") {
+        Leave.findByIdAndUpdate({_id: req.body.id}, {read: true}, function(err, foundLeave){
+            if(err) {
+                console.log(err);
+            }
+        });
+    } else if(req.body.requestType === "Discharge") {
+        if(req.body.approve) {
+            Discharge.findById(req.body.id, function(err, foundDischarge){
                 if(err) {
                     console.log(err);
-                }
-            });
-            Discharge.findOneAndUpdate({_id: req.body.id}, {$set:{read:true}}, function(err,doc){
-                if(err) {
-                    console.log(err);
-                }
-            });
-            User.findOneAndUpdate({_id: foundDischarge.ownerID}, {$set:{status:"Retired"}}, function(err,doc){
-                if(err) {
-                    console.log(err);
-                }
-                User.findOneAndUpdate({_id: foundDischarge.ownerID}, {$set:{unit: {company: "", platoon: "", squad:""}}}, function(err,doc){
-                    if(err) {
-                        console.log(err);
-                    }
-                });
-            });
-            res.redirect("/opcenter/requests")
-        }
-    });
-});
-
-router.post("/opcenter/discharge/deny", isLoggedIn, function(req,res){
-    if(!req.user.role) return res.redirect("/");
-    Discharge.findById(req.body.id, function(err, foundDischarge){
-        if(err) {
-            console.log(err);
-        } else {
-            Discharge.findByIdAndDelete(req.body.id, err => {
-                if(err) {
-                    res.redirect("/");
                 } else {
-                    res.redirect("/opcenter/requests");
+                    Discharge.findOneAndUpdate({_id: req.body.id}, {$set:{type:req.body.dischargeType, read:true}}, function(err,discharge){
+                        if(err) {
+                            console.log(err);
+                        }
+                    });
+                    User.findOneAndUpdate({_id: foundDischarge.ownerID}, {$set:{status:"Retired", unit: {company: "none", platoon: "none", squad:"none"}, rank:"none"}}, function(err,user){
+                        if(err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+        } else {
+            Discharge.findOneAndUpdate({_id: req.body.id}, {$set:{read: true}}, function(err, foundDischarge){
+                if(err) {
+                    console.log(err);
                 }
             });
         }
-    });
+    }
+    res.redirect("/opcenter/requests");
 });
 
-
-//  router.get("/listusers", isLoggedIn, function(req, res){
-//     User.find({}, function(err, allUsers){
-//        if(err) {
-//           console.log(err);
-//        } else {
-//           res.render("listusers", {users: allUsers, priv: req.user.role});
-//        }
-//     })
-//  });
- function isLoggedIn(req,res,next){
-     if(req.isAuthenticated()){
-         return next();
-     }
-     res.redirect("/login");
+function isLoggedIn(req,res,next){
+ if(req.isAuthenticated()){
+     return next();
  }
+ res.redirect("/login");
+}
 
  module.exports = router;
