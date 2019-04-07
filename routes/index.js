@@ -12,7 +12,7 @@ router.get("/", function(req, res){
  router.post("/register", function(req, res){
      let role;
      if(req.body.username === "admin") role = true;
-     var newUser = new User({username:req.body.username, role:role, registrationDate:Date.now()});
+     const newUser = new User({username: req.body.username, role: role, registrationDate: Date.now()});
      User.register(newUser, req.body.password, function(err,user){
          if(err) {
              console.log(err.name);
