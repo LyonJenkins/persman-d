@@ -68,11 +68,6 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
                 });
                 return res.redirect(`/calendar/event/${req.params.id}`)
             });
-            // foundEvent.attendingList.forEach(function(attendee){
-            //     if(attendee.username === req.user.username) {
-            //         return res.redirect(`/calendar/event/${req.params.id}`);
-            //     }
-            // });
         });
     } else if(req.body.type === "unregister"){
         Event.find({eventID: req.params.id}, function(err,foundEvent){
