@@ -110,8 +110,25 @@ router.post("/opcenter/requests", isLoggedIn, function(req, res){
     });
 });
 
+router.post("/opcenter/deleterequest/:id", isLoggedIn, function(req,res){
+    if(!req.user.role) return res.redirect("/");
+    if(req.body.requestType === "Discharge") {
+        Discharge.findByIdAndDelete(req.params.id, function(err){
+            if(err) {
+                console.log(err);
+            }
+        });
+    } else if(req.body.requestType === "Leave") {
+        Leave.findByIdAndDelete(req.params.id, function(err){
+            if(err) {
+                console.log(err);
+            }
+        });
+    }
+    res.redirect("/opcenter/requests");
+});
+
 router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
-    console.log(req.body.requestType);
     if(!req.user.role) return res.redirect("/");
     if(req.body.requestType === "Discharge") {
         Discharge.findById(req.params.id, function(err, foundDischarge){
