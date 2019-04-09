@@ -27,8 +27,6 @@
             if(hours.length === 1) {
                 hours = "0"+hours;
             }
-            console.log(hours)
-            console.log(minutes);
             return `${hours}:${minutes}`
         }
         let CST = document.getElementById('cst').innerText=getNewTime("<%=event.startTime%>", -1, 0);
