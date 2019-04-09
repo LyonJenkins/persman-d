@@ -33,6 +33,7 @@
             <th scope="col">Read</th>
             <th scope="col">Unit</th>
             <th scope="col">Open</th>
+            <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -65,6 +66,13 @@
                         <input class="form-control" type="hidden" name="id" value="<%=user._id%>">
                     </form>
                 </td>
+              <td class="align-middle">
+                  <form action="/opcenter/deleterequest/<%=discharge._id%>" method="post">
+                      <input class="form-control" type="hidden" name="requestType" value="Discharge">
+                      <button class="btn btn-danger btn-sm">Delete Request</button>
+                      <input class="form-control" type="hidden" name="id" value="<%=user._id%>">
+                  </form>
+              </td>
         </tr>
         <% } %>
       <% } %>
@@ -94,6 +102,13 @@
                         <td class="align-middle">
                             <form action="/opcenter/viewrequest/<%=loa._id%>" method="post">
                                 <button class="btn btn-primary btn-sm">Open Request</button>
+                                <input class="form-control" type="hidden" name="id" value="<%=user._id%>">
+                                <input class="form-control" type="hidden" name="requestType" value="Leave">
+                            </form>
+                        </td>
+                        <td class="align-middle">
+                            <form action="/opcenter/deleterequest/<%=loa._id%>" method="post">
+                                <button class="btn btn-danger btn-sm">Delete Request</button>
                                 <input class="form-control" type="hidden" name="id" value="<%=user._id%>">
                                 <input class="form-control" type="hidden" name="requestType" value="Leave">
                             </form>
