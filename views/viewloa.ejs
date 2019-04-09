@@ -1,4 +1,10 @@
 <% include partials/header %>
+<script src="moment-timezone/moment-timezone.js"></script>
+<script src="moment-timezone/moment-timezone-with-data.js"></script>
+
+<script>
+    let leaveDate = moment.tz(<%=loa.leaveDate%>);
+</script>
 
 <div class="container white" style="text-align: left; margin-top: 1%; padding-top:1%;">
 
@@ -40,8 +46,24 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-12" style="text-align: left; background-color: #e9ecef; padding-top: 1%;">
-                    <p><%=loa.reason%></p>
+                <div class="col-12" style="text-align: left;">
+                    <p style="background-color: #e9ecef; padding: 1%;"><%=loa.reason%></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6" style="text-align: center; padding-bottom: 0;"><div class="name"><h3>Leave Date</h3></div></div>
+                <div class="col-6" style="text-align: center; padding-bottom: 0;"><div class="name"><h3>Return Date</h3></div></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-6" style="text-align: center; padding-bottom: 0;">
+                    <div><p style="background-color: #e9ecef; padding: 1%;"><%=loa.leaveDate%></p></div>
+                </div>
+                <div class="col-6" style="text-align: center; padding-bottom: 0;">
+                    <div><p style="background-color: #e9ecef; padding: 1%;"><%=loa.returnDate%></p></div>
                 </div>
             </div>
         </div>
