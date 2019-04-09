@@ -4,8 +4,8 @@ const LOASchema = new mongoose.Schema({
     requestType: {type: String, default: "Leave"},
     reason: String,
     ownerID: String,
-    leaveDate: Date,
-    returnDate: Date,
+    leaveDate: String,
+    returnDate: String,
     read: {type: Boolean, default: false},
 });
 
