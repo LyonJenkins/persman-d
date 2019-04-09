@@ -6,6 +6,7 @@ const DischargeSchema = new mongoose.Schema({
     ownerID: String,
     type: {type: String, default: "Honorable"},
     read: {type: Boolean, default: false},
+    dateCreated: Date,
 });
 
 module.exports = mongoose.model("Discharge", DischargeSchema);

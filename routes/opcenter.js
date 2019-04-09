@@ -37,7 +37,7 @@ router.get("/opcenter/yourrequests", isLoggedIn, function(req, res){
 
 router.post("/opcenter/discharge", isLoggedIn, function(req, res){
     if(req.user.rank === "none") return res.redirect("/");
-    Discharge.create({reason: req.body.reason, ownerID: req.body.id}, function(err){
+    Discharge.create({reason: req.body.reason, ownerID: req.body.id, dateCreated: Date.now()}, function(err){
         if(err) {
             console.log(err);
         } else {
@@ -53,7 +53,7 @@ router.post("/opcenter/loa", isLoggedIn, function(req, res){
             console.log(err);
         }
     });
-    Leave.create({reason: req.body.reason, leaveDate: req.body.begindate, returnDate: req.body.enddate, ownerID: req.body.id}, function(err){
+    Leave.create({reason: req.body.reason, leaveDate: req.body.begindate, returnDate: req.body.enddate, ownerID: req.body.id, dateCreated: Date.now()}, function(err){
         if(err) {
             console.log(err);
         } else {

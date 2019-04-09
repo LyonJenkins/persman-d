@@ -7,6 +7,7 @@ const LOASchema = new mongoose.Schema({
     leaveDate: String,
     returnDate: String,
     read: {type: Boolean, default: false},
+    dateCreated: Date,
 });
 
 module.exports = mongoose.model("Leave", LOASchema);
