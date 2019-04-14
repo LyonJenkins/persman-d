@@ -1,8 +1,39 @@
-const express = require("express"), router = express.Router(), User = require("../models/user"), Discharge = require("../models/discharge"), Leave = require("../models/loa");;
+const express = require("express"), router = express.Router(), User = require("../models/user"), Discharge = require("../models/discharge"), Leave = require("../models/loa"), async = require("async");
 
 router.get("/opcenter", isLoggedIn, function(req, res){
     if(req.user.rank === "none") return res.redirect("/");
-    res.render("opcenter", {priv: req.user.role});
+    if(req.user.role) {
+        let unreadRequests = 0;
+        Discharge.find({}, function(err,discharges){
+            if(err) {
+                console.log(err);
+            }
+            async.forEachOf(discharges, (discharge, key, callback) => {
+                if(discharge.read === false) {
+                    unreadRequests++;
+                }
+            }, err => {
+                if(err) console.log(err);
+            });
+        });
+        Leave.find({}, function(err, leaves){
+           if(err) {
+               console.log(err);
+           }
+            async.forEachOf(leaves, (leave, key, callback) => {
+                if(leave.read === false) {
+                    unreadRequests++;
+                }
+            }, err => {
+                if(err) console.log(err);
+            });
+           setTimeout(function(){
+               return res.render("opcenter", {count: unreadRequests});
+           }, 250);
+        });
+    } else {
+        res.render("opcenter");
+    }
 });
 
 router.get("/opcenter/messages", isLoggedIn, function(req, res){
