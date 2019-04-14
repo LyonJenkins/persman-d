@@ -5,6 +5,7 @@ const CalendarSchema = new mongoose.Schema({
     start: String,
     description: String,
     startTime: String,
+    imageName: String,
 });
 
 module.exports = mongoose.model("Calendar", CalendarSchema);
