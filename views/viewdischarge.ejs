@@ -1,6 +1,6 @@
 <% include partials/header %>
 
-<div class="container white" style="text-align: left; margin-top: 1%; padding-top:1%;">
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
 
     <h3 style="text-align: center;">Viewing Discharge</h3>
 
@@ -34,26 +34,24 @@
               </tr>
         </table>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-12" style="text-align: center; padding-bottom: 0;"><div class="name"><h3>Discharge Reason</h3></div></div>
-            </div>
+            <br>
+            <h1>Reason</h1>
             <hr>
-            <div class="row">
-                <div class="col-12" style="text-align: left; background-color: #e9ecef; padding-top: 1%;">
-                    <p><%=discharge.reason%></p>
+            <div class="card-deck">
+                <div class="card text-center" style="width: 18rem;">
+                    <div class="card-body">
+                        <p class="card-text"><%=discharge.reason%></p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-
-        <div class="container white" style="margin-top: 1%; padding: 1%; height: 500px;">
-            <div class="row">
-                <div class="col-4 offset-sm-1" style="text-align: center"><div class="name" style="background-color: #e9ecef; height: 300%;"><h3>Approve</h3></div></div>
-                <div class="col-4 offset-sm-2" style="text-align: center"><div class="name" style="background-color: #e9ecef; height: 300%"><h3>Deny</h3></div></div>
-            </div>
-            <div class="row">
-                <div class="col-4 offset-sm-1" style="text-align: center;">
+        <br>
+        <h1>Actions</h1>
+        <hr>
+        <div class="card-deck" style="padding-bottom: 1%;">
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Approve</strong></h5>
                     <form action="/opcenter/<%=discharge._id%>" method="POST">
                         <% if(!discharge.read) { %>
                             <div class="form-group">
@@ -71,7 +69,10 @@
                         <input class="form-control" type="hidden" name="approve" value="1">
                     </form>
                 </div>
-                <div class="col-2 offset-md-3" style="text-align: center;">
+            </div>
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Approve</strong></h5>
                     <form action="/opcenter/<%=discharge._id%>" method="POST">
                         <% if(!discharge.read) { %>
                             <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>

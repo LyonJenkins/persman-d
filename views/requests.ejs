@@ -1,5 +1,5 @@
 <% include partials/header %>
-<div class="container white" style="margin-top: 1%; padding: 1%">
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
     <div class="container">
         <% if(discharges !== [] && loas !== []) { %>
             <div class="row">
@@ -29,7 +29,6 @@
         <tr>
             <th scope="col">Request Type</th>
             <th scope="col">User</th>
-            <th scope="col">Reason</th>
             <th scope="col">Read</th>
             <th scope="col">Unit</th>
             <th scope="col">Open</th>
@@ -44,7 +43,6 @@
           <tr>
               <td class="align-middle"><%=discharge.requestType%></td>
               <td class="align-middle"><%=user.username%></td>
-              <td class="align-middle"><%=discharge.reason%></td>
               <% let read; %>
               <% if(discharge.read === true) { %>
                     <% read = "Read"%>
@@ -84,7 +82,6 @@
                     <tr>
                         <td class="align-middle"><%=loa.requestType%></td>
                         <td class="align-middle"><%=user.username%></td>
-                        <td class="align-middle"><%=loa.reason%></td>
                         <% let read; %>
                         <% if(loa.read === true) { %>
                             <% read = "Read"%>

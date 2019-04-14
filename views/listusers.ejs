@@ -3,11 +3,11 @@
 <!--Members only for Crusader Company-->
 
 
-<div class="container" style="margin-top: 1%">  
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
     <div class="table-header">
       <h3>Crusader Company</h3>
     </div>
-    <table class="table white table-bordered table-sm">
+    <table class="table bg-white table-bordered table-sm">
       <thead>
         <tr>
           <th scope="col">Name</th>
@@ -70,11 +70,9 @@
       <% } %>
     <% }) %>
     </table>
-</div>
 
 <!--Only retired members-->
 
-<div class="container">  
     <div class="table-header">
       <h3>Retired Members</h3>
     </div>
@@ -107,14 +105,12 @@
       <% } %>
     <% }) %>
     </table>
-</div>
 
 
 <!--All Members, retired or not-->
 
 
-<% if(priv) { %>
-<div class="container">  
+<% if(currentUser.role) { %>
     <div class="table-header">
       <h3>All Members</h3>
     </div>
@@ -155,7 +151,7 @@
         </tr>
     <% }) %>
     </table>
-</div>
 <% } %>
+</div>
 
 <% include partials/footer %>

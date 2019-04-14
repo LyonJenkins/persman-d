@@ -1,34 +1,32 @@
 <% include partials/header %>
 
-<div class="container choosen">
-    <div class="table-header">
-        <h3>All Calendar Events</h3>
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
+    <h1>All Events</h1>
+    <hr>
+    <div class="container-fluid mt-4">
+        <div class="row justify-content-center">
+            <% events.forEach(function(event) { %>
+            <div class="col-auto mb-3">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="https://raw.githubusercontent.com/LyonJenkins/persman-pictures/master/<%=event.imageName%>.jpg" alt="Image Not Found">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=event.title%></h5>
+                        <p class="card-text"><%=event.start%> - <%=event.startTime%> EST</p>
+
+                        <div class="row">
+                            <a href="/calendar/event/<%=event._id%>" class="btn btn-primary btn-sm" style="margin: 1%;">View Event</a>
+                            <a href="/calendar/event/edit/<%=event._id%>" class="btn btn-warning btn-sm" style="margin: 1%;">Edit Event</a>
+                            <form action="/calendar/events/<%=event._id%>" method="post" style="margin: 1%;">
+                                <button class="btn btn-danger btn-sm">Delete Event</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
     </div>
-    <table class="table white table-bordered table-sm" id="dtBasicExample">
-        <thead>
-        <tr>
-            <th class="th-sm">Event Name</th>
-            <th class="th-sm">Event Start</th>
-            <th class="th-sm">Event Start Time</th>
-            <th class="th-sm">Event Description</th>
-            <th class="th-sm">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% events.forEach(function(event) { %>
-            <tr>
-                <td scope="col"><a href="/calendar/event/<%=event._id%>"><%=event.title%></a></td>
-                <td scope="col"><%=event.start%></td>
-                <td scope="col"><%=event.startTime%></td>
-                <td scope="col"><%=event.description%></td>
-                <td class="align-middle">
-                    <form action="/calendar/events/<%=event._id%>" method="post">
-                        <button class="btn btn-danger btn-sm">Delete Event</button>
-                    </form>
-                </td>
-            </tr>
-        <% }) %>
-    </table>
 </div>
 
 <% include partials/footer %>

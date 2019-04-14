@@ -1,13 +1,12 @@
 <% include partials/header %>
 
-<div class="container white" style="margin-top: 1%; padding: 1%;">
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
     <h1>Landing Page</h1>
-
+    <hr>
     <p>Welcome to the 143rd Infantry Regiment</p>
 <style>
 </style>
     <div>
-
         <table style="width: 100%;">
             <tbody>
             <tr>
@@ -40,6 +39,26 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <br>
+    <h1>Recently Added Events</h1>
+    <hr>
+
+    <div class="container-fluid mt-4">
+        <div class="row justify-content-center">
+            <% events.forEach(function(event) { %>
+            <div class="col-auto mb-3">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="https://raw.githubusercontent.com/LyonJenkins/persman-pictures/master/<%=event.imageName%>.jpg" alt="Image Not Found">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=event.title%></h5>
+                        <p class="card-text"><%=event.start%> - <%=event.startTime%> EST</p>
+                        <a href="/calendar/event/<%=event._id%>" class="btn btn-primary">View Event</a>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
     </div>
 </div>
 

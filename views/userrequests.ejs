@@ -1,5 +1,5 @@
 <% include partials/header %>
-<div class="container white" style="margin-top: 1%; padding: 1%">
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
 
     <div class="table-header">
         <h3>Your Requests</h3>
@@ -8,7 +8,6 @@
         <thead>
         <tr>
             <th scope="col">Request Type</th>
-            <th scope="col">Request Reason</th>
             <th scope="col">Status</th>
             <th scope="col">Open</th>
         </tr>
@@ -17,7 +16,6 @@
         <% discharges.forEach(function(discharge) { %>
             <tr>
                 <td class="align-middle"><%=discharge.requestType%></td>
-                <td class="align-middle"><%=discharge.reason%></td>
                 <% let read; %>
                 <% if(discharge.read === true) { %>
                     <% read = "Read"%>
@@ -37,7 +35,6 @@
         <% leaves.forEach(function(loa) { %>
             <tr>
                 <td class="align-middle"><%=loa.requestType%></td>
-                <td class="align-middle"><%=loa.reason%></td>
                 <% let read; %>
                 <% if(loa.read === true) { %>
                     <% read = "Read"%>

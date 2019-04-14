@@ -1,33 +1,81 @@
 <% include partials/header %>
 
-<div class="container white" style="margin-top: 1%; padding: 1%">
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
     <h1 style="text-align: center; margin-bottom: 1%;">Operations Center</h1>
     <hr>
-    <div class="row">
-        <div class="col-sm" style="text-align: center;"><a href="/opcenter/discharge" style="color: white;"><button class="btn btn-primary">Request a Discharge</button></a> </div>
-        <div class="col-sm" style="text-align: center;"><a href="/opcenter/loa" style="color: white;"><button class="btn btn-primary">Request a Leave of Absence</button></a> </div>
-        <div class="col-sm" style="text-align: center;"><a href="/opcenter/yourrequests" style="color: white;"><button class="btn btn-primary">View Your Requests</button></a> </div>
+    <div class="card-deck">
+        <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Request a Discharge</strong></h5>
+                <p class="card-text">Request a discharge to leave from the unit.</p>
+                <a href="/opcenter/discharge" class="btn btn-primary">Request a Discharge</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">This action can be seen by enlisted and above.</small>
+            </div>
+        </div>
+        <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Request a Leave of Absence</strong></h5>
+                <p class="card-text">Request a Leave of Absence from the unit.</p>
+                <a href="/opcenter/loa" class="btn btn-primary">Request a Leave of Absence</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">This action can be seen by enlisted and above.</small>
+            </div>
+        </div>
+        <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><strong>View Your Requests</strong></h5>
+                <p class="card-text">View all of your requests.</p>
+                <a href="/opcenter/yourrequests" class="btn btn-primary">View Requests</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">This action can be seen only by you.</small>
+            </div>
+        </div>
     </div>
 </div>
 
-<% if(priv) { %>
-<div class="container white" style="margin-top: 1%; padding: 1%; height: 500px;">
+<% if(currentUser.role) { %>
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
 
 
 
     <h1 style="text-align: center; margin-bottom: 1%;">Administration Center</h1>
     <hr>
     <br>
-    <div class="row">
-        <div class="col-4 offset-sm-1" style="text-align: center"><div class="name" style="background-color: #e9ecef; height: 300%;"><h3>View Requests</h3></div></div>
-        <div class="col-4 offset-sm-2" style="text-align: center"><div class="name" style="background-color: #e9ecef; height: 300%"><h3>Create and View Events</h3></div></div>
-    </div>
-    <div class="row">
-        <div class="col-2 offset-sm-2" style="text-align: center;"><a href="/opcenter/requests" style="color: white;"><button style="width: 100%; height: 100%;" class="btn btn-primary btn-md">View requests</button></a> </div>
-        <div class="col-2 offset-md-4" style="text-align: center;"><a href="/calendar/event" style="color: white;"><button style="width: 100%;" class="btn btn-primary btn-md">Create an event</button></a> </div>
-    </div>
-    <div class="row">
-        <div class="col-2 offset-md-8" style="text-align: center;"><a href="/calendar/events" style="color: white;"><button style="width: 100%; margin-top: 10%;" class="btn btn-primary btn-md">View all events</button></a> </div>
+    <div class="card-deck">
+        <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><strong>View Requests <span class="badge badge-secondary"><%=count%></span></strong></h5>
+                <p class="card-text">View new and old user requests.</p>
+                <a href="/opcenter/requests" class="btn btn-primary">View Requests</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">This action can be seen only by staff.</small>
+            </div>
+        </div>
+        <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><strong>Create Events</strong></h5>
+                <p class="card-text">Create a new event.</p>
+                <a href="/calendar/event" class="btn btn-primary">Create Event</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">This action can be seen only by staff.</small>
+            </div>
+        </div>
+        <div class="card text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><strong>View Events</strong></h5>
+                <p class="card-text">View all events.</p>
+                <a href="/calendar/events" class="btn btn-primary">View Events</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">This action can be seen only by staff.</small>
+            </div>
+        </div>
     </div>
     </div>
 <% } %>

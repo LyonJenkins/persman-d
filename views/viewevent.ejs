@@ -27,50 +27,27 @@
             if(hours.length === 1) {
                 hours = "0"+hours;
             }
-            console.log(hours)
-            console.log(minutes);
             return `${hours}:${minutes}`
         }
-        let CST = document.getElementById('cst').innerText=getNewTime("<%=event.startTime%>", -1, 0);
-        let PST = document.getElementById('pst').innerText=getNewTime("<%=event.startTime%>", -3, 0);
-        let CET = document.getElementById('cet').innerText=getNewTime("<%=event.startTime%>", 6, 0);
+        document.getElementById('cst').innerText=getNewTime("<%=event.startTime%>", -1, 0);
+        document.getElementById('pst').innerText=getNewTime("<%=event.startTime%>", -3, 0);
+        document.getElementById('cet').innerText=getNewTime("<%=event.startTime%>", 6, 0);
         });
 
 
 </script>
 
-<div class="container white" style="text-align:center; margin-top: 1%; padding-top:1%; padding-bottom:1%; width: 100%;">
+<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
 
     <h1 style="text-align: center; margin-bottom: 1%;">Viewing <strong><%=event.title%></strong></h1>
     <div class="row">
-    </div>
-    <div class="row">
-    </div>
-    <div class="row">
-        <div class="col-sm" style="text-align: center;"><div><h3>Event Description</h3></div></div>
-        <div class="col-sm" style="text-align: center;"><div><h3>Register</h3></div></div>
-        <div class="col-sm" style="text-align: center;"><div><h3>Unregister</h3></div></div>
+        <div class="col-sm" style="text-align: center;"><div><h2>Event Description</h2></div></div>
     </div>
 
     <div class="row">
         <div class="col-sm" style="text-align: center;"><div><%=event.description%></div></div>
-        <div class="col-sm" style="text-align: center;">
-            <form action="/calendar/event/<%=event._id%>/users" method="POST">
-                <div class="form-group">
-                    <button class="btn btn-success btn-sm">Register</button>
-                    <input class="form-control" type="hidden" name="type" value="register">
-                </div>
-            </form>
-        </div>
-        <div class="col-sm" style="text-align: center;">
-            <form action="/calendar/event/<%=event._id%>/users" method="POST">
-                <div class="form-group">
-                    <button class="btn btn-danger btn-sm">Unregister</button>
-                    <input class="form-control" type="hidden" name="type" value="unregister">
-                </div>
-            </form>
-        </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-sm" style="text-align: center;"><div><h5>Date</h5></div></div>
         <div class="col-sm" style="text-align: center;"><div><h5>Start Time EST</h5></div></div>
@@ -84,6 +61,43 @@
         <div class="col-sm" style="text-align: center;"><div><div id="cst" style="font-weight:bold;"></div></div></div>
         <div class="col-sm" style="text-align: center;"><div><div id="pst" style="font-weight:bold;"></div></div></div>
         <div class="col-sm" style="text-align: center;"><div><div id="cet" style="font-weight:bold;"></div></div></div>
+    </div>
+    <div class="container-fluid mt-4">
+        <div class="row justify-content-center">
+            <div class="col-auto mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>Register</strong></h5>
+                        <form action="/calendar/event/<%=event._id%>/users" method="POST">
+                            <div class="form-group">
+                                <button class="btn btn-success btn-sm">Register</button>
+                                <input class="form-control" type="hidden" name="type" value="register">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">This action can be seen by enlisted and above.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>Unregister</strong></h5>
+                        <form action="/calendar/event/<%=event._id%>/users" method="POST">
+                            <div class="form-group">
+                                <button class="btn btn-danger btn-sm">Unregister</button>
+                                <input class="form-control" type="hidden" name="type" value="unregister">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">This action can be seen by enlisted and above.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div style="margin-top: 1%; width: 100%;">
         <div class="table-header">
