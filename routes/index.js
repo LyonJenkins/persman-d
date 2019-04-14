@@ -1,7 +1,23 @@
-const express = require("express"), router = express.Router(), passport = require("passport"), User = require("../models/user"), flash = require("connect-flash");
+const express = require("express"), router = express.Router(), passport = require("passport"), Calendar = require("../models/calendar"), User = require("../models/user"), flash = require("connect-flash");
 
 router.get("/", function(req, res){
-    res.render("landing");
+    Calendar.find({}, function(err, allEvents){
+        if(err) {
+            console.log(err);
+        }
+        let newEvents = [];
+        // console.log(allEvents.length)
+        // for(let i = allEvents.length; i > allEvents.length; i++) {
+        //     console.log(allEvents[i])
+        //     newEvents.push(allEvents[i]);
+        // }
+        let place = allEvents.length;
+        while(place > allEvents.length-4) {
+            if(allEvents[place] !== undefined) newEvents.push(allEvents[place]);
+            place--;
+        }
+        res.render("landing", {events: newEvents});
+    });
  });
 
  
