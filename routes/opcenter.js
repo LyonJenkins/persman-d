@@ -1,8 +1,11 @@
 const express = require("express"), router = express.Router(), User = require("../models/user"), Discharge = require("../models/discharge"), Leave = require("../models/loa"), async = require("async");
+const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/opcenter", isLoggedIn, function(req, res){
-    if(req.user.rank === "none") return res.redirect("/");
-    if(req.user.role) {
+    if(req.user.role === guest) return res.redirect("/");
+
+    // Counts all unread requests
+    if(req.user.role === admin) {
         let unreadRequests = 0;
         Discharge.find({}, function(err,discharges){
             if(err) {
@@ -37,22 +40,22 @@ router.get("/opcenter", isLoggedIn, function(req, res){
 });
 
 router.get("/opcenter/messages", isLoggedIn, function(req, res){
-    if(req.user.rank === "none") return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     res.render("messages");
 });
 
 router.get("/opcenter/discharge", isLoggedIn, function(req, res){
-    if(req.user.rank === "none") return res.redirect("/");
+    if(req.user.role === guest) return res.redirect("/");
     res.render("discharge", {user:req.user});
 });
 
 router.get("/opcenter/loa", isLoggedIn, function(req, res){
-    if(req.user.rank === "none") return res.redirect("/");
+    if(req.user.role === guest) return res.redirect("/");
     res.render("loa", {user:req.user});
 });
 
 router.get("/opcenter/yourrequests", isLoggedIn, function(req, res){
-   if(req.user.rank === "none") return res.redirect("/");
+   if(req.user.role === guest) return res.redirect("/");
    Discharge.find({ownerID: req.user.id}, function(err,discharge){
        if(err) {
            console.log(err);
@@ -67,7 +70,7 @@ router.get("/opcenter/yourrequests", isLoggedIn, function(req, res){
 });
 
 router.post("/opcenter/discharge", isLoggedIn, function(req, res){
-    if(req.user.rank === "none") return res.redirect("/");
+    if(req.user.role === guest) return res.redirect("/");
     Discharge.create({reason: req.body.reason, ownerID: req.body.id, dateCreated: Date.now()}, function(err){
         if(err) {
             console.log(err);
@@ -78,7 +81,7 @@ router.post("/opcenter/discharge", isLoggedIn, function(req, res){
 });
 
 router.post("/opcenter/loa", isLoggedIn, function(req, res){
-    if(req.user.rank === "none") return res.redirect("/");
+    if(req.user.role === guest) return res.redirect("/");
     User.findByIdAndUpdate({_id: req.user._id}, {$set:{status: "Leave of Absence"}}, function(err){
         if(err) {
             console.log(err);
@@ -95,12 +98,12 @@ router.post("/opcenter/loa", isLoggedIn, function(req, res){
 
 
 router.get("/opcenter/requests", isLoggedIn, function(req, res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     return res.render("requests", {discharges: [], loas: []});
 });
 
 router.post("/opcenter/requests", isLoggedIn, function(req, res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     let foundUsers = [];
     User.find({}, function(err, allUsers){
         if(err) {
@@ -142,7 +145,7 @@ router.post("/opcenter/requests", isLoggedIn, function(req, res){
 });
 
 router.post("/opcenter/deleterequest/:id", isLoggedIn, function(req,res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     if(req.body.requestType === "Discharge") {
         Discharge.findByIdAndDelete(req.params.id, function(err){
             if(err) {
@@ -160,7 +163,7 @@ router.post("/opcenter/deleterequest/:id", isLoggedIn, function(req,res){
 });
 
 router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     if(req.body.requestType === "Discharge") {
         Discharge.findById(req.params.id, function(err, foundDischarge){
             if(err) {
@@ -193,7 +196,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
 });
 
 router.post("/opcenter/:id/", isLoggedIn, function(req,res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     if(req.body.requestType === "Leave") {
         if(req.body.approve === "1") {
             Leave.findByIdAndUpdate({_id: req.body.id}, {read: true}, function(err){

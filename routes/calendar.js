@@ -1,4 +1,5 @@
 const express = require("express"), router = express.Router(), User = require("../models/user"), Calendar = require("../models/calendar"), Event = require("../models/eventspecifics"), async = require("async");
+const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/calendar", isLoggedIn, function(req, res){
     Calendar.find({}, function(err, allEvents){
@@ -26,12 +27,12 @@ router.get("/calendar/event/:id", isLoggedIn, function(req, res){
 });
 
 router.get("/calendar/event", isLoggedIn, function(req,res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     res.render("newevent");
 });
 
 router.post("/calendar/event", isLoggedIn, function(req,res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     Calendar.create({title: req.body.eventname, start:req.body.eventstart, description:req.body.desc, startTime:req.body.eventtime, imageName:req.body.imagename}, function(err, doc){
         if(err) {
             console.log(err);
@@ -46,7 +47,7 @@ router.post("/calendar/event", isLoggedIn, function(req,res){
 });
 
 router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
-    if(req.user.rank === "none") return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     if(req.body.type === "register") {
         Event.find({eventID: req.params.id}, function(err,foundEvent){
             if(err) {
@@ -92,7 +93,7 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
 });
 
 router.get("/calendar/events", isLoggedIn, function(req,res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     Calendar.find({}, function(err, foundEvents){
        if(err) {
            console.log(err);
@@ -101,8 +102,12 @@ router.get("/calendar/events", isLoggedIn, function(req,res){
     });
 });
 
+router.get("/calendar/event/edit/:id", isLoggedIn, function(req,res){
+   if(req.user.role !== admin) return res.redirect("/");
+});
+
 router.post("/calendar/events/:id", isLoggedIn, function(req, res){
-    if(!req.user.role) return res.redirect("/");
+    if(req.user.role !== admin) return res.redirect("/");
     Calendar.findByIdAndDelete(req.params.id, err => {
         if(err) {
             console.log(err);
