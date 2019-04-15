@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     status: {type: String, default: "none"},
     rank: {type: String, default: "none"},
     position: {type: String, default: "none"},
-    role: {type: Boolean, default: false},
+    role: {type: Number, default: 0},
 });
 
 UserSchema.plugin(passportLocalMongoose);
