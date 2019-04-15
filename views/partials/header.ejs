@@ -23,6 +23,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="http://us143rd.site.nfoservers.com/forums/">Forums</a>
                 </li>
+                  <% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
                 <%if(currentUser) {%>
                 <li class="nav-item">
                     <a class="nav-link" href="/listusers">Show Members</a>
@@ -30,9 +31,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/opcenter/">Operations Center</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/calendar/">Calendar</a>
-                </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/calendar/">Calendar</a>
+                  </li>
                 <%}%>
             </ul>
                 <ul class="navbar-nav ml-auto">
