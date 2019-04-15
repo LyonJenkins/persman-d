@@ -37,7 +37,9 @@
     </div>
 </div>
 
-<% if(currentUser.role) { %>
+
+<% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
+<% if(currentUser.role === admin) { %>
 <div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
 
 
