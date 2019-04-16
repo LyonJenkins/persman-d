@@ -33,7 +33,13 @@ router.get("/calendar/event", isLoggedIn, function(req,res){
 
 router.post("/calendar/event", isLoggedIn, function(req,res){
     if(req.user.role !== admin) return res.redirect("/");
-    Calendar.create({title: req.body.eventname, start:req.body.eventstart, description:req.body.desc, startTime:req.body.eventtime, imageName:req.body.imagename}, function(err, doc){
+    let event = {};
+    if(req.body.eventtype === "Basic Training") {
+        event = {type: "Basic Training", color : "green"};
+    } else if(req.body.eventtype === "Operation") {
+        event = {type: "Operation", color : "blue"};
+    }
+    Calendar.create({title: req.body.eventname, start:req.body.eventstart, description:req.body.desc, startTime:req.body.eventtime, imageName:req.body.imagename, eventType:event}, function(err, doc){
         if(err) {
             console.log(err);
         }

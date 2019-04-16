@@ -22,7 +22,8 @@
                     {
                         url: "/calendar/event/<%=event._id%>",
                         title: "<%=event.title%>",
-                        start: "<%=event.start%>"
+                        start: "<%=event.start%>",
+                        color: "<%=event.eventType.color%>"
                     },
                     <%} ); %>
                 ]
