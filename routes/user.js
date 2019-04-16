@@ -26,43 +26,13 @@ router.post("/user/edit", isLoggedIn, function(req,res){
     User.find({_id: req.body.id}, function(err, user){
         if(err) {
             console.log(err);
-        } else {
-            // if(req.body.name != user[0].username) {
-            //     User.findOneAndUpdate({_id: req.body.id}, {$set:{username:req.body.name}}, function(err,doc){
-            //         if(err) {
-            //             console.log(err);
-            //         }
-            //     });
-            // }
-            if(req.body.rank != user[0].rank) {
-                User.findOneAndUpdate({_id: req.body.id}, {$set:{rank:req.body.rank}}, function(err,doc){
-                    if(err) {
-                        console.log(err);
-                    }
-                });
-            }
-            if(req.body.status != user[0].status) {
-                User.findOneAndUpdate({_id: req.body.id}, {$set:{status:req.body.status}}, function(err,doc){
-                    if(err) {
-                        console.log(err);
-                    }
-                });
-            }
-            if(req.body.position != user[0].position) {
-                User.findOneAndUpdate({_id: req.body.id}, {$set:{position:req.body.position}}, function(err,doc){
-                    if(err) {
-                        console.log(err);
-                    }
-                });
-            }
-            var newUnit = {company: req.body.company, platoon: req.body.platoon, squad: req.body.squad};
-            console.log(newUnit);
-            User.findOneAndUpdate({_id: req.body.id}, {$set:{unit:newUnit}}, function(err,doc){
-                if(err) {
-                    console.log(err);
-                }
-            });
         }
+        const newUnit = {company: req.body.company, platoon: req.body.platoon, squad: req.body.squad};
+        User.findOneAndUpdate({_id: req.body.id}, {$set:{rank:req.body.rank, status:req.body.status, position:req.body.position, unit:newUnit}}, function(err,doc){
+            if(err) {
+                console.log(err);
+            }
+        });
     });
     res.redirect("/listusers");
 });
