@@ -1,29 +1,25 @@
 <% include partials/header %>
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
-    <div class="container">
-        <% if(discharges !== [] && loas !== []) { %>
-            <div class="row">
-                <form action="/opcenter/requests" method="POST">
-                    <h3>Load Requests</h3>
+<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
+<!--    <div class="container">-->
+<!--            <div class="row">-->
+<!--                <form action="/opcenter/requests" method="POST">-->
+<!--                    <h3>Load Requests</h3>-->
 
-                    <div class="form-group">
-                        <label for="type">Request Type</label>
-                        <select class="form-control" id="type" name="type">
-                            <option>All Requests</option>
-                            <option>New Requests</option>
-                        </select>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="type">Request Type</label>-->
+<!--                        <select class="form-control" id="type" name="type">-->
+<!--                            <option>All Requests</option>-->
+<!--                            <option>New Requests</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
 
-                    <div class="form-group"><button class="btn btn-success">Submit</button></div>
-                </form>
-            </div>
-        <% } %>
-    </div>
+<!--                    <div class="form-group"><button class="btn btn-success">Submit</button></div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--    </div>-->
 
-
-    <div class="table-header">
-      <h3>User Requests</h3>
-    </div>
+    <h1>User Requests</h1>
+    <hr>
     <table class="table white table-bordered table-sm" style="text-align: left;">
       <thead>
         <tr>
@@ -112,6 +108,45 @@
                         </td>
                     </tr>
                 <% } %>
+        <% } %>
+    <% }) %>
+    <% applications.forEach(function(request) { %>
+        <% for(var i = 0; i < users.length; i++) { %>
+            <% if(users[i]._id == request.ownerID) { %>
+                <% var user = users[i]; %>
+                <tr>
+                    <td class="align-middle"><%=request.requestType%></td>
+                    <td class="align-middle"><%=user.username%></td>
+                    <% let read; %>
+                    <% if(request.read === true) { %>
+                        <% read = "Read"%>
+                    <%} else { %>
+                        <% read = "Unread"%>
+                    <% } %>
+                    <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+                    <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
+                        <td></td>
+                    <% } else if(user.unit.squad == "") { %>
+                    <td class="align-middle"><%=user.unit.platoon%>, <%=user.unit.company%></td>
+                    <% } else { %>
+                    <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></td>
+                    <% } %>
+                    <td class="align-middle">
+                        <form action="/opcenter/viewrequest/<%=request._id%>" method="post">
+                            <button class="btn btn-primary btn-sm">Open Request</button>
+                            <input class="form-control" type="hidden" name="id" value="<%=user._id%>">
+                            <input class="form-control" type="hidden" name="requestType" value="Application">
+                        </form>
+                    </td>
+                    <td class="align-middle">
+                        <form action="/opcenter/deleterequest/<%=request._id%>" method="post">
+                            <button class="btn btn-danger btn-sm">Delete Request</button>
+                            <input class="form-control" type="hidden" name="id" value="<%=user._id%>">
+                            <input class="form-control" type="hidden" name="requestType" value="Application">
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
         <% } %>
     <% }) %>
     </table>

@@ -1,9 +1,7 @@
 <% include partials/header %>
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
-
-    <div class="table-header">
-        <h3>Your Requests</h3>
-    </div>
+<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
+    <h1>Your Requests</h1>
+    <hr>
     <table class="table white table-bordered table-sm">
         <thead>
         <tr>
@@ -31,6 +29,25 @@
                     </form>
                 </td>
             </tr>
+        <% }) %>
+        <% applications.forEach(function(app) { %>
+        <tr>
+            <td class="align-middle"><%=app.requestType%></td>
+            <% let read; %>
+            <% if(app.read === true) { %>
+                <% read = "Read"%>
+            <%} else { %>
+                <% read = "Unread"%>
+            <% } %>
+            <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+            <td class="align-middle">
+                <form action="/opcenter/viewrequest/<%=app._id%>" method="post">
+                    <input class="form-control" type="hidden" name="requestType" value="Application">
+                    <button class="btn btn-primary btn-sm">Open Request</button>
+                    <input class="form-control" type="hidden" name="id" value="<%=app._id%>">
+                </form>
+            </td>
+        </tr>
         <% }) %>
         <% leaves.forEach(function(loa) { %>
             <tr>

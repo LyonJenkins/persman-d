@@ -1,7 +1,16 @@
 <% include partials/header %>
 
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
+<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
     <h1>Sign up</h1>
+    <hr>
+    <%if(wrongName === true) { %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> A user with that username already exists.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
 
     <form action="/register" method="POST">
         <div class="form-group">

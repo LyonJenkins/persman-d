@@ -1,20 +1,29 @@
 <% include partials/header %>
 
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
-    <div class="row">
+<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
+    <h1>Viewing user <strong><%=user.username%></strong></h1>
+    <hr>
+    <div class="container shadow border" style="padding: 1%">
+        <div class="row">
             <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Username</h3></div>
             <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Status</h3></div>
             <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Rank</h3></div>
+            <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Group</h3></div>
             <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Unit</h3></div>
             <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Position</h3></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm" style="text-align: center;"><h5><%=user.username%></h5></div>
+            <div class="col-sm" style="text-align: center;"><h5><%=user.status%></h5></div>
+            <div class="col-sm" style="text-align: center;"><h5><%=user.rank%></h5></div>
+            <div class="col-sm" style="text-align: center;"><h5><%=user.role.name%></h5></div>
+            <div class="col-sm" style="text-align: center;"><h5><%=user.unit.company%>, <%=user.unit.platoon%>, <%=user.unit.squad%></h5></div>
+            <div class="col-sm" style="text-align: center;"><h5><%=user.position%></h5></div>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-sm" style="text-align: center;"><h5><%=user.username%></h5></div>
-        <div class="col-sm" style="text-align: center;"><h5><%=user.status%></h5></div>
-        <div class="col-sm" style="text-align: center;"><h5><%=user.rank%></h5></div>
-        <div class="col-sm" style="text-align: center;"><h5><%=user.unit.company%>, <%=user.unit.platoon%>, <%=user.unit.squad%></h5></div>
-        <div class="col-sm" style="text-align: center;"><h5><%=user.position%></h5></div>
-    </div>
+
+
 </div>
 
 <% include partials/footer %>

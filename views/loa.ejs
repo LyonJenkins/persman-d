@@ -1,24 +1,24 @@
 <% include partials/header %>
 
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
-    <h3 style="text-align: center;">Operations Center</h3>
+<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
     <form action="/opcenter/loa/" method="POST">
 
-        <h4>Request a Leave of Absence</h4>
+        <h1>Request a Leave of Absence</h1>
+        <hr>
 
         <label for="reason">Reason</label>
-        <div class="form-group"><input class="form-control" id="reason" type="text" name="reason" placeholder="enter a reason">
+        <div class="form-group"><input class="form-control" id="reason" type="text" name="reason" placeholder="enter a reason" required>
             <small class="form-text text-muted">The max length of a reason is 160 characters. If you have more thoughts to express, contact a high ranking member.</small>
         </div>
 
         <div class="form-group">
             <label for="start">Beginning of Leave Date</label>
-            <input class="form-control" id="start" type="date" name="begindate">
+            <input class="form-control" id="start" type="date" name="begindate" required>
         </div>
 
         <div class="form-group">
             <label for="start">End of Leave Date</label>
-            <input class="form-control" id="start" type="date" name="enddate">
+            <input class="form-control" id="start" type="date" name="enddate" required>
         </div>
 
         <div class="form-group"><input class="form-control" type="hidden" name="id" value="<%=user._id%>"></div>

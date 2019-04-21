@@ -1,14 +1,17 @@
 <% include partials/header %>
 
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
-    <h1 style="text-align: center; margin-bottom: 1%;">Operations Center</h1>
+<% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
+
+<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
+    <h1>Operations Center</h1>
     <hr>
     <div class="card-deck">
+        <% if(currentUser.role.num >= enlisted) { %>
         <div class="card text-center" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title"><strong>Request a Discharge</strong></h5>
-                <p class="card-text">Request a discharge to leave from the unit.</p>
-                <a href="/opcenter/discharge" class="btn btn-primary">Request a Discharge</a>
+                <p class="card-text">Request a Discharge from the unit.</p>
+                <a href="/opcenter/discharge" class="card-btn btn btn-primary">Request a Discharge</a>
             </div>
             <div class="card-footer">
                 <small class="text-muted">This action can be seen by enlisted and above.</small>
@@ -17,8 +20,8 @@
         <div class="card text-center" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title"><strong>Request a Leave of Absence</strong></h5>
-                <p class="card-text">Request a Leave of Absence from the unit.</p>
-                <a href="/opcenter/loa" class="btn btn-primary">Request a Leave of Absence</a>
+                <p class="card-text">Request a Leave of Absence.</p>
+                <a href="/opcenter/loa" class="card-btn btn btn-primary">Request a Leave of Absence</a>
             </div>
             <div class="card-footer">
                 <small class="text-muted">This action can be seen by enlisted and above.</small>
@@ -28,54 +31,66 @@
             <div class="card-body">
                 <h5 class="card-title"><strong>View Your Requests</strong></h5>
                 <p class="card-text">View all of your requests.</p>
-                <a href="/opcenter/yourrequests" class="btn btn-primary">View Requests</a>
+                <a href="/opcenter/yourrequests" class="card-btn btn btn-primary">View Requests</a>
             </div>
             <div class="card-footer">
                 <small class="text-muted">This action can be seen only by you.</small>
             </div>
         </div>
+        <% } %>
     </div>
+
+    <% if(currentUser.role.num === guest || currentUser.role.num === admin) { %>
+        <div class="card-deck" style="margin-top: 2%">
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Submit An Application</strong></h5>
+                    <p class="card-text">Submit an application to join the 143rd Infantry Regiment.</p>
+                    <a href="/opcenter/application" class="card-btn btn btn-primary">Create Application</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">This action can be seen only by guests and administrators.</small>
+                </div>
+            </div>
+        </div>
+    <% } %>
 </div>
 
 
-<% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
-<% if(currentUser.role === admin) { %>
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
-
-
-
-    <h1 style="text-align: center; margin-bottom: 1%;">Administration Center</h1>
+<% if(currentUser.role.num === admin) { %>
+<div class="container shadow bg-white" style="margin-top: 1%; margin-bottom: 1%; padding: 1%;">
+    <h1>Administration Center</h1>
     <hr>
-    <br>
     <div class="card-deck">
         <div class="card text-center" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title"><strong>View Requests <span class="badge badge-secondary"><%=count%></span></strong></h5>
+<!--                <span class="badge badge-secondary"></span>-->
+                <h5 class="card-title"><strong>View Requests </strong></h5>
                 <p class="card-text">View new and old user requests.</p>
-                <a href="/opcenter/requests" class="btn btn-primary">View Requests</a>
+                <a href="/opcenter/requests" class="card-btn btn btn-primary">View Requests</a>
             </div>
             <div class="card-footer">
-                <small class="text-muted">This action can be seen only by staff.</small>
+                <small class="text-muted">This action can be seen only by administrators.</small>
             </div>
         </div>
         <div class="card text-center" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title"><strong>Create Events</strong></h5>
                 <p class="card-text">Create a new event.</p>
-                <a href="/calendar/event" class="btn btn-primary">Create Event</a>
+                <a href="/calendar/event" class="card-btn btn btn-primary">Create Event</a>
             </div>
             <div class="card-footer">
-                <small class="text-muted">This action can be seen only by staff.</small>
+                <small class="text-muted">This action can be seen only by administrators.</small>
             </div>
         </div>
         <div class="card text-center" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title"><strong>View Events</strong></h5>
                 <p class="card-text">View all events.</p>
-                <a href="/calendar/events" class="btn btn-primary">View Events</a>
+                <a href="/calendar/events" class="card-btn btn btn-primary">View Events</a>
             </div>
             <div class="card-footer">
-                <small class="text-muted">This action can be seen only by staff.</small>
+                <small class="text-muted">This action can be seen only by administrators.</small>
             </div>
         </div>
     </div>

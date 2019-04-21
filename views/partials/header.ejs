@@ -25,16 +25,22 @@
                 </li>
                   <% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
                 <%if(currentUser) {%>
+                  <% if(currentUser.role.num >= enlisted) { %>
                 <li class="nav-item">
                     <a class="nav-link" href="/listusers">Show Members</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/opcenter/">Operations Center</a>
-                </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/opcenter/">Operations Center</a>
+                  </li>
                   <li class="nav-item">
                       <a class="nav-link" href="/calendar/">Calendar</a>
                   </li>
-                <%}%>
+                      <%} else { %>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/opcenter/">Operations Center</a>
+                      </li>
+                      <%} %>
+                <%} %>
             </ul>
                 <ul class="navbar-nav ml-auto">
                     <%if(!currentUser) { %>

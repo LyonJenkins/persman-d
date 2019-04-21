@@ -1,7 +1,7 @@
 <% include partials/header %>
 
 <% const admin = 5; recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;%>
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
+<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
     <form action="/user/edit" method="POST">
         <h2>Change user details for <strong><%=user.username%></strong></h2>
 
@@ -101,11 +101,17 @@
             </select>
         </div>
         
-        <% if(currentUser.role === admin) { %>
+        <% if(currentUser.role.num === admin) { %>
         <div class="form-group">
-            <label for="role">Select User's Role</label>
-            <select class="form-control" id="role" name"role">
-            </select>;
+            <label for="role">Select User's Group</label>
+            <select class="form-control" id="role" name="role">
+                <option><%=user.role.name%></option>
+                <option>Guest</option>
+                <option>Enlisted</option>
+                <option>NCO</option>
+                <option>Officer</option>
+                <option>Recruiter</option>
+            </select>
         </div>
         <% } %>        
 

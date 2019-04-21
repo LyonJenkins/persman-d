@@ -1,0 +1,15 @@
+<% include partials/header %>
+
+<div class="container shadow bg-white">
+    <% for(var i = 0; i < users.length; i++) { %>
+        <% if(users[i]._id == loa.ownerID) { %>
+            <% var user = users[i]; %>
+
+
+            <h1>Viewing Application for <strong><%=user.user%></strong></h1>
+            <% } %>
+    <% } %>
+</div>
+
+<% include partials/footer %>
+

@@ -33,102 +33,90 @@
         document.getElementById('pst').innerText=getNewTime("<%=event.startTime%>", -3, 0);
         document.getElementById('cet').innerText=getNewTime("<%=event.startTime%>", 6, 0);
         });
-
-
 </script>
 
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
-
-    <h1 style="text-align: center; margin-bottom: 1%;">Viewing <strong><%=event.title%></strong></h1>
-    <div class="row">
-        <div class="col-sm" style="text-align: center;"><div><h2>Event Description</h2></div></div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm" style="text-align: center;"><div><%=event.description%></div></div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-sm" style="text-align: center;"><div><h5>Date</h5></div></div>
-        <div class="col-sm" style="text-align: center;"><div><h5>Start Time EST</h5></div></div>
-        <div class="col-sm" style="text-align: center;"><div><h5>Start Time CST</h5></div></div>
-        <div class="col-sm" style="text-align: center;"><div><h5>Start Time PST</h5></div></div>
-        <div class="col-sm" style="text-align: center;"><div><h5>Start Time CET</h5></div></div>
-    </div>
-    <div class="row">
-        <div class="col-sm" style="text-align: center; font-weight:bold;"><%=event.start%></div>
-        <div class="col-sm" style="text-align: center; font-weight:bold;"><div><%=event.startTime%></div></div>
-        <div class="col-sm" style="text-align: center;"><div><div id="cst" style="font-weight:bold;"></div></div></div>
-        <div class="col-sm" style="text-align: center;"><div><div id="pst" style="font-weight:bold;"></div></div></div>
-        <div class="col-sm" style="text-align: center;"><div><div id="cet" style="font-weight:bold;"></div></div></div>
-    </div>
-    <div class="container-fluid mt-4">
+    <div class="container shadow bg-white" style="margin-top: 1%; padding-bottom: 1%;">
+        <h1>Viewing <strong><%=event.title%></strong></h1>
+        <hr>
         <div class="row justify-content-center">
-            <div class="col-auto mb-3">
-                <div class="card text-center">
+            <div class="col-sm-6">
+                <div class="card">
+                    <img class="card-img-top" src="https://raw.githubusercontent.com/LyonJenkins/persman-pictures/master/<%=event.imageName%>"  alt="">
                     <div class="card-body">
-                        <h5 class="card-title"><strong>Register</strong></h5>
-                        <form action="/calendar/event/<%=event._id%>/users" method="POST">
-                            <div class="form-group">
-                                <button class="btn btn-success btn-sm">Register</button>
-                                <input class="form-control" type="hidden" name="type" value="register">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">This action can be seen by enlisted and above.</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-auto mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title"><strong>Unregister</strong></h5>
-                        <form action="/calendar/event/<%=event._id%>/users" method="POST">
-                            <div class="form-group">
-                                <button class="btn btn-danger btn-sm">Unregister</button>
-                                <input class="form-control" type="hidden" name="type" value="unregister">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">This action can be seen by enlisted and above.</small>
+                        <p class="card-text"><%=event.description%></p>
                     </div>
                 </div>
             </div>
         </div>
+        <!--    <hr>-->
+        <br>
+        <div>
+            <div class="card">
 
-    </div>
-    <div style="margin-top: 1%; width: 100%;">
-        <div class="table-header">
-            <h3>Attending Users</h3>
+                <div class="card-body text-center">
+                    <h3 class="card-title text-left" style="font-weight: 600;">Event Information <span style="font-weight: 400;">- <%=event.start%> - <span><%=event.startTime%></span> EST | <span id="cst"></span> CST | <span id="pst"></span> PST | <span id="cet"></span> CET</span></h3>
+                    <hr>
+                    <div class="container-fluid mt-4">
+                        <div class="row justify-content-center">
+                            <div class="col-auto mb-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><strong>Register</strong></h5>
+                                        <form action="/calendar/event/<%=event._id%>/users" method="POST">
+                                            <div class="form-group">
+                                                <button class="btn btn-success btn-sm">Register</button>
+                                                <input class="form-control" type="hidden" name="type" value="register">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">This action can be seen by enlisted and above.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto mb-3">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><strong>Unregister</strong></h5>
+                                        <form action="/calendar/event/<%=event._id%>/users" method="POST">
+                                            <div class="form-group">
+                                                <button class="btn btn-danger btn-sm">Unregister</button>
+                                                <input class="form-control" type="hidden" name="type" value="unregister">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">This action can be seen by enlisted and above.</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="usersTable">Username</th>
+                            <th scope="col" class="usersTable">Rank</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% list.forEach(function(user) { %>
+                        <tr>
+                            <td><a href="/user/<%=user._id%>"><%=user.username%></a></td>
+                            <td><%=user.rank%></td>
+                        </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
         </div>
-        <table class="table white table-bordered table-sm">
-            <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Rank</th>
-                <th scope="col">MOS</th>
-                <th scope="col">Status</th>
-                <th scope="col">Unit</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% list.forEach(function(user) { %>
-            <tr>
-                <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
-                <td class="align-middle"><%=user.rank%></td>
-                <td class="align-middle"><%=user.position%></td>
-                <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
-                <% if(user.unit.squad == "none") { %>
-                <td class="align-middle"><%=user.unit.platoon%></td>
-                <% } else { %>
-                <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
-                <% } %>
-            </tr>
-            <% }) %>
-        </table>
-    </div>
 </div>
 
 

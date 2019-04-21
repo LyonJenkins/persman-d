@@ -1,11 +1,12 @@
 <% include partials/header %>
 
-<div class="container shadow bg-white rounded" style="margin-top: 1%; padding: 1%;">
+<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
     <h1 style="text-align: center;">Landing Page</h1>
     <hr>
-    <p>Welcome to the 143rd Infantry Regiment</p>
-<style>
-</style>
+    <div class="titillium-test">
+        <p class="titillium-test">Welcome to the 143rd Infantry Regiment. If you have not already done so, create an account then navigate to the Operations Center to submit an application.</p>
+    </div>
+<br>
     <div>
         <table style="width: 100%;">
             <tbody>
@@ -40,7 +41,7 @@
             </tbody>
         </table>
     </div>
-
+    <br>
     <br>
     <h1 style="text-align: center;">Recently Added Events</h1>
     <hr>
@@ -50,7 +51,7 @@
             <% events.forEach(function(event) { %>
             <div class="col-auto mb-3">
                 <div class="card" style="width: 20rem;">
-                    <img class="card-img-top" src="https://raw.githubusercontent.com/LyonJenkins/persman-pictures/master/<%=event.imageName%>.jpg" alt="Image Not Found">
+                    <img class="card-img-top" src="https://raw.githubusercontent.com/LyonJenkins/persman-pictures/master/<%=event.imageName%>" alt="Image Not Found">
                     <div class="card-body">
                         <h5 class="card-title"><%=event.title%></h5>
                         <p class="card-text"><%=event.start%> - <%=event.startTime%> EST</p>
