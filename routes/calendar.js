@@ -27,12 +27,12 @@ router.get("/calendar/event/:id", isLoggedIn, function(req, res){
 });
 
 router.get("/calendar/event", isLoggedIn, function(req,res){
-    if(req.user.role !== admin) return res.redirect("/");
+    if(req.user.role.num !== admin) return res.redirect("/");
     res.render("newevent");
 });
 
 router.post("/calendar/event", isLoggedIn, function(req,res){
-    if(req.user.role !== admin) return res.redirect("/");
+    if(req.user.role.num !== admin) return res.redirect("/");
     let event = {};
     if(req.body.eventtype === "Basic Training") {
         event = {type: "Basic Training", color : "green"};
@@ -53,7 +53,7 @@ router.post("/calendar/event", isLoggedIn, function(req,res){
 });
 
 router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
-    if(req.user.role !== admin) return res.redirect("/");
+    if(req.user.role.num !== admin) return res.redirect("/");
     if(req.body.type === "register") {
         Event.find({eventID: req.params.id}, function(err,foundEvent){
             if(err) {
@@ -99,7 +99,7 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
 });
 
 router.get("/calendar/events", isLoggedIn, function(req,res){
-    if(req.user.role !== admin) return res.redirect("/");
+    if(req.user.role.num !== admin) return res.redirect("/");
     Calendar.find({}, function(err, foundEvents){
        if(err) {
            console.log(err);
@@ -109,11 +109,11 @@ router.get("/calendar/events", isLoggedIn, function(req,res){
 });
 
 router.get("/calendar/event/edit/:id", isLoggedIn, function(req,res){
-   if(req.user.role !== admin) return res.redirect("/");
+   if(req.user.role.num !== admin) return res.redirect("/");
 });
 
 router.post("/calendar/events/:id", isLoggedIn, function(req, res){
-    if(req.user.role !== admin) return res.redirect("/");
+    if(req.user.role.num !== admin) return res.redirect("/");
     Calendar.findByIdAndDelete(req.params.id, err => {
         if(err) {
             console.log(err);

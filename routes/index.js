@@ -22,17 +22,17 @@ router.get("/", function(req, res){
 
  
  router.get("/register", function(req,res){
-     res.render("register");
+     res.render("register", {wrongName: false});
  });
  
  router.post("/register", function(req, res){
-     let role;
-     if(req.body.username === "admin") role = 5;
+     let role = {name:"Guest", num:0};
+     if(req.body.username === "admin") role = {name: "Admin", num:5};
      const newUser = new User({username: req.body.username, role: role, registrationDate: Date.now()});
      User.register(newUser, req.body.password, function(err,user){
          if(err) {
              console.log(err.name);
-             return res.render("register");
+             return res.render("register", {wrongName: true});
          }
          passport.authenticate("local")(req,res,function(){
              res.redirect("/");
