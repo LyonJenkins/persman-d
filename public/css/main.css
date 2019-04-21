@@ -1,4 +1,40 @@
-.choosen {
+@import url("https://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900");
+
+
+.titillium-test {
+    font-size: 14px;
+}
+
+div .titillium-test {
+    text-align: center;
+}
+
+td {
+    font-size: 12px;
+}
+
+* {
+    font-family: 'Titillium Web', sans-serif;
+    border-radius: 0 !important;
+}
+
+.card-btn {
+    font-size: 13px;
+}
+
+.card-footer {
+    font-size: 14px;
+}
+
+.card-title {
+    font-size: 20px;
+}
+
+.card-text {
+    font-size: 13px;
+}
+
+  .choosen {
     padding-top: 1%;
     margin-top: 0%;
     text-align:center;
@@ -128,4 +164,8 @@ table {
 .name {
     border-radius: .2rem;
     border: 10px solid transparent;
+}
+
+.usersTable {
+    width: 50%;
 }
