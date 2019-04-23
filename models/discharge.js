@@ -5,7 +5,7 @@ const DischargeSchema = new mongoose.Schema({
     reason: String,
     ownerID: String,
     type: {type: String, default: "Honorable"},
-    read: {type: Boolean, default: false},
+    read: {type: String, default: "Pending"},
     dateCreated: Date,
 });
 

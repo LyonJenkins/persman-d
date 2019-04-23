@@ -10,8 +10,10 @@ const ApplicationSchema = new mongoose.Schema({
     microphone: String,
     position: String,
     ownerID: String,
-    read: {type: Boolean, default: false},
+    read: {type: String, default: "pending"},
     dateCreated: Date,
+    comments: Array,
+    steamProfile: String,
 });
 
 module.exports = mongoose.model("Application", ApplicationSchema);

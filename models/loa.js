@@ -6,7 +6,7 @@ const LOASchema = new mongoose.Schema({
     ownerID: String,
     leaveDate: String,
     returnDate: String,
-    read: {type: Boolean, default: false},
+    read: {type: String, default: "Pending"},
     dateCreated: Date,
 });
 
