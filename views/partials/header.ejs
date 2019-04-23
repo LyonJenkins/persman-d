@@ -9,6 +9,7 @@
         <script src="/moment-timezone/moment.js" crossorigin="anonymous"></script>
         <script src="/moment-timezone/moment-timezone.js" crossorigin="anonymous"></script>
         <script src="/moment-timezone/moment-timezone-with-data.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     </head>
     <body>
     
@@ -51,7 +52,7 @@
                                 <a class="nav-link" href="/register">Register</a>
                         </li>
                     <% } else { %>
-                        <span class="navbar-text">Signed in as <span style="font-weight: 800; color:black;"><%=currentUser.username%></span></span>
+                        <span class="navbar-text"><a href="/user/<%=currentUser._id%>"><i class="fas fa-user-circle"></i><span style="padding-left: .25rem"><%=currentUser.username%></span></a></span>
                         <li class="nav-item">
                                 <a class="nav-link" href="/logout">Logout</a>
                         </li>
