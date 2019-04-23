@@ -132,9 +132,9 @@ table {
     font-weight: 400;
 }
 
-.Read {
+.Pending {
     display: inline-block;
-    background-color: #208710;
+    background-color: #ffc107;
     color: white;
     padding: .1rem .25rem;
     font-size: .875rem;
@@ -144,9 +144,21 @@ table {
     font-weight: 400;
 }
 
-.Unread {
+.Denied {
     display: inline-block;
     background-color: #dc3545;
+    color: white;
+    padding: .1rem .25rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+    border: 1px solid transparent;
+    font-weight: 400;
+}
+
+.Approved {
+    display: inline-block;
+    background-color: #208710;
     color: white;
     padding: .1rem .25rem;
     font-size: .875rem;
