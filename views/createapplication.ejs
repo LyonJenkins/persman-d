@@ -15,6 +15,7 @@
             </div>
         <% } %>
 
+
         <label for="age">How old are you?</label>
         <div class="form-group">
             <input class="form-control" id="age" type="number" name="age" required>
@@ -28,13 +29,19 @@
 
         <label for="reason">Why do you want to join the unit?</label>
         <div class="form-group"><input class="form-control" id="reason" type="text" name="reason" required>
-            <small class="form-text text-muted">What is your reason for wanting to join the unit?</small>
+            <small class="form-text text-muted">What is your reason for wanting to join the unit? Keep it short and simple, don't give your life story.</small>
         </div>
 
         <label for="findus">How did you find about us?</label>
         <div class="form-group">
             <input class="form-control" id="findus" type="text" name="findus" required>
             <small class="form-text text-muted">Tell us how you find our unit.</small>
+        </div>
+
+        <label for="profile">Enter your Steam Profile link.</label>
+        <div class="form-group">
+            <input class="form-control" id="profile" type="text" name="profile" required>
+            <small class="form-text text-muted">Copy your profile link from your Steam page so we can contact you if you get accepted.</small>
         </div>
 
         <label for="arma3">Do you own a copy of Arma 3?</label>
@@ -53,11 +60,11 @@
         <label for="mic">Do you have a functioning microphone?</label>
         <div class="form-group">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="mic" id="yes" value="yes" required>
+                <input class="form-check-input" type="radio" name="mic" id="yes" value="Yes" required>
                 <label class="form-check-label" for="yes">Yes</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="mic" id="no" value="no" required>
+                <input class="form-check-input" type="radio" name="mic" id="no" value="No" required>
                 <label class="form-check-label" for="no">No</label>
             </div>
             <small class="form-text text-muted">Do you own a functioning microphone?</small>
@@ -67,8 +74,8 @@
             <label for="mos">What position do you want in the unit?</label>
             <select class="form-control" id="mos" name="mos" required>
                 <option>Infantry</option>
-                <option>Medic</option>
-                <option>Aviator</option>
+<!--                <option disabled>Medic</option>-->
+<!--                <option disabled>Aviator</option>-->
             </select>
         </div>
 
