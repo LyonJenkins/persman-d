@@ -25,7 +25,7 @@
         <tr>
             <th scope="col">Request Type</th>
             <th scope="col">User</th>
-            <th scope="col">Read</th>
+            <th scope="col">Status</th>
             <th scope="col">Unit</th>
             <th scope="col">Open</th>
             <th scope="col">Delete</th>
@@ -39,13 +39,7 @@
           <tr>
               <td class="align-middle"><%=discharge.requestType%></td>
               <td class="align-middle"><%=user.username%></td>
-              <% let read; %>
-              <% if(discharge.read === true) { %>
-                    <% read = "Read"%>
-              <%} else { %>
-                  <% read = "Unread"%>
-              <% } %>
-              <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+              <td class="align-middle"><span class="<%=discharge.read%>"><%=discharge.read%></span></td>
               <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
                 <td class="align-middle"></td>
                 <% } else if(user.unit.squad == "") { %>
@@ -78,13 +72,7 @@
                     <tr>
                         <td class="align-middle"><%=loa.requestType%></td>
                         <td class="align-middle"><%=user.username%></td>
-                        <% let read; %>
-                        <% if(loa.read === true) { %>
-                            <% read = "Read"%>
-                        <%} else { %>
-                            <% read = "Unread"%>
-                        <% } %>
-                        <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+                        <td class="align-middle"><span class="<%=loa.read%>"><%=loa.read%></span></td>
                         <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
                             <td></td>
                         <% } else if(user.unit.squad == "") { %>
@@ -117,13 +105,7 @@
                 <tr>
                     <td class="align-middle"><%=request.requestType%></td>
                     <td class="align-middle"><%=user.username%></td>
-                    <% let read; %>
-                    <% if(request.read === true) { %>
-                        <% read = "Read"%>
-                    <%} else { %>
-                        <% read = "Unread"%>
-                    <% } %>
-                    <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+                    <td class="align-middle"><span class="<%=request.read%>"><%=request.read%></span></td>
                     <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
                         <td></td>
                     <% } else if(user.unit.squad == "") { %>

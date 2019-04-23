@@ -14,13 +14,7 @@
         <% discharges.forEach(function(discharge) { %>
             <tr>
                 <td class="align-middle"><%=discharge.requestType%></td>
-                <% let read; %>
-                <% if(discharge.read === true) { %>
-                    <% read = "Read"%>
-                <%} else { %>
-                    <% read = "Unread"%>
-                <% } %>
-                <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+                <td class="align-middle"><span class="<%=discharge.read%>"><%=discharge.read%></span></td>
                 <td class="align-middle">
                     <form action="/opcenter/viewrequest/<%=discharge._id%>" method="post">
                         <input class="form-control" type="hidden" name="requestType" value="Discharge">
@@ -33,13 +27,7 @@
         <% applications.forEach(function(app) { %>
         <tr>
             <td class="align-middle"><%=app.requestType%></td>
-            <% let read; %>
-            <% if(app.read === true) { %>
-                <% read = "Read"%>
-            <%} else { %>
-                <% read = "Unread"%>
-            <% } %>
-            <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+            <td class="align-middle"><span class="<%=app.read%>"><%=app.read%></span></td>
             <td class="align-middle">
                 <form action="/opcenter/viewrequest/<%=app._id%>" method="post">
                     <input class="form-control" type="hidden" name="requestType" value="Application">
@@ -52,13 +40,7 @@
         <% leaves.forEach(function(loa) { %>
             <tr>
                 <td class="align-middle"><%=loa.requestType%></td>
-                <% let read; %>
-                <% if(loa.read === true) { %>
-                    <% read = "Read"%>
-                <%} else { %>
-                    <% read = "Unread"%>
-                <% } %>
-                <td class="align-middle"><span class="<%=read%>"><%=read%></span></td>
+                <td class="align-middle"><span class="<%=loa.read%>"><%=loa.read%></span></td>
                 <td class="align-middle">
                     <form action="/opcenter/viewrequest/<%=loa._id%>" method="post">
                         <button class="btn btn-primary btn-sm">Open Request</button>

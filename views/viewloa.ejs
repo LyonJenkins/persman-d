@@ -68,12 +68,17 @@
         <br>
             <h1>Actions</h1>
         <hr>
+
+        <% if(currentUser.role.num === 5) { %>
+        <br>
+        <h1>Actions</h1>
+        <hr>
         <div class="card-deck" style="padding-bottom: 1%;">
             <div class="card text-center" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><strong>Approve</strong></h5>
                     <form action="/opcenter/<%=loa._id%>" method="POST">
-                        <% if(!loa.read) { %>
+                        <% if(loa.read === "Pending") { %>
                             <div class="form-group"><button class="btn btn-success" style="width: 50%;">Approve</button></div>
                         <% } else { %>
                             <div class="form-group"><button class="btn btn-success" style="width: 50%;" disabled>Approve</button></div>
@@ -88,7 +93,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><strong>Approve</strong></h5>
                     <form action="/opcenter/<%=loa._id%>" method="POST">
-                        <% if(!loa.read) { %>
+                        <% if(loa.read === "Pending") { %>
                             <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>
                         <% } else { %>
                             <div class="form-group"><button class="btn btn-danger" style="width: 50%;" disabled>Deny</button></div>
@@ -100,12 +105,9 @@
                 </div>
             </div>
         </div>
-
+            <% } %>
         <% } %>
       <% } %>
-
-
-
 
 </div>
 

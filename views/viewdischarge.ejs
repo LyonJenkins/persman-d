@@ -45,6 +45,7 @@
                 </div>
             </div>
 
+            <% if(currentUser.role.num === 5) { %>
         <br>
         <h1>Actions</h1>
         <hr>
@@ -53,7 +54,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><strong>Approve</strong></h5>
                     <form action="/opcenter/<%=discharge._id%>" method="POST">
-                        <% if(!discharge.read) { %>
+                        <% if(discharge.read === "Pending") { %>
                             <div class="form-group">
                                 <select class="form-control m-sm-auto " id="discharge" name="dischargeType" style="width: 50%; text-align: center;">
                                     <option>Honorable</option>
@@ -72,9 +73,9 @@
             </div>
             <div class="card text-center" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title"><strong>Approve</strong></h5>
+                    <h5 class="card-title"><strong>Deny</strong></h5>
                     <form action="/opcenter/<%=discharge._id%>" method="POST">
-                        <% if(!discharge.read) { %>
+                        <% if(discharge.read === "Pending") { %>
                             <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>
                         <% } else { %>
                             <div class="form-group"><button class="btn btn-danger" style="width: 50%;" disabled>Deny </button></div>
@@ -86,7 +87,7 @@
                 </div>
             </div>
         </div>
-
+            <% } %>
         <% } %>
       <% } %>
 
