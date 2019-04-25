@@ -14,7 +14,7 @@ td {
 }
 
 * {
-    font-family: 'Titillium Web', sans-serif;
+    /*font-family: 'Titillium Web', sans-serif;*/
     border-radius: 0 !important;
 }
 
@@ -180,4 +180,13 @@ table {
 
 .usersTable {
     width: 50%;
+}
+
+.login {
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+.marginPad {
+    margin-top: 1%; padding: 1%;
 }

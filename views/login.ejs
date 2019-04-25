@@ -1,6 +1,6 @@
 <% include partials/header %>
 
-<div class="container shadow bg-white" style="margin-top: 1%; padding: 1%;">
+<div class="shadow bg-white marginPad login">
     <h1>Login</h1>
     <hr>
     <form action="/login" method="POST">
@@ -9,9 +9,9 @@
             <input type="username" class="form-control" id="username" name="username" placeholder="enter a username">
         </div>
         <div class="form-group">
-                <label id="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="enter a password">
-            </div>
+            <label id="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="enter a password">
+        </div>
         <button class="btn btn-primary">Login</button>
     </form>
 </div>
