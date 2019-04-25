@@ -6,11 +6,6 @@ router.get("/", function(req, res){
             console.log(err);
         }
         let newEvents = [];
-        // console.log(allEvents.length)
-        // for(let i = allEvents.length; i > allEvents.length; i++) {
-        //     console.log(allEvents[i])
-        //     newEvents.push(allEvents[i]);
-        // }
         let place = allEvents.length;
         while(place > allEvents.length-4) {
             if(allEvents[place] !== undefined) newEvents.push(allEvents[place]);
@@ -55,12 +50,5 @@ router.get("/", function(req, res){
      req.logout();
      res.redirect("/");
  });
- 
- function isLoggedIn(req,res,next){
-     if(req.isAuthenticated()){
-         return next();
-     }
-     res.redirect("/login");
- }
 
  module.exports = router;
