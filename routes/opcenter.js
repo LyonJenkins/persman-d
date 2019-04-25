@@ -9,51 +9,8 @@ const express = require("express"),
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/opcenter", isLoggedIn, function(req, res){
-   // Discharge.find({}, function(err, discharges){
-   //    if(err) {
-   //        console.log(err);
-   //    }
-   //    Leave.find({}, function(err, events){
-   //       if(err){
-   //           console.log(err);
-   //       }
-   //       Application.find({}, function(err, applications){
-   //          if(err) {
-   //              console.log(err);
-   //          }
-   //           let cnt = 0;
-   //           async.forEachOf(discharges, (discharge, key, callback) => {
-   //               if(discharge.read === "Pending") cnt++;
-   //           }, err => {
-   //               if(err) {
-   //                   console.log(err);
-   //               }
-   //               async.forEachOf(events, (event, key, callback) => {
-   //                   if(event.read === "Pending") cnt++;
-   //               }, err => {
-   //                   if(err) {
-   //                       console.log(err);
-   //                   }
-   //                   async.forEachOf(applications, (app, key, callback) => {
-   //                       if(app.read === "Pending") cnt++;
-   //                   }, err => {
-   //                       if(err) {
-   //                           console.log(err);
-   //                       }
-   //                       res.render("opcenter", {reqs: cnt});
-   //                   });
-   //               });
-   //           });
-   //       });
-   //    });
-   // });
    res.render("opcenter");
 });
-
-// router.get("/opcenter/messages", isLoggedIn, function(req, res){
-//     if(req.user.role.num !== admin) return res.redirect("/");
-//     res.render("messages");
-// });
 
 router.get("/opcenter/discharge", isLoggedIn, function(req, res){
     if(req.user.role.num === guest) return res.redirect("/");
@@ -113,12 +70,6 @@ router.post("/opcenter/loa", isLoggedIn, function(req, res){
     });
 });
 
-
-// router.get("/opcenter/requests", isLoggedIn, function(req, res){
-//     if(req.user.role.num !== admin) return res.redirect("/");
-//     return res.render("requests", {discharges: [], loas: [], applications: []});
-// });
-
 router.get("/opcenter/requests", isLoggedIn, function(req, res){
     if(req.user.role.num !== admin) return res.redirect("/");
     User.find({}, function(err,users){
@@ -139,64 +90,6 @@ router.get("/opcenter/requests", isLoggedIn, function(req, res){
            })
        });
     });
-    // let users = [];
-    // let leaves = [];
-    // let filtereddischarges = [];
-    // let allApps = [];
-    //
-    // function getRequests(_callback) {
-    //     User.find({}, function(err, allUsers){
-    //         if(err) {
-    //             console.log(err);
-    //         }
-    //         users = allUsers;
-    //     });
-    //     Leave.find({}, function(err, allLeaves){
-    //         if(err) {
-    //             console.log(err);
-    //         }
-    //         if(req.body.type === "New Requests") {
-    //             for(let i = 0; i < allLeaves.length; i++) {
-    //                 if(allLeaves[i].read === false) {
-    //                     leaves.push(allLeaves[i]);
-    //                 }
-    //             }
-    //         } else {
-    //             leaves = allLeaves;
-    //         }
-    //     });
-    //     Discharge.find({}, function(err, allDischarges){
-    //         if(err) {
-    //             console.log(err);
-    //         }
-    //         if(req.body.type === "New Requests") {
-    //             for(let i = 0; i < allDischarges.length; i++) {
-    //                 if(allDischarges[i].read === false) {
-    //                     filtereddischarges.push(allDischarges[i]);
-    //                 }
-    //             }
-    //         } else {
-    //             filtereddischarges = allDischarges;
-    //         }
-    //     });
-    //     Application.find({}, function(err, allApplications){
-    //         if(err) {
-    //             console.log(err);
-    //         }
-    //         if(req.body.type === "New Requests") {
-    //             for(let i = 0; i < allApplications.length; i++) {
-    //                 if(allApplications[i].read === false) {
-    //                     allApps.push(allApplications[i]);
-    //                 }
-    //             }
-    //             console.log(allApps);
-    //         } else {
-    //             allApps = allApplications;
-    //         }
-    //         console.log(allApps);
-    //     });
-    // }
-    // getRequests(() => res.render("requests", {users: users, discharges:filtereddischarges, loas:leaves, applications:allApps}));
 });
 
 router.post("/opcenter/deleterequest/:id", isLoggedIn, function(req,res){
@@ -270,7 +163,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
 });
 
 router.get("/opcenter/application", isLoggedIn, function(req,res){
-    // if(req.user.role.num !== guest) return res.redirect("/");
+    if(req.user.role.num !== guest || req.user.role.num !== admin) return res.redirect("/");
     res.render("createapplication", {submitted: false});
 });
 
@@ -296,18 +189,6 @@ router.post("/opcenter/application", isLoggedIn, function(req,res){
         res.render("createapplication", {submitted: true})
     });
 });
-
-// router.post("/opcenter/:id/comments", isLoggedIn, function(req,res){
-//     const Comment = new Comment({
-//         discussion_id: req.params.id,
-//         posted: Date.now(),
-//         author: {
-//             id: req.user._id,
-//             name: req.user.username,
-//         },
-//         text: req.body.text,
-//     })
-// });
 
 router.post("/opcenter/:id/", isLoggedIn, function(req,res){
     if(req.user.role.num !== admin) return res.redirect("/");
