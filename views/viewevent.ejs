@@ -1,4 +1,5 @@
 <% include partials/header %>
+<% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
 
 <script>
 
@@ -56,6 +57,7 @@
                 <div class="card-body text-center">
                     <h3 class="card-title text-left" style="font-weight: 600;">Event Information <span style="font-weight: 400;">- <%=event.start%> - <span><%=event.startTime%></span> EST | <span id="cst"></span> CST | <span id="pst"></span> PST | <span id="cet"></span> CET</span></h3>
                     <hr>
+                    <% if(currentUser.role.num >= enlisted) { %>
                     <div class="container-fluid mt-4">
                         <div class="row justify-content-center">
                             <div class="col-auto mb-3">
@@ -91,27 +93,30 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <% } %>
 
+                    <div>
+                        <h4 class="card-title text-left" style="font-weight: 600;">Attending Users</h4>
+                        <hr>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="usersTable">Username</th>
+                                <th scope="col" class="usersTable">Rank</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% list.forEach(function(user) { %>
+                            <tr>
+                                <td><a href="/user/<%=user._id%>"><%=user.username%></a></td>
+                                <td><%=user.rank%></td>
+                            </tr>
+                            <% }) %>
+                            </tbody>
+                        </table>
                     </div>
 
-
-
-                    <table class="table table-sm table-bordered">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="usersTable">Username</th>
-                            <th scope="col" class="usersTable">Rank</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <% list.forEach(function(user) { %>
-                        <tr>
-                            <td><a href="/user/<%=user._id%>"><%=user.username%></a></td>
-                            <td><%=user.rank%></td>
-                        </tr>
-                        <% }) %>
-                        </tbody>
-                    </table>
 
                 </div>
 
