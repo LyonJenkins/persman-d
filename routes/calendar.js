@@ -39,7 +39,16 @@ router.post("/calendar/event", isLoggedIn, function(req,res){
     } else if(req.body.eventtype === "Operation") {
         event = {type: "Operation", color : "blue"};
     }
-    Calendar.create({title: req.body.eventname, start:req.body.eventstart, description:req.body.desc, startTime:req.body.eventtime, imageName:req.body.imagename, eventType:event}, function(err, doc){
+    const body = req.body;
+    const newEvent = new Calendar({
+        title: body.eventname,
+        start: body.eventstart,
+        description: body.desc,
+        startTime: body.eventtime,
+        imageName: body.imagename,
+        eventType: event,
+    });
+    Calendar.create(newEvent, function(err, doc){
         if(err) {
             console.log(err);
         }
@@ -53,28 +62,25 @@ router.post("/calendar/event", isLoggedIn, function(req,res){
 });
 
 router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
-    if(req.user.role.num !== admin) return res.redirect("/");
+    if(req.user.role.num < enlisted) return res.redirect("/");
     if(req.body.type === "register") {
         Event.find({eventID: req.params.id}, function(err,foundEvent){
             if(err) {
                 console.log(err);
             }
             foundEvent = foundEvent[0];
-            async.forEachOf(foundEvent.attendingList, (attendee, key, callback) => {
-                    if(attendee.username === req.user.username) {
-                        return res.redirect(`/calendar/event/${req.params.id}`);
-                    }
-            }, err => {
-                if(err) console.log(err);
-                let userList = foundEvent.attendingList;
-                userList.push(req.user);
-                Event.findOneAndUpdate({_id:foundEvent._id}, {$set:{attendingList: userList}}, function(err, event){
-                    if(err) {
-                        console.log(err);
-                    }
-                });
-                return res.redirect(`/calendar/event/${req.params.id}`)
+            const attendingList = foundEvent.attendingList;
+            for(let i = 0; i < attendingList.length; i++) {
+                if(attendingList[i].username === req.user.username) return res.redirect(`/calendar/event/${req.params.id}`);
+            }
+            let newList = foundEvent.attendingList;
+            newList.push(req.user);
+            Event.findByIdAndUpdate(foundEvent._id, {$set:{attendingList: newList}}, function(err,event){
+               if(err) {
+                   console.log(err);
+               }
             });
+            return res.redirect(`/calendar/event/${req.params.id}`);
         });
     } else if(req.body.type === "unregister"){
         Event.find({eventID: req.params.id}, function(err,foundEvent){
@@ -82,19 +88,23 @@ router.post("/calendar/event/:id/users", isLoggedIn, function(req,res){
                 console.log(err);
             }
             foundEvent = foundEvent[0];
-            let userList = [];
-            foundEvent.attendingList.forEach(function(attendee){
-                if(attendee.username !== req.user.username) {
-                    userList.push(attendee);
-                }
+            const attendingList = foundEvent.attendingList;
+            let val = false;
+            for(let i = 0; i < attendingList.length; i++) {
+                if(attendingList[i].username === req.user.username) val = true;
+            }
+            if(!val) return res.redirect(`/calendar/event/${req.params.id}`);
+            let newList = foundEvent.attendingList;
+            const username = req.user.username;
+            const index = attendingList.findIndex(user => user.username === username);
+            newList.splice(index,1);
+            Event.findByIdAndUpdate(foundEvent._id, {$set:{attendingList: newList}}, function(err,event){
+               if(err) {
+                   console.log(err);
+               }
             });
-            Event.findOneAndUpdate({_id:foundEvent._id}, {$set:{attendingList: userList}}, function(err, event){
-                if(err) {
-                    console.log(err);
-                }
-            })
+            return res.redirect(`/calendar/event/${req.params.id}`);
         });
-        res.redirect(`/calendar/event/${req.params.id}`)
     }
 });
 
