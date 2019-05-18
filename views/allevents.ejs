@@ -5,6 +5,7 @@
     <hr>
     <div class="container-fluid mt-4">
         <div class="row justify-content-center">
+            <% if(events.length > 0) { %>
             <% events.forEach(function(event) { %>
             <div class="col-auto mb-3">
                 <div class="card" style="width: 20rem;">
@@ -23,6 +24,9 @@
                 </div>
             </div>
             <% }) %>
+            <% } else { %>
+                <h3>There are no events.</h3>
+            <% } %>
         </div>
     </div>
 </div>
