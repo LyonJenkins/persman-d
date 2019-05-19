@@ -132,6 +132,7 @@
         </tr>
       </thead>
       <tbody>
+      <% let num = 1; %>
     <% users.forEach(function(user) { %>
         <tr>
           <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
@@ -142,12 +143,38 @@
             <td class="align-middle"><%=user.role.name%></td>
             <td class="align-middle">
             <form action="/user/delete/<%=user._id%>" method="post">
-                <button class="btn btn-danger btn-sm">Delete User</button>
+<!--                <button type="submit" class="btn btn-danger btn-sm">Delete User</button>-->
+
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<%=num%>">
+                    Delete User
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="delete<%=num%>" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Confirm Delete User</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                This action cannot be undone.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Confirm Action</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%num++;%>
             </form>
           </td>
           <td class="align-middle">
             <form action="/user/edit/<%=user._id%>" method="get">
-              <button class="btn btn-warning btn-sm">Edit User</button>
+              <button type="submit" class="btn btn-warning btn-sm">Edit User</button>
            </form>
             </td>
           <% } %>
