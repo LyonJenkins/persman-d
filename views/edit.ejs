@@ -57,6 +57,7 @@
                 <option>Second Squad</option>
                 <option>Third Squad</option>
                 <option>Fourth Squad</option>
+                <option>Platoon HQ</option>
                 <option>none</option>
             </select>
         </div>
@@ -102,7 +103,7 @@
             </select>
         </div>
         
-        <% if(currentUser.role.num === admin) { %>
+        <% if(currentUser.role.num === recruiter || currentUser.role.num === admin) { %>
         <div class="form-group">
             <label for="role">Select User's Group</label>
             <select class="form-control" id="role" name="role">
@@ -111,7 +112,10 @@
                 <option>Enlisted</option>
                 <option>NCO</option>
                 <option>Officer</option>
+                <% if(currentUser.role.num > recruiter) { %>
                 <option>Recruiter</option>
+                <option>Admin</option>
+                <% } %>
             </select>
         </div>
         <% } %>        
@@ -123,3 +127,4 @@
 
 
 <% include partials/footer %>
+

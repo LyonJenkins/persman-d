@@ -71,7 +71,7 @@ router.post("/opcenter/loa", isLoggedIn, function(req, res){
 });
 
 router.get("/opcenter/requests", isLoggedIn, function(req, res){
-    if(req.user.role.num !== admin) return res.redirect("/");
+    if(req.user.role.num < recruiter) return res.redirect("/");
     User.find({}, function(err,users){
        if(err) {
            console.log(err);
@@ -93,7 +93,7 @@ router.get("/opcenter/requests", isLoggedIn, function(req, res){
 });
 
 router.post("/opcenter/deleterequest/:id", isLoggedIn, function(req,res){
-    if(req.user.role.num !== admin) return res.redirect("/");
+    if(req.user.role.num < recruiter) return res.redirect("/");
     if(req.body.requestType === "Discharge") {
         Discharge.findByIdAndDelete(req.params.id, function(err){
             if(err) {
@@ -117,7 +117,7 @@ router.post("/opcenter/deleterequest/:id", isLoggedIn, function(req,res){
 });
 
 router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
-    if(req.user.role.num !== admin) return res.redirect("/");
+    if(req.user.role.num < recruiter) return res.redirect("/");
     if(req.body.requestType === "Discharge") {
         Discharge.findById(req.params.id, function(err, foundDischarge){
             if(err) {
@@ -191,7 +191,7 @@ router.post("/opcenter/application", isLoggedIn, function(req,res){
 });
 
 router.post("/opcenter/:id/", isLoggedIn, function(req,res){
-    if(req.user.role.num !== admin) return res.redirect("/");
+    if(req.user.role.num < recruiter) return res.redirect("/");
     if(req.body.requestType === "Leave") {
         if(req.body.approve === "1") {
             Leave.findByIdAndUpdate({_id: req.body.id}, {read: "Approved"}, function(err){

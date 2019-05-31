@@ -22,7 +22,7 @@ router.get("/user/edit/:id", isLoggedIn, function(req,res){
 });
 
 router.post("/user/edit", isLoggedIn, function(req,res){
-    if(req.user.role.num !== admin) return res.redirect("/");
+    if(req.user.role.num < recruiter) return res.redirect("/");
     User.find({_id: req.body.id}, function(err, user){
         if(err) {
             console.log(err);
@@ -59,7 +59,7 @@ router.post("/user/edit", isLoggedIn, function(req,res){
 });
 
 router.post("/user/delete/:id", isLoggedIn, (req, res) => {
-    if(req.user.role.num !== admin) return res.redirect("/");
+    if(req.user.role.num !== admin || req.user.role.num !== recruiter) return res.redirect("/");
     User.findByIdAndDelete(req.params.id, err => {
         if(err) {
             res.redirect("/");

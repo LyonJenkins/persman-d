@@ -57,14 +57,14 @@
 </div>
 
 
-<% if(currentUser.role.num === admin) { %>
+<% if(currentUser.role.num === admin || currentUser.role.num === recruiter) { %>
 <div class="container shadow bg-white" style="margin-top: 1%; margin-bottom: 1%; padding: 1%;">
     <h1>Administration Center</h1>
     <hr>
     <div class="card-deck">
         <div class="card text-center" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title"><strong>View Requests </strong></h5>
+                <h5 class="card-title"><strong>View Requests</strong></h5>
                 <p class="card-text">View all user requests.</p>
                 <a href="/opcenter/requests" class="card-btn btn btn-primary">View Requests</a>
             </div>
