@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <table class="table bg-white table-bordered table-sm">
                             <thead>
-                                <tr>
+                            <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Rank</th>
                                 <th scope="col">MOS</th>
@@ -30,29 +30,29 @@
                                 <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                                     <th scope="col">Edit</th>
                                 <% } %>
-                                </tr>
+                            </tr>
                             </thead>
                             <tbody>
                             <% users.forEach(function(user) { %>
                                 <% if(user.status !== "Retired" && user.unit.company === "Crusader Company" && user.unit.platoon === platoons[i] && user.unit.squad === squads[j]) { %>
-                                    <tr>
-                                        <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
-                                        <td class="align-middle"><%=user.rank%></td>
-                                        <td class="align-middle"><%=user.position%></td>
-                                        <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
-                                        <% if(user.unit.squad == "none") { %>
-                                         <td class="align-middle"><%=user.unit.platoon%></td>
-                                        <% } else { %>
-                                           <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
-                                        <% } %>
-                                        <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
-                                            <td class="align-middle">
-                                            <form action="/user/edit/<%=user._id%>" method="get">
+                                <tr>
+                                    <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
+                                    <td class="align-middle"><%=user.rank%></td>
+                                    <td class="align-middle"><%=user.position%></td>
+                                    <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+                                    <% if(user.unit.squad == "none") { %>
+                                    <td class="align-middle"><%=user.unit.platoon%></td>
+                                    <% } else { %>
+                                    <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
+                                    <% } %>
+                                    <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
+                                    <td class="align-middle">
+                                        <form action="/user/edit/<%=user._id%>" method="get">
                                             <button class="btn btn-warning btn-sm">Edit User</button>
-                                            </form>
-                                            </td>
-                                        <% } %>
-                                    </tr>
+                                        </form>
+                                    </td>
+                                    <% } %>
+                                </tr>
                                 <% } %>
                             <% }) %>
                         </table>
@@ -61,66 +61,18 @@
                 <br>
             <% } %>
         <% } else { %>
-            <div class="card">
-                <div class="card-header">
-                    <h3><%=platoons[i]%>, Crusader Company</h3>
-                </div>
-                <table class="table bg-white table-bordered table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Rank</th>
-                        <th scope="col">MOS</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Unit</th>
-                        <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
-                            <th scope="col">Edit</th>
-                        <% } %>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <% users.forEach(function(user) { %>
-                        <% if(user.status !== "Retired" && user.unit.company === "Crusader Company" && user.unit.platoon === platoons[i]) { %>
-                        <tr>
-                            <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
-                            <td class="align-middle"><%=user.rank%></td>
-                            <td class="align-middle"><%=user.position%></td>
-                            <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
-                            <% if(user.unit.squad == "none") { %>
-                            <td class="align-middle"><%=user.unit.platoon%></td>
-                            <% } else { %>
-                            <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
-                            <% } %>
-                            <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
-                            <td class="align-middle">
-                                <form action="/user/edit/<%=user._id%>" method="get">
-                                    <button class="btn btn-warning btn-sm">Edit User</button>
-                                </form>
-                            </td>
-                            <% } %>
-                        </tr>
-                        <% } %>
-                    <% }) %>
-                </table>
-                </div>
+        <div class="card">
+            <div class="card-header">
+                <h3><%=platoons[i]%>, Crusader Company</h3>
             </div>
-            <br>
-            <% } %>
-    <% } %>
-
-<!--Only retired members-->
-    <div class="card">
-        <div class="card-header">
-            <h3>Retired Members</h3>
-        </div>
-        <div class="card-body">
-            <table class="table white table-bordered table-sm">
+            <table class="table bg-white table-bordered table-sm">
                 <thead>
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Rank</th>
                     <th scope="col">MOS</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Unit</th>
                     <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                         <th scope="col">Edit</th>
                     <% } %>
@@ -128,12 +80,17 @@
                 </thead>
                 <tbody>
                 <% users.forEach(function(user) { %>
-                    <% if(user.status == "Retired") { %>
+                    <% if(user.status !== "Retired" && user.unit.company === "Crusader Company" && user.unit.platoon === platoons[i]) { %>
                     <tr>
-                        <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
+                        <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
                         <td class="align-middle"><%=user.rank%></td>
                         <td class="align-middle"><%=user.position%></td>
                         <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+                        <% if(user.unit.squad == "none") { %>
+                        <td class="align-middle"><%=user.unit.platoon%></td>
+                        <% } else { %>
+                        <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
+                        <% } %>
                         <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                         <td class="align-middle">
                             <form action="/user/edit/<%=user._id%>" method="get">
@@ -146,8 +103,51 @@
                 <% }) %>
             </table>
         </div>
+</div>
+<br>
+<% } %>
+<% } %>
+
+<!--Only retired members-->
+<div class="card">
+    <div class="card-header">
+        <h3>Retired Members</h3>
     </div>
-    <br>
+    <div class="card-body">
+        <table class="table white table-bordered table-sm">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Rank</th>
+                <th scope="col">MOS</th>
+                <th scope="col">Status</th>
+                <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
+                    <th scope="col">Edit</th>
+                <% } %>
+            </tr>
+            </thead>
+            <tbody>
+            <% users.forEach(function(user) { %>
+                <% if(user.status == "Retired") { %>
+                <tr>
+                    <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
+                    <td class="align-middle"><%=user.rank%></td>
+                    <td class="align-middle"><%=user.position%></td>
+                    <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
+                    <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
+                    <td class="align-middle">
+                        <form action="/user/edit/<%=user._id%>" method="get">
+                            <button class="btn btn-warning btn-sm">Edit User</button>
+                        </form>
+                    </td>
+                    <% } %>
+                </tr>
+                <% } %>
+            <% }) %>
+        </table>
+    </div>
+</div>
+<br>
 
 
 
