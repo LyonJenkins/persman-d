@@ -59,7 +59,7 @@ router.post("/user/edit", isLoggedIn, function(req,res){
 });
 
 router.post("/user/delete/:id", isLoggedIn, (req, res) => {
-    if(req.user.role.num !== admin || req.user.role.num !== recruiter) return res.redirect("/");
+    if(req.user.role.num !== admin) return res.redirect("/");
     User.findByIdAndDelete(req.params.id, err => {
         if(err) {
             res.redirect("/");
