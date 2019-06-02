@@ -1,17 +1,11 @@
 <% include partials/header %>
 
-
-<script>
-</script>
-
-
 <!--Members only for Crusader Company-->
 <div class="container shadow bg-white mt-3 mb-3 p-3">
     <h1>Members Page</h1>
     <hr>
 
     <% for(let i = 0; i < platoons.length; i++) { %>
-        <% console.log(platoons[i]); %>
         <% if(platoons[i] !== "Company HQ") { %>
             <% for(let j = 0; j < squads.length; j++) { %>
                 <div class="card">
@@ -37,7 +31,7 @@
                                 <% if(user.status !== "Retired" && user.unit.company === "Crusader Company" && user.unit.platoon === platoons[i] && user.unit.squad === squads[j]) { %>
                                 <tr>
                                     <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
-                                    <td class="align-middle"><%=user.rank%></td>
+                                    <td class="align-middle"><%=user.rank%> <img src="ranks/small/<%=user.rank%>.png" alt=" "></td>
                                     <td class="align-middle"><%=user.position%></td>
                                     <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
                                     <% if(user.unit.squad == "none") { %>

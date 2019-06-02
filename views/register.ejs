@@ -3,24 +3,26 @@
 <div class="container shadow bg-white marginPad">
     <h1>Sign up</h1>
     <hr>
-    <%if(wrongName === true) { %>
+    <% if(error != "") { %>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error!</strong> A user with that username already exists.
+            <strong>Error!</strong> <%=error%>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+    <% } else { %>
+
     <% } %>
 
     <form action="/register" method="POST">
         <div class="form-group">
             <label for="username">Username</label>
-            <input type="username" class="form-control" id="username" name="username" placeholder="enter a username">
-            <small class="form-text text-muted">The max length of a username is 16 characters.</small>
+            <input type="username" class="form-control" id="username" name="username" required placeholder="enter a username" required pattern="[0-9a-zA-Z_.-]*">
+            <small class="form-text text-muted">The max length of a username is 16 characters. Names can only include numbers and letters, and cannot include special characters & whitespace.</small>
         </div>
         <div class="form-group">
                 <label id="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="enter a password">
+                <input type="password" class="form-control" id="password" required name="password" placeholder="enter a password">
             </div>
         <button class="btn btn-primary">Register</button>
     </form>

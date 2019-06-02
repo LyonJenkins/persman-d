@@ -17,7 +17,7 @@ router.get("/", function(req, res){
 
  
  router.get("/register", function(req,res){
-     res.render("register", {wrongName: false});
+     res.render("register", {error: ""});
  });
  
  router.post("/register", function(req, res){
@@ -27,7 +27,7 @@ router.get("/", function(req, res){
      User.register(newUser, req.body.password, function(err,user){
          if(err) {
              console.log(err.name);
-             return res.render("register", {wrongName: true});
+             return res.render("register", {error: err.name});
          }
          passport.authenticate("local")(req,res,function(){
              res.redirect("/");
