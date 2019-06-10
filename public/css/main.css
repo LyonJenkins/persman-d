@@ -190,3 +190,7 @@ table {
 .marginPad {
     margin-top: 1%; padding: 1%;
 }
+
+table {
+    table-layout: fixed;
+}
