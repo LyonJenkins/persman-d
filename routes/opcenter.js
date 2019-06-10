@@ -163,7 +163,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
 });
 
 router.get("/opcenter/application", isLoggedIn, function(req,res){
-    if(req.user.role.num === admin || req.user.role === guest) {
+    if(req.user.role.num === admin || req.user.role.num === guest) {
         res.render("createapplication", {submitted: false});
     } else {
         return res.redirect("/");
