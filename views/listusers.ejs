@@ -18,9 +18,7 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Rank</th>
-                                <th scope="col">MOS</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Unit</th>
                                 <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                                     <th scope="col">Edit</th>
                                 <% } %>
@@ -31,14 +29,8 @@
                                 <% if(user.status !== "Retired" && user.unit.company === "Crusader Company" && user.unit.platoon === platoons[i] && user.unit.squad === squads[j]) { %>
                                 <tr>
                                     <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
-                                    <td class="align-middle"><%=user.rank%> <img src="ranks/small/<%=user.rank%>.png" alt=" "></td>
-                                    <td class="align-middle"><%=user.position%></td>
+                                    <td class="align-middle"><%=user.rank%></td>
                                     <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
-                                    <% if(user.unit.squad == "none") { %>
-                                    <td class="align-middle"><%=user.unit.platoon%></td>
-                                    <% } else { %>
-                                    <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
-                                    <% } %>
                                     <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                                     <td class="align-middle">
                                         <form action="/user/edit/<%=user._id%>" method="get">
@@ -64,9 +56,7 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Rank</th>
-                    <th scope="col">MOS</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Unit</th>
                     <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                         <th scope="col">Edit</th>
                     <% } %>
@@ -78,13 +68,7 @@
                     <tr>
                         <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%></a></td>
                         <td class="align-middle"><%=user.rank%></td>
-                        <td class="align-middle"><%=user.position%></td>
                         <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
-                        <% if(user.unit.squad == "none") { %>
-                        <td class="align-middle"><%=user.unit.platoon%></td>
-                        <% } else { %>
-                        <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%></td>
-                        <% } %>
                         <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                         <td class="align-middle">
                             <form action="/user/edit/<%=user._id%>" method="get">
@@ -113,7 +97,7 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Rank</th>
-                <th scope="col">MOS</th>
+<!--                <th scope="col">MOS</th>-->
                 <th scope="col">Status</th>
                 <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                     <th scope="col">Edit</th>
@@ -126,7 +110,7 @@
                 <tr>
                     <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
                     <td class="align-middle"><%=user.rank%></td>
-                    <td class="align-middle"><%=user.position%></td>
+<!--                    <td class="align-middle"><%=user.position%></td>-->
                     <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
                     <% if(currentUser.role.num === 5 || currentUser.role.num === 4) { %>
                     <td class="align-middle">
