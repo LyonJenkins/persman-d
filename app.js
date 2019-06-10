@@ -6,6 +6,7 @@ const express = require("express"), app = express(), bodyParser = require("body-
 
 mongoose.connect("mongodb://localhost:27017/persman", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
+mongoose.set('useFindAndModify', false);
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 
