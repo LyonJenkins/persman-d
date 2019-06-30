@@ -9,7 +9,7 @@
             <% events.forEach(function(event) { %>
             <div class="col-auto mb-3">
                 <div class="card" style="width: 20rem;">
-                    <img class="card-img-top" src="https://raw.githubusercontent.com/LyonJenkins/persman-pictures/master/<%=event.imageName%>" alt="Image Not Found">
+                    <img class="card-img-top" src="<%=event.imageName%>" alt="Image Not Found">
                     <div class="card-body">
                         <h5 class="card-title"><%=event.title%></h5>
                         <p class="card-text"><%=event.start%> - <%=event.startTime%> EST</p>

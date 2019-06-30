@@ -4,7 +4,7 @@
     <h1 style="text-align: center;">Landing Page</h1>
     <hr>
     <div class="titillium-test">
-        <p class="titillium-test">Welcome to the 143rd Infantry Regiment. If you have not already done so, create an account then navigate to the Operations Center to submit an application.</p>
+        <p class="titillium-test">Welcome to the <span style="font-weight:bold">143rd Infantry Regiment</span>. If you have not already done so, create an account then navigate to the Operations Center to submit an application.</p>
     </div>
 <br>
     <div>
@@ -52,7 +52,7 @@
             <% events.forEach(function(event) { %>
             <div class="col-auto mb-3">
                 <div class="card" style="width: 20rem;">
-                    <img class="card-img-top" src="https://raw.githubusercontent.com/LyonJenkins/persman-pictures/master/<%=event.imageName%>" alt="Image Not Found">
+                    <img class="card-img-top" src="<%=event.imageName%>" alt="Image Not Found">
                     <div class="card-body">
                         <h5 class="card-title"><%=event.title%></h5>
                         <p class="card-text"><%=event.start%> - <%=event.startTime%> EST</p>
