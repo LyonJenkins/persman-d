@@ -1,0 +1,28 @@
+<% include partials/header %>
+
+<div class="container shadow bg-white mt-3 p-3">
+    <div class="container">
+        <% if(error && error.length > 0) { %>
+        <div class="alert alert-danger"><p><%=error %></p></div>
+        <% } %>
+
+        <% if(success && success.length > 0) { %>
+            <div class="alert alert-success"><p><%= success %></p></div>
+        <% } %>
+    </div>
+
+    <h1>Reset Your Password</h1>
+    <hr>
+
+    <form action="/forgot" method="POST">
+        <label for="email">Enter your Email</label>
+        <div class="form-group">
+            <input type="email" name="email" autofocus class="form-control">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Reset Password">
+        </div>
+    </form>
+</div>
+
+<% include partials/footer %>
