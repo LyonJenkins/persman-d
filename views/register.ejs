@@ -16,6 +16,11 @@
 
     <form action="/register" method="POST">
         <div class="form-group">
+            <label for="username">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required placeholder="enter an email">
+            <small class="form-text text-muted">Enter your email.</small>
+        </div>
+        <div class="form-group">
             <label for="username">Username</label>
             <input type="username" class="form-control" id="username" name="username" required placeholder="enter a username" required pattern="[0-9a-zA-Z_.-]*">
             <small class="form-text text-muted">The max length of a username is 16 characters. Names can only include numbers and letters, and cannot include special characters & whitespace.</small>
