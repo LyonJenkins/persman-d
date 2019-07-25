@@ -1,6 +1,6 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
-<div class="container shadow bg-white marginPad">
+<div class="container shadow bg-white mt-3 p-3">
     <% for(var i = 0; i < users.length; i++) { %>
         <% if(users[i]._id == app.ownerID) { %>
             <% var user = users[i]; %>
@@ -101,5 +101,5 @@
     <% } %>
 </div>
 
-<% include partials/footer %>
+<% include ../partials/footer %>
 
