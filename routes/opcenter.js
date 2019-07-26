@@ -5,11 +5,15 @@ const express = require("express"),
     Leave = require("../models/loa"),
     async = require("async"),
     Application = require("../models/application"),
-    Comment = require("../models/comment");
+    Comment = require("../models/comment"),
+    fs = require("fs"),
+    configName = '../settings.json',
+    config = require('../settings.json');
+
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/opcenter", isLoggedIn, function(req, res){
-   res.render("opcenter/opcenter");
+   res.render("opcenter/opcenter", {config: config});
 });
 
 router.get("/opcenter/discharge", isLoggedIn, function(req, res){
@@ -260,6 +264,25 @@ router.post("/opcenter/:id/", isLoggedIn, function(req,res){
         }
     }
     res.redirect("/opcenter/requests");
+});
+
+router.get("/settings", isLoggedIn, function(req,res){
+    if(req.user.role.num !== 5) return res.redirect("/");
+    // console.log(config);
+    res.render("opcenter/settings", {application: config.enableApplication});
+});
+
+router.post("/settings", isLoggedIn, function(req,res){
+    if(req.user.role.num < 5) return res.redirect("/");
+
+    config.enableApplication = `${req.body.application}`;
+
+    fs.writeFile(configName, JSON.stringify(config), function (err) {
+        if (err) return console.log(err);
+        console.log('writing to ' + configName);
+    });
+
+    res.redirect("/settings");
 });
 
 function isLoggedIn(req,res,next){

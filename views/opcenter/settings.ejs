@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+<div class="container shadow bg-white mt-3 p-3">
+    <h1>Website Settings</h1>
+    <hr>
+    <form action="/settings" method="POST">
+        <div class="custom-control custom-switch form-group">
+            <input type="checkbox" class="custom-control-input" id="application" name="application">
+            <label class="custom-control-label" for="application">Enable Application System</label>
+        </div>
+        <div style="text-align:center;" class="form-group">
+            <input type="submit" value="Submit Changes" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+<% if(application === "on") { %>
+<script>
+    document.getElementById("application").checked = true;
+</script>
+<% } %>
+
+<% include ../partials/footer %>
