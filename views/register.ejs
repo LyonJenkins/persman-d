@@ -1,37 +1,52 @@
 <% include partials/header %>
 
-<div class="container shadow bg-white marginPad">
-    <h1>Sign up</h1>
-    <hr>
-    <% if(error != "") { %>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Error!</strong> <%=error%>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    <% } else { %>
+<div class="mt-3 pt-3">
+    <!--    <h1>Login</h1>-->
+    <!--    <hr>-->
 
-    <% } %>
-
-    <form action="/register" method="POST">
-        <div class="form-group">
-            <label for="username">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required placeholder="enter an email">
-            <small class="form-text text-muted">Enter your email.</small>
-        </div>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="username" class="form-control" id="username" name="username" required placeholder="enter a username" required pattern="[0-9a-zA-Z_.-]*">
-            <small class="form-text text-muted">The max length of a username is 16 characters. Names can only include numbers and letters, and cannot include special characters & whitespace.</small>
-        </div>
-        <div class="form-group">
-                <label id="password">Password</label>
-                <input type="password" class="form-control" id="password" required name="password" placeholder="enter a password">
+    <div class="container" style="width: 25%;">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card shadow" style="width: 100%">
+                <div class="card-header">
+                    <h3>Register An Account</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/register" method="POST">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="enter an email">
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="username" class="form-control" id="username" name="username" required placeholder="enter a username" required pattern="[0-9a-zA-Z_.-]*">
+                            <small class="form-text text-muted">The max length is 16 characters, and no special characters or whitespace is allowed.</small>
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" class="form-control" id="password" required name="password" placeholder="enter a password">
+                        </div>
+                        <div class="" style="text-align:center;">
+                            <input type="submit" value="Register" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="text-center">
+                        <a class="" href="/login">Want to login into your account?</a>
+                    </div>
+                </div>
             </div>
-        <button class="btn btn-primary">Register</button>
-    </form>
+        </div>
+    </div>
+
 </div>
+
 
 <script>
  document.getElementById("username").maxLength = "16";

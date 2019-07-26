@@ -194,3 +194,8 @@ table {
 table {
     table-layout: fixed;
 }
+
+.input-group-prepend span{
+    width: 50px;
+    color: black;
+}
