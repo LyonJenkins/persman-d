@@ -2,18 +2,36 @@
 <div class="container shadow bg-white mt-3 p-3">
     <h1>Website Settings</h1>
     <hr>
-    <form action="/settings" method="POST">
-        <div class="custom-control custom-switch form-group">
-            <input type="checkbox" class="custom-control-input" id="application" name="application">
-            <label class="custom-control-label" for="application">Enable Application System</label>
-        </div>
-        <div style="text-align:center;" class="form-group">
-            <input type="submit" value="Submit Changes" class="btn btn-primary">
-        </div>
-    </form>
+    <div>
+        <form action="/settings" method="POST">
+            <div class="custom-control custom-switch form-group">
+                <input type="checkbox" class="custom-control-input" id="application" name="application">
+                <label class="custom-control-label" for="application">Enable Application System</label>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-3" style="margin-right: 0%">
+                    <input type="text" class="form-control" id="websitename" placeholder="enter your website name" name="websiteName" value="<%=config.websiteName%>">
+                </div>
+                <div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+                    <label for="websitename">Website Name</label>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-3" style="margin-right: 0%">
+                    <input type="text" class="form-control" id="landingText" placeholder="enter your new landing text" name="landingText" value="<%=config.landingText%>">
+                </div>
+                <div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+                    <label for="landingText">Landing Text</label>
+                </div>
+            </div>
+            <div style="text-align:center;" class="form-group">
+                <input type="submit" value="Submit Changes" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
 </div>
 
-<% if(application === "on") { %>
+<% if(config.application === "on") { %>
 <script>
     document.getElementById("application").checked = true;
 </script>
