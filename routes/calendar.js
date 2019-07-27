@@ -1,4 +1,4 @@
-const express = require("express"), router = express.Router(), User = require("../models/user"), Calendar = require("../models/calendar"), Event = require("../models/eventspecifics"), async = require("async");
+const express = require("express"), router = express.Router(), User = require("../models/user"), Calendar = require("../models/calendar"), Event = require("../models/eventspecifics"), async = require("async"), config = require('../settings.json');
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/calendar", isLoggedIn, function(req, res){
@@ -6,7 +6,7 @@ router.get("/calendar", isLoggedIn, function(req, res){
         if(err) {
             console.log(err);
         } else {
-            res.render("calendar/calendar", {allEvents: allEvents});
+            res.render("calendar/calendar", {allEvents: allEvents, config: config});
         }
     })
  });
@@ -20,7 +20,7 @@ router.get("/calendar/event/:id", isLoggedIn, function(req, res){
             if(err) {
                 console.log(err);
             } else {
-                res.render("calendar/viewevent",{event: foundEvent, list: foundSpecifics[0].attendingList, user:req.user})
+                res.render("calendar/viewevent",{event: foundEvent, list: foundSpecifics[0].attendingList, user:req.user, config: config})
             }
         });
     });
@@ -28,7 +28,7 @@ router.get("/calendar/event/:id", isLoggedIn, function(req, res){
 
 router.get("/calendar/event", isLoggedIn, function(req,res){
     if(req.user.role.num < recruiter) return res.redirect("/");
-    res.render("calendar/newevent");
+    res.render("calendar/newevent", {config: config});
 });
 
 router.post("/calendar/event", isLoggedIn, function(req,res){
@@ -114,7 +114,7 @@ router.get("/calendar/events", isLoggedIn, function(req,res){
        if(err) {
            console.log(err);
        }
-       res.render("calendar/allevents", {events : foundEvents});
+       res.render("calendar/allevents", {events : foundEvents, config: config});
     });
 });
 

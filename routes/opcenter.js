@@ -18,12 +18,12 @@ router.get("/opcenter", isLoggedIn, function(req, res){
 
 router.get("/opcenter/discharge", isLoggedIn, function(req, res){
     if(req.user.role.num === guest) return res.redirect("/");
-    res.render("opcenter/discharge", {user:req.user});
+    res.render("opcenter/discharge", {user:req.user, config: config});
 });
 
 router.get("/opcenter/loa", isLoggedIn, function(req, res){
     if(req.user.role.num === guest) return res.redirect("/");
-    res.render("opcenter/loa", {user:req.user});
+    res.render("opcenter/loa", {user:req.user, config: config});
 });
 
 router.get("/opcenter/yourrequests", isLoggedIn, function(req, res){
@@ -40,7 +40,7 @@ router.get("/opcenter/yourrequests", isLoggedIn, function(req, res){
                 if(err) {
                     console.log(err);
                 }
-                res.render("opcenter/userrequests", {leaves: leave, discharges: discharge, applications: app, user: req.user});
+                res.render("opcenter/userrequests", {leaves: leave, discharges: discharge, applications: app, user: req.user, config: config});
             });
         });
 
@@ -89,7 +89,7 @@ router.get("/opcenter/requests", isLoggedIn, function(req, res){
                    console.log(err);
                }
                Application.find({}, function(err, apps){
-                   res.render("opcenter/requests", {users: users, discharges:discharges, loas:leaves, applications:apps})
+                   res.render("opcenter/requests", {users: users, discharges:discharges, loas:leaves, applications:apps, config: config})
                })
            })
        });
@@ -131,7 +131,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
                     if(err) {
                         console.log(err);
                     } else {
-                        res.render("opcenter/viewdischarge", {discharge: foundDischarge, users: allUsers});
+                        res.render("opcenter/viewdischarge", {discharge: foundDischarge, users: allUsers, config: config});
                     }
                 })
             }
@@ -145,7 +145,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
                     if(err) {
                         console.log(err);
                     } else {
-                        res.render("opcenter/viewloa", {loa: foundLeave, users: allUsers});
+                        res.render("opcenter/viewloa", {loa: foundLeave, users: allUsers, config: config});
                     }
                 })
             }
@@ -159,7 +159,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
               if(err) {
                   console.log(err);
               }
-              res.render("opcenter/viewapplication", {app: foundApp, users: allUsers})
+              res.render("opcenter/viewapplication", {app: foundApp, users: allUsers, config: config})
            });
         });
 
@@ -193,7 +193,7 @@ router.post("/opcenter/application", isLoggedIn, function(req,res){
         if(err) {
             console.log(err);
         }
-        res.render("opcenter/createapplication", {submitted: true})
+        res.render("opcenter/createapplication", {submitted: true, config: config});
     });
 });
 
@@ -269,15 +269,19 @@ router.post("/opcenter/:id/", isLoggedIn, function(req,res){
 router.get("/settings", isLoggedIn, function(req,res){
     if(req.user.role.num !== 5) return res.redirect("/");
     // console.log(config);
-    res.render("opcenter/settings", {application: config.enableApplication});
+    res.render("opcenter/settings", {config: config});
 });
 
 router.post("/settings", isLoggedIn, function(req,res){
     if(req.user.role.num < 5) return res.redirect("/");
 
     let application = req.body.application;
+    let websiteName = req.body.websiteName;
+    let landingText = req.body.landingText;
     if(req.body.application === undefined) application = "off";
     config.enableApplication = application;
+    config.websiteName = websiteName;
+    config.landingText = landingText;
 
     fs.writeFile("./settings.json", JSON.stringify(config), function (err) {
         if (err) return console.log(err);

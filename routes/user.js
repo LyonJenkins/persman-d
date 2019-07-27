@@ -1,4 +1,4 @@
-const express = require("express"), router = express.Router(), passport = require("passport"), User = require("../models/user");
+const express = require("express"), router = express.Router(), passport = require("passport"), User = require("../models/user"), config = require('../settings.json');
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/user/:id", isLoggedIn, function(req,res){
@@ -6,7 +6,7 @@ router.get("/user/:id", isLoggedIn, function(req,res){
         if(err) {
             console.log(err);
         } else {
-            res.render("userpage", {user: foundUser});
+            res.render("userpage", {user: foundUser, config: config});
         }
     });
 });
@@ -16,7 +16,7 @@ router.get("/user/edit/:id", isLoggedIn, function(req,res){
         if(err) {
             console.log(err);
         } else {
-            res.render("edit", {user: foundUser});
+            res.render("edit", {user: foundUser, config: config});
         }
     });
 });

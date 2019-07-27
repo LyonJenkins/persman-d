@@ -1,4 +1,4 @@
-const express = require("express"), router = express.Router(), passport = require("passport"), User = require("../models/user");
+const express = require("express"), router = express.Router(), passport = require("passport"), User = require("../models/user"), config = require('../settings.json');
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/listusers", isLoggedIn, function(req, res){
@@ -18,7 +18,7 @@ router.get("/listusers", isLoggedIn, function(req, res){
                  return sortingSquads.indexOf(a) - sortingSquads.indexOf(b);
               });
            });
-          res.render("listusers", {users: allUsers, platoons: platoons, squads: squads});
+          res.render("listusers", {users: allUsers, platoons: platoons, squads: squads, config: config});
        }
     })
  });
