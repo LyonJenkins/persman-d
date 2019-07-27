@@ -275,9 +275,11 @@ router.get("/settings", isLoggedIn, function(req,res){
 router.post("/settings", isLoggedIn, function(req,res){
     if(req.user.role.num < 5) return res.redirect("/");
 
-    config.enableApplication = `${req.body.application}`;
+    let application = req.body.application;
+    if(req.body.application === undefined) application = "off";
+    config.enableApplication = application;
 
-    fs.writeFile(configName, JSON.stringify(config), function (err) {
+    fs.writeFile("./settings.json", JSON.stringify(config), function (err) {
         if (err) return console.log(err);
         console.log('writing to ' + configName);
     });
@@ -287,7 +289,7 @@ router.post("/settings", isLoggedIn, function(req,res){
 
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
-     return next();
+        return next();
     }
     res.redirect("/login");
 }
