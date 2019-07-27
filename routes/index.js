@@ -5,7 +5,8 @@ const express = require("express"),
     User = require("../models/user"),
     async = require("async"),
     nodemailer = require("nodemailer"),
-    crypto = require("crypto");
+    crypto = require("crypto"),
+    config = require('../settings.json');
 
 router.get("/", function(req, res){
     Calendar.find({}, function(err, allEvents){
