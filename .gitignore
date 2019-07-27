@@ -3,3 +3,4 @@ node_modules
 public/images/meeting.jpg
 public/images/lfx.jpg
 .env
+settings.json
