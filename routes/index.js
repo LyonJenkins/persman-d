@@ -19,7 +19,7 @@ router.get("/", function(req, res){
             if(allEvents[place] !== undefined) newEvents.push(allEvents[place]);
             place--;
         }
-        res.render("landing", {events: newEvents});
+        res.render("landing", {events: newEvents, websiteName: config.websiteName, landingText: config.landingText});
     });
  });
 
