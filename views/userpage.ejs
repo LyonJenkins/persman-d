@@ -3,27 +3,50 @@
 <div class="container shadow bg-white marginPad">
     <h1>Viewing user <strong><%=user.username%></strong></h1>
     <hr>
-    <div class="container shadow border" style="padding: 1%">
-        <div class="row">
-            <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Username</h3></div>
-            <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Status</h3></div>
-            <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Rank</h3></div>
-            <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Group</h3></div>
-            <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Unit</h3></div>
-            <div class="col-sm" style="text-align: center;"><h3 style="font-weight: 600;">Position</h3></div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+                <% if(currentUser.email === user.email) { %>
+<!--                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>-->
+<!--                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>-->
+                <% } %>
+            </div>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm" style="text-align: center;"><h5><%=user.username%></h5></div>
-            <div class="col-sm" style="text-align: center;"><h5><%=user.status%></h5></div>
-            <div class="col-sm" style="text-align: center;"><h5><%=user.rank%></h5></div>
-            <div class="col-sm" style="text-align: center;"><h5><%=user.role.name%></h5></div>
-            <div class="col-sm" style="text-align: center;"><h5><%=user.unit.company%>, <%=user.unit.platoon%>, <%=user.unit.squad%></h5></div>
-            <div class="col-sm" style="text-align: center;"><h5><%=user.position%></h5></div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                    <div class="row">
+                        <div class="col-sm-2"><span style="font-weight: bold;">Username</span></div>
+                        <div class="col-sm-8"><%=user.username%></div>
+                    </div>
+                    <% if(currentUser.role.num > 4) { %>
+                    <div class="row">
+                        <div class="col-sm-2"><span style="font-weight: bold;">User Email</span></div>
+                        <div class="col-sm-8"><%=user.email%></div>
+                    </div>
+                    <% } %>
+                    <div class="row">
+                        <div class="col-sm-2"><span style="font-weight: bold;">Group</span></div>
+                        <div class="col-sm-8"><%=user.role.name%></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"><span style="font-weight: bold;">Unit</span></div>
+                        <div class="col-sm-8"><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"><span style="font-weight: bold;">MOS</span></div>
+                        <div class="col-sm-8"><%=user.position%></div>
+                    </div>
+                </div>
+                <% if(currentUser.email === user.email) { %>
+<!--                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>-->
+<!--                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>-->
+                <% } %>
+            </div>
         </div>
     </div>
-
-
 </div>
 
 <% include partials/footer %>
