@@ -2,6 +2,23 @@
 <div class="container shadow bg-white mt-3 p-3">
     <h1>Website Settings</h1>
     <hr>
+    <% if(error && error.length > 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%=error%>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <% } %>
+
+    <% if(success && success.length > 0) { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%=success%>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <% } %>
     <div>
         <form action="/settings" method="POST">
             <div class="custom-control custom-switch form-group">
@@ -30,7 +47,7 @@
         </form>
     </div>
 </div>
-
+<%console.log(config.application)%>
 <% if(config.application === "on") { %>
 <script>
     document.getElementById("application").checked = true;
