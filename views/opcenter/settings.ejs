@@ -22,7 +22,7 @@
     <div>
         <form action="/settings" method="POST">
             <div class="custom-control custom-switch form-group">
-                <input type="checkbox" class="custom-control-input" id="application" name="application">
+                <input type="checkbox" class="custom-control-input" id="application" name="enableApplication">
                 <label class="custom-control-label" for="application">Enable Application System</label>
             </div>
             <div class="row form-group">
@@ -47,7 +47,7 @@
         </form>
     </div>
 </div>
-<%console.log(config.application)%>
+
 <% if(config.application === "on") { %>
 <script>
     document.getElementById("application").checked = true;
