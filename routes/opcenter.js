@@ -275,11 +275,20 @@ router.get("/settings", isLoggedIn, function(req,res){
 router.post("/settings", isLoggedIn, function(req,res){
     if(req.user.role.num < 5) return res.redirect("/");
 
-    let application = req.body.application;
+    let enableApplication = req.body.enableApplication;
     let websiteName = req.body.websiteName;
     let landingText = req.body.landingText;
-    if(req.body.application === undefined) application = "off";
-    config.enableApplication = application;
+    if(req.body.enableApplication === undefined) enableApplication = "off";
+
+    // console.log(enableApplication + " | " + config.enableApplication);
+    // console.log(websiteName + " | " + config.websiteName);
+    // console.log(landingText + " | " + config.landingText);
+    if((enableApplication === config.enableApplication) && (websiteName === config.websiteName) && (landingText === config.landingText)) {
+        req.flash('error', 'No changes to the settings have been made.');
+        return res.redirect("/settings");
+    }
+
+    config.enableApplication = enableApplication;
     config.websiteName = websiteName;
     config.landingText = landingText;
 
@@ -288,6 +297,7 @@ router.post("/settings", isLoggedIn, function(req,res){
         console.log('writing to ' + configName);
     });
 
+    req.flash('success', 'Settings have been successfully updated.');
     res.redirect("/settings");
 });
 
