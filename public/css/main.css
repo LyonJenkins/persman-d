@@ -211,8 +211,38 @@ body.dark .card {
 body.dark .card-footer {
     border-color: rgba(255,255,255,0.16);
     background-color: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.5);
 }
 
 body.dark hr {
     border-color: rgba(255,255,255,.16);
+}
+
+body.dark .table-bordered th {
+    background-color: rgba(255,255,255,.09);
+}
+
+body.dark th, body.dark td {
+    border-color: rgba(255,255,255,.16);
+}
+
+body.dark .form-control {
+    border-color: rgba(255,255,255,.16);
+    background-color: rgba(255,255,255,.07);
+    color: #FFF;
+}
+
+body.dark .form-control:disabled {
+    background-color: rgba(255,255,255,.2);
+    color: rgba(255,255,255,.36);
+}
+
+body.dark option {
+    background-color: rgba(0,0,0,.8);
+    border-color: rgba(0,0,0,.7);
+}
+
+body.dark select {
+    background-color: rgba(255,255,255,.07);
+    border-color: rgba(0,0,0,.7);
 }
