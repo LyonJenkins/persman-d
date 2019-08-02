@@ -107,7 +107,9 @@ hr.fc-divider {
   border-style: solid;
   border-width: 1px;
   padding: 0;
-  vertical-align: top; }
+  vertical-align: top;
+  color: #fff;
+}
 
 .fc td.fc-today {
   border-style: double;
@@ -758,7 +760,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
   .fc thead,
   .fc tbody,
   .fc-row {
-    border-color: #ccc !important;
+    border-color: #fff !important;
     background: #fff !important; }
 
   /* kill the overlaid, absolutely-positioned components */

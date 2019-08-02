@@ -23,12 +23,6 @@ td {
     font-size: 13px;
 }
 
-  .choosen {
-    padding-top: 1%;
-    margin-top: 0%;
-    text-align:center;
-}
-
 .table-header {
     padding: 1%;
     width: 100%;
@@ -36,17 +30,17 @@ td {
     text-align: center;
 }
 
-@media only screen and (max-width: 600px) {
-    .padding {
-        padding-top: 17%;
-    }
-}
+/*@media only screen and (max-width: 600px) {*/
+/*    .padding {*/
+/*        padding-top: 17%;*/
+/*    }*/
+/*}*/
 
-@media only screen and (max-width: 320px) {
-    .padding {
-        padding-top: 20%;
-    }
-}
+/*@media only screen and (max-width: 320px) {*/
+/*    .padding {*/
+/*        padding-top: 20%;*/
+/*    }*/
+/*}*/
 
 hr {
     margin-top: 1rem;
@@ -55,13 +49,13 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, .3);
 }
 
-body {
-    background-image: url("/images/143rdimage.jpg");
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-attachment: fixed;
-    background-size: 100%;
-}
+/*body {*/
+/*    background-image: url("/images/background.jpg");*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: right top;*/
+/*    background-attachment: fixed;*/
+/*    background-size: 100%;*/
+/*}*/
 
 .white {
     background-color:white;
@@ -160,6 +154,7 @@ table {
 #calendar {
     max-width: 100%;
     margin: 0 auto;
+    border-color: #fff;
 }
 
 .name {
@@ -176,10 +171,6 @@ table {
     margin-right: 40%;
 }
 
-.marginPad {
-    margin-top: 1%; padding: 1%;
-}
-
 table {
     table-layout: fixed;
 }
@@ -187,4 +178,41 @@ table {
 .input-group-prepend span{
     width: 50px;
     color: black;
+}
+
+body.dark {
+    background-color: rgba(18,18,18, 1);
+    position: relative;
+    color: #fff;
+}
+
+body.dark div.container {
+    background-color: rgba(255,255,255,.05);
+    !important;
+}
+
+body.dark nav {
+
+}
+
+body.dark nav a {
+    color: white;
+}
+
+body.dark nav li {
+    color: white;
+}
+
+body.dark .card {
+    border-color: rgba(255,255,255,0.16);
+    background-color: rgba(255,255,255,0.07);
+}
+
+body.dark .card-footer {
+    border-color: rgba(255,255,255,0.16);
+    background-color: rgba(255,255,255,0.08);
+}
+
+body.dark hr {
+    border-color: rgba(255,255,255,.16);
 }

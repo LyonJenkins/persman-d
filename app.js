@@ -12,7 +12,9 @@ const express = require("express"),
     calendarRoutes = require("./routes/calendar.js"),
     flash = require("connect-flash"),
     session = require('express-session'),
-    cookieParser = require("cookie-parser");
+    cookieParser = require("cookie-parser"),
+    favicon = require('serve-favicon'),
+    path = require('path');
 
 mongoose.connect("mongodb://localhost:27017/persman", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,6 +22,7 @@ mongoose.set('useFindAndModify', false);
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.use(cookieParser('secret'));
+app.use(favicon(path.join(__dirname, '.', 'public', 'favicon.ico')));
 
 //PASSPORT
 app.use(require("express-session")({

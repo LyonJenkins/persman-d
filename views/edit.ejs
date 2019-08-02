@@ -1,7 +1,7 @@
 <% include partials/header %>
 
 <% const admin = 5; recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;%>
-<div class="container shadow bg-white marginPad">
+<div class="container shadow marginPad">
     <form action="/user/edit" method="POST">
         <h2>Change user details for <strong><%=user.username%></strong></h2>
 

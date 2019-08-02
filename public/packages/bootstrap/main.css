@@ -10,7 +10,7 @@ Docs & License: https://fullcalendar.io/
   text-decoration: underline; }
 
 .fc-bootstrap hr.fc-divider {
-  border-color: inherit; }
+  border-color: #fff; }
 
 .fc-bootstrap .fc-today.alert {
   border-radius: 0; }
