@@ -1,9 +1,10 @@
-const express = require("express"), router = express.Router(), passport = require("passport"), User = require("../models/user"), config = require('../settings.json');
+const express = require("express"), router = express.Router(), passport = require("passport"),
+    User = require("../models/user"), config = require('../settings.json');
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
-router.get("/user/:id", isLoggedIn, function(req,res){
-    User.findById(req.params.id, function(err, foundUser){
-        if(err) {
+router.get("/user/:id", isLoggedIn, function (req, res) {
+    User.findById(req.params.id, function (err, foundUser) {
+        if (err) {
             console.log(err);
         } else {
             res.render("userpage", {user: foundUser, config: config});
@@ -11,9 +12,9 @@ router.get("/user/:id", isLoggedIn, function(req,res){
     });
 });
 
-router.get("/user/edit/:id", isLoggedIn, function(req,res){
-    User.findById(req.params.id, function(err, foundUser){
-        if(err) {
+router.get("/user/edit/:id", isLoggedIn, function (req, res) {
+    User.findById(req.params.id, function (err, foundUser) {
+        if (err) {
             console.log(err);
         } else {
             res.render("edit", {user: foundUser, config: config});
@@ -21,36 +22,44 @@ router.get("/user/edit/:id", isLoggedIn, function(req,res){
     });
 });
 
-router.post("/user/edit", isLoggedIn, function(req,res){
-    if(req.user.role.num < recruiter) return res.redirect("/");
-    User.find({_id: req.body.id}, function(err, user){
-        if(err) {
+router.post("/user/edit", isLoggedIn, function (req, res) {
+    if (req.user.role.num < recruiter) return res.redirect("/");
+    User.find({_id: req.body.id}, function (err, user) {
+        if (err) {
             console.log(err);
         }
         const newUnit = {company: req.body.company, platoon: req.body.platoon, squad: req.body.squad};
         let roleNum = 0;
-        switch(req.body.role) {
+        switch (req.body.role) {
             case "Guest":
-                roleNum=0;
+                roleNum = 0;
                 break;
             case "Enlisted":
-                roleNum=1;
+                roleNum = 1;
                 break;
             case "NCO":
-                roleNum=2;
+                roleNum = 2;
                 break;
             case "Officer":
-                roleNum=3;
+                roleNum = 3;
                 break;
             case "Recruiter":
-                roleNum=4;
+                roleNum = 4;
                 break;
             case "Admin":
-                roleNum=5;
+                roleNum = 5;
                 break;
         }
-        User.findOneAndUpdate({_id: req.body.id}, {$set:{rank:req.body.rank, status:req.body.status, position:req.body.position, unit:newUnit, role:{name: req.body.role, num:roleNum}}}, function(err,doc){
-            if(err) {
+        User.findOneAndUpdate({_id: req.body.id}, {
+            $set: {
+                rank: req.body.rank,
+                status: req.body.status,
+                position: req.body.position,
+                unit: newUnit,
+                role: {name: req.body.role, num: roleNum}
+            }
+        }, function (err, doc) {
+            if (err) {
                 console.log(err);
             }
         });
@@ -59,9 +68,9 @@ router.post("/user/edit", isLoggedIn, function(req,res){
 });
 
 router.post("/user/delete/:id", isLoggedIn, (req, res) => {
-    if(req.user.role.num !== admin) return res.redirect("/");
+    if (req.user.role.num !== admin) return res.redirect("/");
     User.findByIdAndDelete(req.params.id, err => {
-        if(err) {
+        if (err) {
             res.redirect("/");
         } else {
             res.redirect("/listusers");
@@ -69,11 +78,34 @@ router.post("/user/delete/:id", isLoggedIn, (req, res) => {
     });
 });
 
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
+router.post("/userpage/edit", isLoggedIn, (req, res) => {
+    // console.log(req.user);
+    // console.log(req.params)
+    // console.log(req.body)
+
+    let theme;
+    if(req.body.theme === "on") {
+        theme = "Light";
+    } else if(req.body.theme === undefined) {
+        theme = "Dark";
+    }
+
+    console.log(theme);
+    console.log(req.user);
+    User.findOneAndUpdate({_id: req.user._id}, {$set: {preferredTheme: theme}}, function (err, doc) {
+        if (err) {
+            console.log(err);
+        }
+    });
+
+    res.redirect(`/user/${req.user._id}`)
+});
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
         return next();
     }
     res.redirect("/login");
 }
 
- module.exports = router;
+module.exports = router;
