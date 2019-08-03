@@ -102,14 +102,15 @@ hr.fc-divider {
 .fc th {
   text-align: center; }
 
-.fc th,
-.fc td {
-  border-style: solid;
-  border-width: 1px;
-  padding: 0;
-  vertical-align: top;
-  color: #fff;
-}
+/*.fc th,*/
+/*.fc td {*/
+/*  border-style: solid;*/
+/*  border-width: 1px;*/
+/*  padding: 0;*/
+/*  vertical-align: top;*/
+/*  color: #000;*/
+/*}*/
+
 
 .fc td.fc-today {
   border-style: double;

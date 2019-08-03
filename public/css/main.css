@@ -274,3 +274,69 @@ body.dark .muted-text {
     color: rgba(255,255,255,.36);
     !important;
 }
+
+.fc th, .fc td {
+    border-style: solid;
+    border-width: 1px;
+    padding: 0;
+    vertical-align: top;
+    color: #000; !important;
+}
+
+body.dark .fc th {
+    border-style: solid;
+    border-width: 1px;
+    padding: 0;
+    vertical-align: top;
+    color: #FFF; !important;
+}
+
+body.dark .fc td {
+    border-style: solid;
+    border-width: 1px;
+    padding: 0;
+    vertical-align: top;
+    color: #FFF; !important;
+}
+
+body.dark .fc {
+    color: #FFF;
+}
+
+.navbar-custom {
+}
+
+.navbar-custom a{
+    color: rgba(0,0,0,.5);
+}
+
+.navbar-custom a:hover{
+    color: rgba(0,0,0,.7);
+}
+
+.navbar-custom a.navbar-brand {
+    color: rgba(0,0,0,1)
+}
+
+body.dark .navbar-custom a{
+    color: rgba(255,255,255,.5);
+}
+
+
+body.dark .navbar-custom a:hover{
+    color: rgba(255,255,255,.7);
+}
+
+body.dark .navbar-custom a.navbar-brand {
+    color: rgba(255,255,255,1)
+}
+
+body.dark .list-group-item {
+    color: rgba(255,255,255,.7);
+    background-color: rgba(255,255,255,.07);
+}
+
+body.dark .list-group-item.active {
+    color: white;
+}
+
