@@ -11,10 +11,16 @@
     <script src="/moment-timezone/moment-timezone-with-data.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
-<body class="dark">
+<body id="body">
 
 
-<nav class="navbar navbar-expand-lg">
+<% if(currentUser === undefined || currentUser.preferredTheme === "Dark") { %>
+    <script>
+        document.getElementById("body").classList.add("dark");
+    </script>
+<% } %>
+
+<nav class="navbar navbar-expand-lg shadow navbar-custom ">
     <a class="navbar-brand" href="/"><%=config.websiteName%></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -43,7 +49,7 @@
                 <% } %>
                 <% if(currentUser.role.num > 4) { %>
                     <li class="nav-item">
-                        <a class="nav-link" href="/settings/">Settings</a>
+                        <a class="nav-link" href="/settings/">Website Settings</a>
                     </li>
                 <% } %>
             <% } %>

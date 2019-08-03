@@ -1,6 +1,6 @@
 <% include partials/header %>
 
-<div class="container shadow mt-3 pt-3">
+<div class="container shadow mt-3 pt-3" style="height: 15rem;">
     <h1>Viewing user <strong><%=user.username%></strong></h1>
     <hr>
 
@@ -9,7 +9,7 @@
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
                 <% if(currentUser.email === user.email) { %>
-<!--                <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>-->
+                <a class="list-group-item list-group-item-action" id="list-user-settings-list" data-toggle="list" href="#user-settings" role="tab" aria-controls="user-settings">User Settings</a>
 <!--                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>-->
                 <% } %>
             </div>
@@ -41,7 +41,22 @@
                     </div>
                 </div>
                 <% if(currentUser.email === user.email) { %>
-<!--                <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>-->
+                    <div class="tab-pane fade pb-3" id="user-settings" role="tabpanel" aria-labelledby="list-user-settings-list">
+                        <form action="/userpage/edit" method="POST">
+                            <div class="custom-control custom-switch form-group">
+                                <input type="checkbox" class="custom-control-input" id="theme" name="theme">
+                                <label class="custom-control-label" for="theme">Enable Light Theme</label>
+                            </div>
+                            <div style="text-align:center;" class="form-group">
+                                <input type="submit" value="Submit Changes" class="btn btn-primary">
+                            </div>
+                        </form>
+                        <% if(currentUser.preferredTheme === "Light") { %>
+                            <script>
+                                document.getElementById("theme").checked = true;
+                            </script>
+                        <% } %>
+                    </div>
 <!--                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>-->
                 <% } %>
             </div>
