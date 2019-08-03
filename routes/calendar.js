@@ -35,9 +35,9 @@ router.post("/calendar/event", isLoggedIn, function(req,res){
     if(req.user.role.num < recruiter) return res.redirect("/");
     let event = {};
     if(req.body.eventtype === "Basic Training") {
-        event = {type: "Basic Training", color : "green"};
+        event = {type: "Basic Training", color : "#28a745"};
     } else if(req.body.eventtype === "Operation") {
-        event = {type: "Operation", color : "blue"};
+        event = {type: "Operation", color : "#007bff"};
     }
     const body = req.body;
     const newEvent = new Calendar({
