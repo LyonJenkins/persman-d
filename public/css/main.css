@@ -192,7 +192,7 @@ body.dark div.container {
 }
 
 body.dark nav {
-
+    background-color: rgba(255,255,255,.03);
 }
 
 body.dark nav a {
@@ -245,4 +245,8 @@ body.dark option {
 body.dark select {
     background-color: rgba(255,255,255,.07);
     border-color: rgba(0,0,0,.7);
+}
+
+body.dark .alert-info {
+    background-color: rgba(255,255,255,.07);
 }
