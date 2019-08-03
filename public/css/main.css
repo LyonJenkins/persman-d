@@ -208,6 +208,10 @@ body.dark .card {
     background-color: rgba(255,255,255,0.07);
 }
 
+body.dark .card-header {
+    border-color: rgba(255,255,255,0.16);
+}
+
 body.dark .card-footer {
     border-color: rgba(255,255,255,0.16);
     background-color: rgba(255,255,255,0.08);
@@ -249,4 +253,24 @@ body.dark select {
 
 body.dark .alert-info {
     background-color: rgba(255,255,255,.07);
+}
+
+body.dark .custom-control-label::before {
+    background-color: rgba(255,255,255,.07);
+    border-color: rgba(255,255,255,.16);
+}
+
+body.dark .custom-control-label:after.lever {
+    background-color: rgba(255,255,255,.07);
+    border-color: rgba(255,255,255,.16);
+}
+
+body.dark .input-group-text {
+    background-color: rgba(255,255,255,.03);
+    border-color: rgba(255,255,255,.16);
+}
+
+body.dark .muted-text {
+    color: rgba(255,255,255,.36);
+    !important;
 }
