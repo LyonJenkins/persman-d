@@ -36,13 +36,13 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, .3);
 }
 
-body {
-    background-image: url("/images/background.jpg");
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-attachment: fixed;
-    background-size: 100%;
-}
+/*body {*/
+/*    background-image: url("/images/background.jpg");*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: right top;*/
+/*    background-attachment: fixed;*/
+/*    background-size: 100%;*/
+/*}*/
 
 .white {
     background-color:white;
