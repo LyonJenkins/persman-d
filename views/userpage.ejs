@@ -1,64 +1,44 @@
 <% include partials/header %>
 
 <div class="container shadow mt-3 pt-3" style="height: 15rem;">
-    <h1>Viewing user <strong><%=user.username%></strong></h1>
+    <h1>Viewing user <strong><%= user.username %></strong></h1>
     <hr>
 
     <div class="row">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-                <% if(currentUser.email === user.email) { %>
-                <a class="list-group-item list-group-item-action" id="list-user-settings-list" data-toggle="list" href="#user-settings" role="tab" aria-controls="user-settings">User Settings</a>
-<!--                <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>-->
-                <% } %>
+                <a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list"
+                   href="#list-profile" role="tab" aria-controls="profile">Profile</a>
             </div>
         </div>
         <div class="col-8">
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                <div class="tab-pane fade show active" id="list-profile" role="tabpanel"
+                     aria-labelledby="list-profile-list">
                     <div class="row">
                         <div class="col-sm-2"><span style="font-weight: bold;">Username</span></div>
-                        <div class="col-sm-8"><%=user.username%></div>
+                        <div class="col-sm-8"><%= user.username %></div>
                     </div>
                     <% if(currentUser.role.num > 4) { %>
                     <div class="row">
                         <div class="col-sm-2"><span style="font-weight: bold;">User Email</span></div>
-                        <div class="col-sm-8"><%=user.email%></div>
+                        <div class="col-sm-8"><%= user.email %></div>
                     </div>
                     <% } %>
                     <div class="row">
                         <div class="col-sm-2"><span style="font-weight: bold;">Group</span></div>
-                        <div class="col-sm-8"><%=user.role.name%></div>
+                        <div class="col-sm-8"><%= user.role.name %></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-2"><span style="font-weight: bold;">Unit</span></div>
-                        <div class="col-sm-8"><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></div>
+                        <div class="col-sm-8"><%= user.unit.squad %>, <%= user.unit.platoon %>
+                            , <%= user.unit.company %></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-2"><span style="font-weight: bold;">MOS</span></div>
-                        <div class="col-sm-8"><%=user.position%></div>
+                        <div class="col-sm-8"><%= user.position %></div>
                     </div>
                 </div>
-                <% if(currentUser.email === user.email) { %>
-                    <div class="tab-pane fade pb-3" id="user-settings" role="tabpanel" aria-labelledby="list-user-settings-list">
-                        <form action="/userpage/edit" method="POST">
-                            <div class="custom-control custom-switch form-group">
-                                <input type="checkbox" class="custom-control-input" id="theme" name="theme">
-                                <label class="custom-control-label" for="theme">Enable Light Theme</label>
-                            </div>
-                            <div style="text-align:center;" class="form-group">
-                                <input type="submit" value="Submit Changes" class="btn btn-primary">
-                            </div>
-                        </form>
-                        <% if(currentUser.preferredTheme === "Light") { %>
-                            <script>
-                                document.getElementById("theme").checked = true;
-                            </script>
-                        <% } %>
-                    </div>
-<!--                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>-->
-                <% } %>
             </div>
         </div>
     </div>
