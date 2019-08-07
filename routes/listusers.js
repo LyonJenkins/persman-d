@@ -18,6 +18,7 @@ router.get("/listusers", isLoggedIn, function (req, res) {
             allUsers.forEach(function (user){
                 const platoonName = user.unit.platoon;
                 const squadName = user.unit.squad;
+                if(platoonName === "none") return;
                 if(search(platoons, platoonName) === false) {
                     let newSquads = [];
                     newSquads.push(squadName);
@@ -46,7 +47,6 @@ router.get("/listusers", isLoggedIn, function (req, res) {
 
             const platoonsByOrder = new Map(sortingPlatoons.map((t, i) => [t, i]));
             const newPlats = _.sortBy(platoons, o => platoonsByOrder.get(o.name));
-
             res.render("listusers", {users: allUsers, platoons: newPlats, config: config});
         }
     })
