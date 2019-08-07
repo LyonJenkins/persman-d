@@ -4,7 +4,7 @@
     }
 
     body.themed .navbar-custom a:hover{
-        color: rgba(255,255,255,1);
+        color: rgba(255,255,255,.7);
     }
 
     body.themed .navbar-custom a.navbar-brand {
