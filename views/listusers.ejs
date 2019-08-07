@@ -87,6 +87,7 @@
 <% } %>
 
 <!--Only retired members-->
+<% if(config.enableRetiredMembers === "on") { %>
 <div class="card">
     <div class="card-header">
         <h3>Retired Members</h3>
@@ -124,6 +125,7 @@
     </div>
 </div>
 <br>
+<% } %>
 
 
 

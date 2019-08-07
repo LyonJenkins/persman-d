@@ -1,5 +1,6 @@
 {
   "enableApplication":"on",
   "websiteName":  "PERSMAN",
-  "landingText":  "Welcome."
+  "landingText":  "Welcome.",
+  "enableRetiredMembers": "true"
 }

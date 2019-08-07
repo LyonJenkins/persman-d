@@ -25,6 +25,10 @@
                 <input type="checkbox" class="custom-control-input" id="application" name="enableApplication">
                 <label class="custom-control-label" for="application">Enable Application System</label>
             </div>
+            <div class="custom-control custom-switch form-group">
+                <input type="checkbox" class="custom-control-input" id="retiredmembers" name="enableRetiredMembers">
+                <label class="custom-control-label" for="retiredmembers">Enable Retired Members table on the members page</label>
+            </div>
             <div class="row form-group">
                 <div class="col-sm-3" style="margin-right: 0%">
                     <input type="text" class="form-control" id="websitename" placeholder="enter your website name" name="websiteName" value="<%=config.websiteName%>">
@@ -53,6 +57,12 @@
 <script>
     document.getElementById("application").checked = true;
 </script>
+<% } %>
+
+<% if(config.enableRetiredMembers === "on") { %>
+    <script>
+        document.getElementById("retiredmembers").checked = true;
+    </script>
 <% } %>
 
 <% include ../partials/footer %>
