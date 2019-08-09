@@ -278,10 +278,11 @@ router.post("/settings", isLoggedIn, function(req,res){
     let websiteName = req.body.websiteName;
     let landingText = req.body.landingText;
     let enableRetiredMembers = req.body.enableRetiredMembers;
+    let certifications = req.body.certifications.split(",");
     if(req.body.enableApplication === undefined) enableApplication = "off";
     if(req.body.enableRetiredMembers === undefined) enableRetiredMembers = "off";
 
-    if((enableApplication === config.enableApplication) && (websiteName === config.websiteName) && (landingText === config.landingText) && (enableRetiredMembers === config.enableRetiredMembers)) {
+    if((enableApplication === config.enableApplication) && (websiteName === config.websiteName) && (landingText === config.landingText) && (enableRetiredMembers === config.enableRetiredMembers) && (certifications === config.certifications)) {
         req.flash('error', 'No changes to the settings have been made.');
         return res.redirect("/settings");
     }
@@ -290,6 +291,7 @@ router.post("/settings", isLoggedIn, function(req,res){
     config.websiteName = websiteName;
     config.landingText = landingText;
     config.enableRetiredMembers = enableRetiredMembers;
+    config.certifications = certifications;
 
     fs.writeFile("./settings.json", JSON.stringify(config), function (err) {
         if (err) return console.log(err);

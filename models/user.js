@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     password: String,
     registrationDate: Date,
     steamProfile: String,
+    certifications: Array,
     preferredTheme: {type: String, default: "Dark"},
     unit: {type: Object, default: {company: "none", platoon: "none", squad: "none"}},
     status: {type: String, default: "none"},

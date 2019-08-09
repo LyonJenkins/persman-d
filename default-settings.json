@@ -2,5 +2,6 @@
   "enableApplication":"on",
   "websiteName":  "PERSMAN",
   "landingText":  "Welcome.",
-  "enableRetiredMembers": "true"
+  "enableRetiredMembers": "true",
+  "certifications": ["Basic Training", "Air Assault"]
 }

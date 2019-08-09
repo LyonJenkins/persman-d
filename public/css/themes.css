@@ -1,39 +1,39 @@
 @media (prefers-color-scheme: dark) {
-    body.themed .navbar-custom a{
-        color: rgba(255,255,255,.5);
+    body.themed .navbar-custom a {
+        color: rgba(255, 255, 255, .5);
     }
 
-    body.themed .navbar-custom a:hover{
-        color: rgba(255,255,255,.7);
+    body.themed .navbar-custom a:hover {
+        color: rgba(255, 255, 255, .7);
     }
 
     body.themed .navbar-custom a.navbar-brand {
-        color: rgba(255,255,255,1)
+        color: rgba(255, 255, 255, 1)
     }
 
     body.themed .list-group-item {
-        color: rgba(255,255,255,.7);
-        background-color: rgba(255,255,255,.07);
+        color: rgba(255, 255, 255, .7);
+        background-color: rgba(255, 255, 255, .07);
     }
 
     body.themed .list-group-item.active {
         color: white;
-        border-color: rgba(255,255,255,.16);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed {
-        background-color: rgba(18,18,18, 1);
+        background-color: rgba(18, 18, 18, 1);
         position: relative;
         color: #fff;
     }
 
     body.themed div.container {
-        background-color: rgba(255,255,255,.05);
+        background-color: rgba(255, 255, 255, .05);
     !important;
     }
 
     body.themed nav {
-        background-color: rgba(255,255,255,.03);
+        background-color: rgba(255, 255, 255, .03);
     }
 
     body.themed nav a {
@@ -45,74 +45,74 @@
     }
 
     body.themed .card {
-        border-color: rgba(255,255,255,0.16);
-        background-color: rgba(255,255,255,0.07);
+        border-color: rgba(255, 255, 255, 0.16);
+        background-color: rgba(255, 255, 255, 0.07);
     }
 
     body.themed .card-header {
-        border-color: rgba(255,255,255,0.16);
+        border-color: rgba(255, 255, 255, 0.16);
     }
 
     body.themed .card-footer {
-        border-color: rgba(255,255,255,0.16);
-        background-color: rgba(255,255,255,0.08);
-        color: rgba(255,255,255,0.5);
+        border-color: rgba(255, 255, 255, 0.16);
+        background-color: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.5);
     }
 
     body.themed hr {
-        border-color: rgba(255,255,255,.16);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed .table-bordered th {
-        background-color: rgba(255,255,255,.09);
+        background-color: rgba(255, 255, 255, .09);
     }
 
     body.themed th, body.themed td {
-        border-color: rgba(255,255,255,.16);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed .form-control {
-        border-color: rgba(255,255,255,.16);
-        background-color: rgba(255,255,255,.07);
+        border-color: rgba(255, 255, 255, .16);
+        background-color: rgba(255, 255, 255, .07);
         color: #FFF;
     }
 
     body.themed .form-control:disabled {
-        background-color: rgba(255,255,255,.2);
-        color: rgba(255,255,255,.36);
+        background-color: rgba(255, 255, 255, .2);
+        color: rgba(255, 255, 255, .36);
     }
 
     body.themed option {
-        background-color: rgba(0,0,0,.8);
-        border-color: rgba(0,0,0,.7);
+        background-color: rgba(0, 0, 0, .8);
+        border-color: rgba(0, 0, 0, .7);
     }
 
     body.themed select {
-        background-color: rgba(255,255,255,.07);
-        border-color: rgba(0,0,0,.7);
+        background-color: rgba(255, 255, 255, .07);
+        border-color: rgba(0, 0, 0, .7);
     }
 
     body.themed .alert-info {
-        background-color: rgba(255,255,255,.07);
+        background-color: rgba(255, 255, 255, .07);
     }
 
     body.themed .custom-control-label::before {
-        background-color: rgba(255,255,255,.07);
-        border-color: rgba(255,255,255,.16);
+        background-color: rgba(255, 255, 255, .07);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed .custom-control-label:after.lever {
-        background-color: rgba(255,255,255,.07);
-        border-color: rgba(255,255,255,.16);
+        background-color: rgba(255, 255, 255, .07);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed .input-group-text {
-        background-color: rgba(255,255,255,.03);
-        border-color: rgba(255,255,255,.16);
+        background-color: rgba(255, 255, 255, .03);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed .muted-text {
-        color: rgba(255,255,255,.36);
+        color: rgba(255, 255, 255, .36);
     !important;
     }
 
@@ -121,7 +121,8 @@
         border-width: 1px;
         padding: 0;
         vertical-align: top;
-        color: #FFF; !important;
+        color: #FFF;
+    !important;
     }
 
     body.themed .fc td {
@@ -129,7 +130,8 @@
         border-width: 1px;
         padding: 0;
         vertical-align: top;
-        color: #FFF; !important;
+        color: #FFF;
+    !important;
     }
 
     body.themed .fc {
@@ -137,18 +139,18 @@
     }
 
     body.themed .modal-header {
-        background-color: rgba(255,255,255,.09);
-        border-color: rgba(255,255,255,.16);
+        background-color: rgba(255, 255, 255, .09);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed .modal-body {
-        background-color: rgba(255,255,255,.09);
-        border-color: rgba(255,255,255,.16);
+        background-color: rgba(255, 255, 255, .09);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed .modal-footer {
-        background-color: rgba(255,255,255,.09);
-        border-color: rgba(255,255,255,.16);
+        background-color: rgba(255, 255, 255, .09);
+        border-color: rgba(255, 255, 255, .16);
     }
 
     body.themed .modal-span {
@@ -156,6 +158,37 @@
     }
 
     body.themed .modal-content {
-        background-color: rgb(0,0,0);
+        background-color: rgb(0, 0, 0);
+    }
+
+    body.themed .shadow {
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0) !important;
+    }
+
+    body.themed .btn-light:not(:disabled):not(.disabled).active, .btn-light:not(:disabled):not(.disabled):active, .show > .btn-light.dropdown-toggle {
+        color: white;
+        background-color: rgba(255, 255, 255, .09);
+        border-color: rgba(255, 255, 255, .16);
+    }
+
+    body.themed .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
+        color: rgba(255, 255, 255, 1);
+        background-color: rgba(255, 255, 255, .09);
+        border-color: rgba(255, 255, 255, .16);
+    }
+
+    body.themed .bootstrap-select .btn:not(:disabled):not(.disabled) {
+        color: rgba(255, 255, 255, 1);
+        background-color: rgba(255, 255, 255, .09);
+        border-color: rgba(255, 255, 255, .16);
+    }
+
+    body.themed .bootstrap-select .dropdown-menu li a {
+        color: white;
+        background-color: #3a3a3a;
+    }
+
+    body.themed .dropdown-menu.show {
+        background-color: #3a3a3a;
     }
 }

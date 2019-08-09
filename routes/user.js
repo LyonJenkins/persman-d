@@ -24,7 +24,13 @@ router.get("/user/edit/:id", isLoggedIn, function (req, res) {
 
 router.post("/user/edit", isLoggedIn, function (req, res) {
     if (req.user.role.num < recruiter) return res.redirect("/");
+    let userCerts = [];
     User.find({_id: req.body.id}, function (err, user) {
+        if(typeof req.body.certifications === "string") {
+            userCerts.push(req.body.certifications);
+        } else {
+            userCerts = req.body.certifications;
+        }
         if (err) {
             console.log(err);
         }
@@ -56,6 +62,7 @@ router.post("/user/edit", isLoggedIn, function (req, res) {
                 status: req.body.status,
                 position: req.body.position,
                 unit: newUnit,
+                certifications: userCerts,
                 role: {name: req.body.role, num: roleNum}
             }
         }, function (err, doc) {
@@ -63,8 +70,9 @@ router.post("/user/edit", isLoggedIn, function (req, res) {
                 console.log(err);
             }
         });
+        req.flash("success","Successfully edited the user.");
+        res.redirect("/user/edit/"+req.body.id);
     });
-    res.redirect("/listusers");
 });
 
 router.post("/user/delete/:id", isLoggedIn, (req, res) => {
@@ -76,29 +84,6 @@ router.post("/user/delete/:id", isLoggedIn, (req, res) => {
             res.redirect("/listusers");
         }
     });
-});
-
-router.post("/userpage/edit", isLoggedIn, (req, res) => {
-    // console.log(req.user);
-    // console.log(req.params)
-    // console.log(req.body)
-
-    let theme;
-    if(req.body.theme === "on") {
-        theme = "Light";
-    } else if(req.body.theme === undefined) {
-        theme = "Dark";
-    }
-
-    console.log(theme);
-    console.log(req.user);
-    User.findOneAndUpdate({_id: req.user._id}, {$set: {preferredTheme: theme}}, function (err, doc) {
-        if (err) {
-            console.log(err);
-        }
-    });
-
-    res.redirect(`/user/${req.user._id}`)
 });
 
 function isLoggedIn(req, res, next) {
