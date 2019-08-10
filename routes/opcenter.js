@@ -279,10 +279,14 @@ router.post("/settings", isLoggedIn, function(req,res){
     let landingText = req.body.landingText;
     let enableRetiredMembers = req.body.enableRetiredMembers;
     let certifications = req.body.certifications.split(",");
+    let roles = req.body.roles.split(",");
+    let companies = req.body.companies.split(",");
+    let platoons = req.body.platoons.split(",");
+    let squads = req.body.squads.split(",");
     if(req.body.enableApplication === undefined) enableApplication = "off";
     if(req.body.enableRetiredMembers === undefined) enableRetiredMembers = "off";
 
-    if((enableApplication === config.enableApplication) && (websiteName === config.websiteName) && (landingText === config.landingText) && (enableRetiredMembers === config.enableRetiredMembers) && (certifications === config.certifications)) {
+    if((enableApplication === config.enableApplication) && (websiteName === config.websiteName) && (landingText === config.landingText) && (enableRetiredMembers === config.enableRetiredMembers) && (certifications === config.certifications) && (roles === config.roles) && (companies === config.companies) && (squads === config.squads) && (platoons === config.platoons)) {
         req.flash('error', 'No changes to the settings have been made.');
         return res.redirect("/settings");
     }
@@ -292,6 +296,10 @@ router.post("/settings", isLoggedIn, function(req,res){
     config.landingText = landingText;
     config.enableRetiredMembers = enableRetiredMembers;
     config.certifications = certifications;
+    config.roles = roles;
+    config.companies = companies;
+    config.platoons = platoons;
+    config.squads = squads;
 
     fs.writeFile("./settings.json", JSON.stringify(config), function (err) {
         if (err) return console.log(err);

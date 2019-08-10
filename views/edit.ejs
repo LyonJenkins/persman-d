@@ -36,45 +36,58 @@
         </div>
 
         <div class="form-group">
-            <label for="MOS">MOS</label>
-            <select class="form-control" id="MOS" name="position">
-                <option><%=user.position%></option>
-                <option>11B</option>
-                <option>68W</option>
-                <option>none</option>
+            <label for="position">Select Position</label>
+            <br>
+            <select class="selectpicker" id="position" name="position">
+                <% for(let i = 0; i < config.roles.length; i++) { %>
+                    <% if(user.position === config.roles[i]) { %>
+                    <option selected><%=config.roles[i]%></option>
+                    <% } else { %>
+                    <option><%=config.roles[i]%></option>
+                    <% } %>
+                <% } %>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="company">Company</label>
-            <select class="form-control" id="company" name="company">
-                <option><%=user.unit.company%></option>
-                <option>Crusader Company</option>
-                <option>none</option>
+            <label for="company">Select Company</label>
+            <br>
+            <select class="selectpicker" id="company" name="company">
+                <% for(let i = 0; i < config.companies.length; i++) { %>
+                    <% if(user.unit.company === config.companies[i]) { %>
+                    <option selected><%=config.companies[i]%></option>
+                    <% } else { %>
+                    <option><%=config.companies[i]%></option>
+                    <% } %>
+                <% } %>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="platoon">Platoon</label>
-            <select class="form-control" id="platoon" name="platoon">
-                <option><%=user.unit.platoon%></option>
-                <option>First Platoon</option>
-                <option>Second Platoon</option>
-                <option>Company HQ</option>
-                <option>none</option>
+            <label for="platoon">Select Platoon</label>
+            <br>
+            <select class="selectpicker" id="platoon" name="platoon">
+                <% for(let i = 0; i < config.platoons.length; i++) { %>
+                    <% if(user.unit.platoon === config.platoons[i]) { %>
+                    <option selected><%=config.platoons[i]%></option>
+                    <% } else { %>
+                    <option><%=config.platoons[i]%></option>
+                    <% } %>
+                <% } %>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="squad">Squad</label>
-            <select class="form-control" id="squad" name="squad">
-                <option><%=user.unit.squad%></option>
-                <option>First Squad</option>
-                <option>Second Squad</option>
-                <option>Third Squad</option>
-                <option>Fourth Squad</option>
-                <option>Platoon HQ</option>
-                <option>none</option>
+            <label for="squad">Select Squad</label>
+            <br>
+            <select class="selectpicker" id="squad" name="squad">
+                <% for(let i = 0; i < config.squads.length; i++) { %>
+                    <% if(user.unit.squad === config.squads[i]) { %>
+                    <option selected><%=config.squads[i]%></option>
+                    <% } else { %>
+                    <option><%=config.squads[i]%></option>
+                    <% } %>
+                <% } %>
             </select>
         </div>
 
@@ -124,10 +137,12 @@
             <br>
             <select class="selectpicker" id="certs" multiple name="certifications">
                 <% for(let i = 0; i < config.certifications.length; i++) { %>
-                    <% if(user.certifications.indexOf(config.certifications[i]) != -1) { %>
-                        <option selected><%=config.certifications[i]%></option>
-                    <% } else { %>
+                    <% if(user.certifications === null) { %>
                         <option><%=config.certifications[i]%></option>
+                    <% } else if(typeof user.certifications === "string" && user.certifications === config.certifications[i]) { %>
+                        <option selected><%=config.certifications[i]%></option>
+                    <% } else if(user.certifications.indexOf(config.certifications[i]) != -1) {%>
+                        <option selected><%=config.certifications[i]%></option>
                     <% } %>
                 <% } %>
             </select>
