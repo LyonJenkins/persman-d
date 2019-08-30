@@ -186,9 +186,11 @@
     body.themed .bootstrap-select .dropdown-menu li a {
         color: white;
         background-color: #3a3a3a;
+        border-color: rgba(255, 255, 255, .3);
     }
 
     body.themed .dropdown-menu.show {
         background-color: #3a3a3a;
+        border-color: rgba(255, 255, 255, .3);
     }
 }
