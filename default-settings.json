@@ -3,5 +3,9 @@
   "websiteName":  "PERSMAN",
   "landingText":  "Welcome.",
   "enableRetiredMembers": "true",
-  "certifications":["Basic Training","Airborne School","Pathfinder School","Air Assault School","Ranger School","Jumpmaster School","Sapper Leader School","IBOLC","BOLC","Chaplain School","Engineer School","Warrior Leadership Course","Basic Leader Course","Advanced Leader Course","Senior Leader Course"]
+  "certifications":["Basic Training","Airborne School","Pathfinder School","Air Assault School","Ranger School","Jumpmaster School","Sapper Leader School","IBOLC","BOLC","Chaplain School","Engineer School","Warrior Leadership Course","Basic Leader Course","Advanced Leader Course","Senior Leader Course"],
+  "roles": ["11B","68W","none"],
+  "companies": ["Crusader Company"],
+  "platoons": ["First Platoon", "Second Platoon", "Third Platoon", "Fourth Platoon"],
+  "squads": ["First Squad", "Second Squad", "Third Squad", "Fourth Squad"]
 }
