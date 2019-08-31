@@ -3,14 +3,18 @@ const express = require("express"), router = express.Router(), passport = requir
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/listusers", isLoggedIn, function (req, res) {
+    let companies = [];
+    // const companyObj = ({
+    //     name: "",
+    //     platoons: []
+    // });
     let platoons = [];
     // const platoonObj = ({
     //     name: "",
     //     squads: []
     // });
-    const sortingPlatoons = ["First Platoon", "Second Platoon", "Third Platoon", "Fourth Platoon"];
-    const sortingSquads = ["Platoon HQ", "First Squad", "Second Squad", "Third Squad", "Fourth Squad"];
-    // let squads = [];
+    const sortingPlatoons = config.platoons;
+    const sortingSquads = config.squads;
     User.find({}, function (err, allUsers) {
         if (err) {
             console.log(err);
