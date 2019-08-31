@@ -145,7 +145,7 @@ router.post('/reset/:token', function(req, res) {
  
  router.post("/register", function(req, res){
      let role = {name:"Guest", num:0};
-     if(req.body.username === "admin") role = {name: "Admin", num:5};
+     // if(req.body.username === "admin") role = {name: "Admin", num:5};
      const newUser = new User({
          email: req.body.email,
          username: req.body.username,
