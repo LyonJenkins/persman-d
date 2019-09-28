@@ -7,7 +7,7 @@ router.get("/user/:id", isLoggedIn, function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("userpage", {user: foundUser, config: config});
+            res.render("userpage", {user: foundUser});
         }
     });
 });
@@ -17,7 +17,7 @@ router.get("/user/edit/:id", isLoggedIn, function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("edit", {user: foundUser, config: config});
+            res.render("edit", {user: foundUser});
         }
     });
 });

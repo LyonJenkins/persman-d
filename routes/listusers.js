@@ -51,7 +51,7 @@ router.get("/listusers", isLoggedIn, function (req, res) {
 
             const platoonsByOrder = new Map(sortingPlatoons.map((t, i) => [t, i]));
             const newPlats = _.sortBy(platoons, o => platoonsByOrder.get(o.name));
-            res.render("listusers", {users: allUsers, platoons: newPlats, config: config});
+            res.render("listusers", {users: allUsers, platoons: newPlats});
         }
     })
 });

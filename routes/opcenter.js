@@ -13,17 +13,17 @@ const express = require("express"),
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/opcenter", isLoggedIn, function(req, res){
-   res.render("opcenter/opcenter", {config: config});
+   res.render("opcenter/opcenter");
 });
 
 router.get("/opcenter/discharge", isLoggedIn, function(req, res){
     if(req.user.role.num === guest) return res.redirect("/");
-    res.render("opcenter/discharge", {user:req.user, config: config});
+    res.render("opcenter/discharge", {user:req.user});
 });
 
 router.get("/opcenter/loa", isLoggedIn, function(req, res){
     if(req.user.role.num === guest) return res.redirect("/");
-    res.render("opcenter/loa", {user:req.user, config: config});
+    res.render("opcenter/loa", {user:req.user});
 });
 
 router.get("/opcenter/yourrequests", isLoggedIn, function(req, res){
@@ -40,7 +40,7 @@ router.get("/opcenter/yourrequests", isLoggedIn, function(req, res){
                 if(err) {
                     console.log(err);
                 }
-                res.render("opcenter/userrequests", {leaves: leave, discharges: discharge, applications: app, user: req.user, config: config});
+                res.render("opcenter/userrequests", {leaves: leave, discharges: discharge, applications: app, user: req.user});
             });
         });
 
@@ -89,7 +89,7 @@ router.get("/opcenter/requests", isLoggedIn, function(req, res){
                    console.log(err);
                }
                Application.find({}, function(err, apps){
-                   res.render("opcenter/requests", {users: users, discharges:discharges, loas:leaves, applications:apps, config: config})
+                   res.render("opcenter/requests", {users: users, discharges:discharges, loas:leaves, applications:apps})
                })
            })
        });
@@ -131,7 +131,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
                     if(err) {
                         console.log(err);
                     } else {
-                        res.render("opcenter/viewdischarge", {discharge: foundDischarge, users: allUsers, config: config});
+                        res.render("opcenter/viewdischarge", {discharge: foundDischarge, users: allUsers});
                     }
                 })
             }
@@ -145,7 +145,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
                     if(err) {
                         console.log(err);
                     } else {
-                        res.render("opcenter/viewloa", {loa: foundLeave, users: allUsers, config: config});
+                        res.render("opcenter/viewloa", {loa: foundLeave, users: allUsers});
                     }
                 })
             }
@@ -159,7 +159,7 @@ router.post("/opcenter/viewrequest/:id", isLoggedIn, function(req,res){
               if(err) {
                   console.log(err);
               }
-              res.render("opcenter/viewapplication", {app: foundApp, users: allUsers, config: config})
+              res.render("opcenter/viewapplication", {app: foundApp, users: allUsers})
            });
         });
 
@@ -193,7 +193,7 @@ router.post("/opcenter/application", isLoggedIn, function(req,res){
         if(err) {
             console.log(err);
         }
-        res.render("opcenter/createapplication", {submitted: true, config: config});
+        res.render("opcenter/createapplication", {submitted: true});
     });
 });
 
@@ -268,7 +268,7 @@ router.post("/opcenter/:id/", isLoggedIn, function(req,res){
 
 router.get("/settings", isLoggedIn, function(req,res){
     if(req.user.role.num !== 5) return res.redirect("/");
-    res.render("opcenter/settings", {config: config});
+    res.render("opcenter/settings");
 });
 
 router.post("/settings", isLoggedIn, function(req,res){

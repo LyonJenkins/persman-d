@@ -6,7 +6,7 @@ router.get("/calendar", isLoggedIn, function(req, res){
         if(err) {
             console.log(err);
         } else {
-            res.render("calendar/calendar", {allEvents: allEvents, config: config});
+            res.render("calendar/calendar", {allEvents: allEvents});
         }
     })
  });
@@ -20,7 +20,7 @@ router.get("/calendar/event/:id", isLoggedIn, function(req, res){
             if(err) {
                 console.log(err);
             } else {
-                res.render("calendar/viewevent",{event: foundEvent, list: foundSpecifics[0].attendingList, user:req.user, config: config})
+                res.render("calendar/viewevent",{event: foundEvent, list: foundSpecifics[0].attendingList, user:req.user})
             }
         });
     });
@@ -28,7 +28,7 @@ router.get("/calendar/event/:id", isLoggedIn, function(req, res){
 
 router.get("/calendar/event", isLoggedIn, function(req,res){
     if(req.user.role.num < recruiter) return res.redirect("/");
-    res.render("calendar/newevent", {config: config});
+    res.render("calendar/newevent");
 });
 
 router.post("/calendar/event", isLoggedIn, function(req,res){
@@ -114,7 +114,7 @@ router.get("/calendar/events", isLoggedIn, function(req,res){
        if(err) {
            console.log(err);
        }
-       res.render("calendar/allevents", {events : foundEvents, config: config});
+       res.render("calendar/allevents", {events : foundEvents});
     });
 });
 

@@ -14,7 +14,8 @@ const express = require("express"),
     session = require('express-session'),
     cookieParser = require("cookie-parser"),
     favicon = require('serve-favicon'),
-    path = require('path');
+    path = require('path'),
+    config = require('./settings.json');
 
 mongoose.connect("mongodb://localhost:27017/persman", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,6 +40,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
+    res.locals.config = config;
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');

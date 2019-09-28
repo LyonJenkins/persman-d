@@ -19,12 +19,12 @@ router.get("/", function(req, res){
             if(allEvents[place] !== undefined) newEvents.push(allEvents[place]);
             place--;
         }
-        res.render("landing", {events: newEvents, config: config});
+        res.render("landing", {events: newEvents});
     });
  });
 
 router.get("/forgot", function(req,res){
-    res.render("forgot", {config: config});
+    res.render("forgot");
 });
 
 router.post('/forgot', function(req, res, next) {
@@ -85,7 +85,7 @@ router.get('/reset/:token', function(req, res) {
             req.flash('error', 'Password reset token is invalid or has expired.');
             return res.redirect('/forgot');
         }
-        res.render('reset', {token: req.params.token, config: config});
+        res.render('reset', {token: req.params.token});
     });
 });
 
@@ -140,12 +140,12 @@ router.post('/reset/:token', function(req, res) {
 });
  
  router.get("/register", function(req,res){
-     res.render("register", {error: "", config: config});
+     res.render("register", {error: ""});
  });
  
  router.post("/register", function(req, res){
      let role = {name:"Guest", num:0};
-     // if(req.body.username === "admin") role = {name: "Admin", num:5};
+     if(req.body.username === "admin") role = {name: "Admin", num:5};
      const newUser = new User({
          email: req.body.email,
          username: req.body.username,
@@ -163,7 +163,7 @@ router.post('/reset/:token', function(req, res) {
  });
  
  router.get("/login", function(req, res){
-     res.render("login", {config: config});
+     res.render("login");
  });
  
  router.post("/login", passport.authenticate("local", 
