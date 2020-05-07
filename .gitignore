@@ -1,6 +1,6 @@
 .idea
 node_modules
-public/images/meeting.jpg
-public/images/lfx.jpg
+public/images/10th_logo.png
 .env
 settings.json
+TODO.txt
