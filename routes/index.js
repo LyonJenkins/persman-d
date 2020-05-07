@@ -27,6 +27,10 @@ router.get("/forgot", function(req,res){
     res.render("forgot");
 });
 
+router.get("/faq", function(req,res){
+    res.render("faq");
+});
+
 router.post('/forgot', function(req, res, next) {
     async.waterfall([
         function(done) {
@@ -54,14 +58,14 @@ router.post('/forgot', function(req, res, next) {
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                    user: 'persmanwebsite@gmail.com',
-                    pass: ''
+                    user: config.mailerEmail,
+                    pass: config.mailerPassword
                 }
             });
             var mailOptions = {
                 to: user.email,
-                from: 'persmanwebsite@gmail.com',
-                subject: 'PERSMAN Password Reset',
+                from: config.mailerEmail,
+                subject: config.websiteName + ' - Password Reset',
                 text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
                     'http://' + req.headers.host + '/reset/' + token + '\n\n' +
@@ -118,14 +122,14 @@ router.post('/reset/:token', function(req, res) {
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
                 auth: {
-                    user: 'persmanwebsite@gmail.com',
-                    pass: ''
+                    user: config.mailerEmail,
+                    pass: config.mailerPassword
                 }
             });
             var mailOptions = {
                 to: user.email,
-                from: "persmanwebsite@gmail.com",
-                subject: 'Your password has been changed',
+                from: config.mailerEmail,
+                subject: config.websiteName + ' - Your password has been changed',
                 text: 'Hello,\n\n' +
                     'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
             };
@@ -140,24 +144,32 @@ router.post('/reset/:token', function(req, res) {
 });
  
  router.get("/register", function(req,res){
-     res.render("register", {error: ""});
+     res.render("register", {email: "", username: "", displayname: "", password: "", error: ""});
  });
  
  router.post("/register", function(req, res){
-     let role = {name:"Guest", num:0};
-     if(req.body.username === "admin") role = {name: "Admin", num:5};
+     let role = {name:config.userGroups[0], num:0};
+     if(req.body.username === "admin") role = {name: config.userGroups[5], num:5};
      const newUser = new User({
          email: req.body.email,
          username: req.body.username,
-         role: role, registrationDate: Date.now()
+		 displayname: req.body.displayname,
+         role: role,
+		 registrationDate: Date.now()
      });
      User.register(newUser, req.body.password, function(err,user){
          if(err) {
              console.log(err.name);
-             return res.render("register", {error: err.name, websiteName: config.websiteName});
+			 let errMessage = err.message;
+			 errMessage = errMessage.replace("User validation failed: ", "");
+			 errMessage = errMessage.replace("email: ", " - ");
+			 errMessage = errMessage.replace(", ", "<br>");
+			 errMessage = errMessage.replace("displayname: ", " - ");
+			 errMessage = errMessage.replace("displayname", "display name");
+             return res.render("register", {email: req.body.email, username: req.body.username, displayname: req.body.displayname, password: req.body.password, error: errMessage});
          }
          passport.authenticate("local")(req,res,function(){
-             res.redirect("/");
+             res.redirect("/opcenter/");
          })
      });
  });
@@ -169,7 +181,8 @@ router.post('/reset/:token', function(req, res) {
  router.post("/login", passport.authenticate("local", 
      {
          successRedirect:"/", 
-         failureRedirect:"/login"
+         failureRedirect:"/login",
+         failureFlash: true
      }), function(req, res){
  });
  
