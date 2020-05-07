@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<div class="container shadow mt-3 p-3">
+<div class="container shadow mt-3 p-3 white">
 <!--    <div class="container">-->
 <!--            <div class="row">-->
 <!--                <form action="/opcenter/requests" method="POST">-->
@@ -39,7 +39,7 @@
           <% var user = users[i]; %>
           <tr>
               <td class="align-middle"><%=discharge.requestType%></td>
-              <td class="align-middle"><%=user.username%></td>
+              <td class="align-middle"><%=user.displayname%></td>
               <td class="align-middle"><span class="<%=discharge.read%>"><%=discharge.read%></span></td>
               <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
                 <td class="align-middle"></td>
@@ -72,7 +72,7 @@
                     <% var user = users[i]; %>
                     <tr>
                         <td class="align-middle"><%=loa.requestType%></td>
-                        <td class="align-middle"><%=user.username%></td>
+                        <td class="align-middle"><%=user.displayname%></td>
                         <td class="align-middle"><span class="<%=loa.read%>"><%=loa.read%></span></td>
                         <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
                             <td></td>
@@ -105,7 +105,7 @@
                 <% var user = users[i]; %>
                 <tr>
                     <td class="align-middle"><%=request.requestType%></td>
-                    <td class="align-middle"><%=user.username%></td>
+                    <td class="align-middle"><%=user.displayname%></td>
                     <td class="align-middle"><span class="<%=request.read%>"><%=request.read%></span></td>
                     <% if(user.unit.squad == "" & user.unit.platoon == "" && user.unit.company == "") { %>
                         <td></td>
@@ -135,4 +135,5 @@
     </table>
 </div>
 
+<div class="fixed-bottom">
 <% include ../partials/footer %>

@@ -1,103 +1,165 @@
 <% include ../partials/header %>
 
-<div class="container shadow mt-3 p-3">
+<div class="container shadow mt-3 p-3 white">
     <% for(var i = 0; i < users.length; i++) { %>
         <% if(users[i]._id == app.ownerID) { %>
             <% var user = users[i]; %>
 
-
-            <h1>Viewing Application for <strong><%=user.username%></strong></h1>
+            <h1>Viewing Application for <strong><%=user.displayname%></strong></h1>
             <hr>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"><b>User's Application</b></h5>
+                    <h5 class="card-title"><b><%=user.displayname%>'s Application</b></h5>
+					<small class="form-text text-muted">* Fields that were required.</small>
+					<br>
 
-                    <label for="age">How old are you?</label>
+                    <label for="country">*Country:</label>
+                    <div class="form-group">
+                        <span class="flag-icon flag-icon-<%=app.country.toLowerCase()%>"></span> <%=app.country%>
+                    </div>
+
+                    <label for="age">*How old are you?</label>
                     <div class="form-group">
                         <input class="form-control" id="age" type="text" name="age" value="<%=app.age%>" disabled>
-                        <small class="form-text text-muted">In years, how old are you?</small>
+                        <small class="form-text text-muted">The minimum age to join the unit is 18 (unless you have predetermined, explicit permission from leadership).</small>
                     </div>
 
-                    <label for="length">How many hours do you have in Arma 3?</label>
-                    <div class="form-group"><input class="form-control" id="length" type="text" name="length" value="<%=app.hours%>" disabled>
-                        <small class="form-text text-muted">How many hours do you have in Arma 3?</small>
+                    <label for="hours">*How many hours do you have in Arma 3?</label>
+                    <div class="form-group">
+						<input class="form-control" id="hours" type="text" name="hours" value="<%=app.hours%>" disabled>
                     </div>
 
-                    <label for="reason">Why do you want to join the unit?</label>
-                    <div class="form-group"><input class="form-control" id="reason" type="text" name="reason" value="<%=app.reason%>" disabled>
+                    <label for="reason">*Why do you want to join the unit?</label>
+                    <div class="form-group">
+						<textarea class="form-control" id="reason" name="reason" disabled><%=app.reason%></textarea>
                         <small class="form-text text-muted">What is your reason for wanting to join the unit?</small>
                     </div>
 
-                    <label for="findus">How did you find about us?</label>
                     <div class="form-group">
-                        <input class="form-control" id="findus" type="text" name="findus" value="<%=app.findUs%>" disabled>
-                        <small class="form-text text-muted">Tell us how you find our unit.</small>
+                        <label for="position">*What position do you hope to obtain in the unit?</label>
+                        <input class="form-control" type="text" id="position" name="position" value="<%=app.position%>" disabled>
+						<small class="form-text text-muted">This is the position you would like to work towards and eventually obtain in the unit. It is not a final decision, and your placement will depend on position availability.</small>
                     </div>
 
-                    <label for="profile">Enter your Steam Profile link.</label>
+                    <label for="positionReason">Why would you like that position?</label>
                     <div class="form-group">
-                        <input class="form-control" id="profile" type="text" name="profile" value="<%=app.steamProfile%>" disabled>
-                        <small class="form-text text-muted">Copy your profile link from your Steam page so we can contact you.</small>
+						<% if(app.positionReason === "") { %>
+							<textarea class="form-control" id="positionReason" name="positionReason" disabled>* <%=user.displayname%> declined to comment *</textarea>
+						<% } else { %>
+							<textarea class="form-control" id="positionReason" name="positionReason" disabled><%=app.positionReason%></textarea>
+						<% } %>
+						</textarea>
+                        <small class="form-text text-muted">Optional: Express why you would like that position / be a good candidate for that position.</small>
                     </div>
 
-                    <label for="arma3">Do you own a copy of Arma 3?</label>
+                    <label for="findUs">*How did you find out about us?</label>
                     <div class="form-group">
-                        <input class="form-control" type="text" id="mic" value="<%=app.game%>" disabled>
-                        <small class="form-text text-muted">Do you own a legal and valid copy of Arma 3?</small>
+                        <input class="form-control" id="findUs" type="text" name="findUs" value="<%=app.findUs%>" disabled>
+                        <small class="form-text text-muted">Tell us how you found our unit.</small>
                     </div>
 
-                    <label for="mic">Do you have a functioning microphone?</label>
+                    <label for="steamProfile">*Enter your Steam Profile link:</label>
                     <div class="form-group">
-                        <input class="form-control" type="text" id="mic" value="<%=app.microphone%>" disabled>
-                        <small class="form-text text-muted">Do you own a functioning microphone?</small>
+                        <input class="form-control" id="steamProfile" type="text" name="steamProfile" value="<%=app.steamProfile%>" disabled>
                     </div>
 
+                    <label for="arma3">*Do you own a copy of Arma 3?</label>
                     <div class="form-group">
-                        <label for="mos">What position do you want in the unit?</label>
-                        <input class="form-control" type="text" id="mos" name="mos" value="<%=app.position%>" disabled>
+                        <input class="form-control" type="text" id="arma3" name="arma3" value="<%=app.arma3%>" disabled>
+                    </div>
+
+                    <label for="language">*Are you proficient in the English language?</label>
+                    <div class="form-group">
+                        <input class="form-control" id="language" type="text" name="language" value="<%=app.language%>" disabled>
+                    </div>
+
+                    <label for="mic">*Do you have a functioning microphone?</label>
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="mic" name="mic" value="<%=app.mic%>" disabled>
+                    </div>
+
+                    <label for="ts3">*Do you have TeamSpeak 3 downloaded?</label>
+                    <div class="form-group">
+                        <input class="form-control" type="text" id="ts3" name="ts3" value="<%=app.ts3%>" disabled>
+                    </div>
+
+                    <label for="tfar">*Do you have the TFAR Plugin installed for TeamSpeak 3?</label>
+                    <div class="form-group">
+                        <input class="form-control" id="tfar" type="text" name="tfar" value="<%=app.tfar%>" disabled>
+                        <small class="form-text text-muted">If you do not have the plugin installed, our instructors will help you get it installed once you are admitted to the unit.</small>
+                    </div>
+
+                    <label for="discord">*Do you use Discord?</label>
+                    <div class="form-group">
+                        <input class="form-control" id="discord" type="text" name="discord" value="<%=app.discord%>" disabled>
+                        <small class="form-text text-muted">Our unit does a lot of communication through Discord. While it is not required to have, it is <b>highly</b> recommended.</small>
+                    </div>
+
+                    <label for="discordUsername">Enter your Discord username (if applicable):</label>
+                    <div class="form-group">
+                        <input class="form-control" id="discordUsername" type="text" name="discordUsername" value="<%=app.discordUsername%>" disabled>
+                        <small class="form-text text-muted">If you have Discord, enter your user name, including the unique, 4 digit, number identifier.</small>
+                    </div>
+
+                    <label for="ace">*Do you have any experience using the mod ACE and/or its medical system?</label>
+                    <div class="form-group">
+                        <input class="form-control" id="ace" type="text" name="ace" value="<%=app.ace%>" disabled>
+                        <small class="form-text text-muted">If you do not know what ACE is, it will be taught during basic training.</small>
+                    </div>
+
+                    <label for="youngLeadership">*Are you willing to work under the leadership of a person who may be younger than you?</label>
+                    <div class="form-group">
+                        <input class="form-control" id="youngLeadership" type="text" name="youngLeadership" value="<%=app.youngLeadership%>" disabled>
+                        <small class="form-text text-muted">While the age of our leadership is diverse, there may be a scenario where you may be attached to leadership younger than you.</small>
+                    </div>
+
+                    <label for="milsim">*Do you understand that this is a semi-realism mil-sim unit, and a certain level of tact/seriousness is expected of you during all official operations and certain leadership engagements?</label>
+                    <div class="form-group">
+                        <input class="form-control" id="milsim" type="text" name="milsim" value="<%=app.milsim%>" disabled>
+                        <small class="form-text text-muted">This affirms that you are able and willing to maintain tact within the unit during appropriate times. This also affirms that you understand that failure to do so may lead to being dishonorably discharged from the unit.</small>
                     </div>
                 </div>
 
             </div>
 
-            <% if(currentUser.role.num === 5) { %>
-            <br>
-            <h1>Actions</h1>
-            <hr>
-            <div class="card-deck" style="padding-bottom: 1%; margin-top: 1%; margin-bottom: 1%">
-                <div class="card text-center" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title"><strong>Approve</strong></h5>
-                        <form action="/opcenter/<%=app._id%>" method="POST">
-                            <% if(app.read === "Pending") { %>
-                                <div class="form-group"><button class="btn btn-success" style="width: 50%;">Approve</button></div>
-                            <% } else { %>
-                                <div class="form-group"><button class="btn btn-success" style="width: 50%;" disabled>Approve</button></div>
-                            <% } %>
-                            <input class="form-control" type="hidden" name="requestType" value="Application">
-                            <input class="form-control" type="hidden" name="id" value="<%=app._id%>">
-                            <input class="form-control" type="hidden" name="approve" value="1">
-                        </form>
-                    </div>
-                </div>
-                <div class="card text-center" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title"><strong>Deny</strong></h5>
-                        <form action="/opcenter/<%=app._id%>" method="POST">
-                            <% if(app.read === "Pending") { %>
-                                <div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>
-                            <% } else { %>
-                                <div class="form-group"><button class="btn btn-danger" style="width: 50%;" disabled>Deny</button></div>
-                            <% } %>
-                            <input class="form-control" type="hidden" name="requestType" value="Application">
-                            <input class="form-control" type="hidden" name="id" value="<%=app._id%>">
-                            <input class="form-control" type="hidden" name="approve" value="0">
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <% if(currentUser.role.num >= 3) { %>
+				<br>
+				<h1>Actions</h1>
+				<hr>
+				<div class="card-deck" style="padding-bottom: 1%; margin-top: 1%; margin-bottom: 1%">
+					<div class="card text-center" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title"><strong>Approve</strong></h5>
+							<form action="/opcenter/<%=app._id%>" method="POST">
+								<% if(app.read === "Pending") { %>
+									<div class="form-group"><button class="btn btn-success" style="width: 50%;">Approve</button></div>
+								<% } else { %>
+									<div class="form-group"><button class="btn btn-success" style="width: 50%;" disabled>Approve</button></div>
+								<% } %>
+								<input class="form-control" type="hidden" name="requestType" value="Application">
+								<input class="form-control" type="hidden" name="id" value="<%=app._id%>">
+								<input class="form-control" type="hidden" name="approve" value="1">
+							</form>
+						</div>
+					</div>
+					<div class="card text-center" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title"><strong>Deny</strong></h5>
+							<form action="/opcenter/<%=app._id%>" method="POST">
+								<% if(app.read === "Pending") { %>
+									<div class="form-group"><button class="btn btn-danger" style="width: 50%;">Deny</button></div>
+								<% } else { %>
+									<div class="form-group"><button class="btn btn-danger" style="width: 50%;" disabled>Deny</button></div>
+								<% } %>
+								<input class="form-control" type="hidden" name="requestType" value="Application">
+								<input class="form-control" type="hidden" name="id" value="<%=app._id%>">
+								<input class="form-control" type="hidden" name="approve" value="0">
+							</form>
+						</div>
+					</div>
+				</div>
             <% } %>
-            <% } %>
+        <% } %>
     <% } %>
 </div>
 

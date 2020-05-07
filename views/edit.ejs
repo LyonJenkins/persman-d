@@ -1,11 +1,17 @@
 <% include partials/header %>
 
-<% const admin = 5; recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;%>
-<div class="container shadow mt-3 pt-3 mb-3 pb-1">
-    <form action="/user/edit" method="POST">
-        <h1>Change user details for <strong><%=user.username%></strong></h1>
-        <hr>
-
+<div class="container shadow mt-3 pt-3 mb-3 pb-1 white">
+	<div class="d-flex justify-content-between">
+		<div><h1>Change user details for <strong><% if(user.rank.toLowerCase() !== "none") { %><%=user.rank%> <% } %><%=user.displayname%></strong></h1></div>
+		<div>
+			<form action="/user/<%=user._id%>" method="get">
+				<button class="btn btn-info">View User's Profile</button>
+			</form>
+		</div>
+	</div>
+	<hr>
+	
+	<form action="/user/edit" method="POST">
         <% if(error && error.length > 0) { %>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <%=error%>
@@ -25,152 +31,229 @@
         <% } %>
 
         <div class="form-group">
-            <label for="name">Username</label>
-            <input class="form-control" type="text" id="name" name="name" value="<%=user.username%>" disabled>
+            <label for="username">Username:</label>
+            <input class="form-control" type="text" id="username" name="username" value="<%=user.username%>" disabled>
         </div>
 
-
         <div class="form-group">
-            <label for="id">ID</label>
+            <label for="id">Unique ID:</label>
             <input class="form-control" type="text" id="id" name="id" value="<%=user._id%>" disabled>
         </div>
-
-        <div class="form-group">
-            <label for="position">Select Position</label>
-            <br>
-            <select class="selectpicker" id="position" name="position">
-                <% for(let i = 0; i < config.roles.length; i++) { %>
-                    <% if(user.position === config.roles[i]) { %>
-                    <option selected><%=config.roles[i]%></option>
-                    <% } else { %>
-                    <option><%=config.roles[i]%></option>
-                    <% } %>
-                <% } %>
-            </select>
+		
+		<div class="form-group">
+            <label for="displayname">Display Name (Format: <code>[Capital First Initial][Period][Space][Capitalized Full Last Name]</code>):</label>
+            <input class="form-control" type="text" id="displayname" name="displayname" value="<%=user.displayname%>" placeholder="J. Appleseed" pattern="[A-Z]{1}\. [A-Z]{1}.+">
         </div>
 
         <div class="form-group">
-            <label for="company">Select Company</label>
-            <br>
-            <select class="selectpicker" id="company" name="company">
-                <% for(let i = 0; i < config.companies.length; i++) { %>
-                    <% if(user.unit.company === config.companies[i]) { %>
-                    <option selected><%=config.companies[i]%></option>
-                    <% } else { %>
-                    <option><%=config.companies[i]%></option>
-                    <% } %>
-                <% } %>
-            </select>
+            <label for="start">Registration Date</label>
+			<!-- Oh god this is gross... And it doesn't even work on IE or Safari desktop. 
+			But this is the only way to get JavaScript's stupidly formatted Date string into a HTML Date input.
+			Thank you very much to this article https://gomakethings.com/setting-a-date-input-to-todays-date-with-vanilla-js/ for creating this masterful monstrosity-->
+            <input class="form-control" id="registrationDate" type="date" name="registrationDate" value=<%=user.registrationDate.getFullYear().toString() + '-' + (user.registrationDate.getMonth() + 1).toString().padStart(2, 0) + '-' + user.registrationDate.getDate().toString().padStart(2, 0)%> required>
         </div>
+		
+		<div class="d-flex flex-row flex-wrap">
+
+			<div class="form-group">
+				<label for="company">Company:</label>
+				<br>
+				<select class="selectpicker" id="company" name="company">
+					<% for(let i = 0; i < config.companies.length; i++) { %>
+						<% if(user.unit.company === config.companies[i]) { %>
+						<option selected><%=config.companies[i]%></option>
+						<% } else { %>
+						<option><%=config.companies[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+
+			<div class="ml-3 form-group">
+				<label for="platoon">Platoon:</label>
+				<br>
+				<select class="selectpicker" id="platoon" name="platoon">
+					<% for(let i = 0; i < config.platoons.length; i++) { %>
+						<% if(user.unit.platoon === config.platoons[i]) { %>
+						<option selected><%=config.platoons[i]%></option>
+						<% } else { %>
+						<option><%=config.platoons[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+
+			<div class="ml-3 form-group">
+				<label for="squad">Squad:</label>
+				<br>
+				<select class="selectpicker" id="squad" name="squad">
+					<% for(let i = 0; i < config.squads.length; i++) { %>
+						<% if(user.unit.squad === config.squads[i]) { %>
+						<option selected><%=config.squads[i]%></option>
+						<% } else { %>
+						<option><%=config.squads[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+
+			<div class="ml-3 form-group">
+				<label for="team">Team:</label>
+				<br>
+				<select class="selectpicker" id="team" name="team">
+					<% for(let i = 0; i < config.teams.length; i++) { %>
+						<% if(user.unit.team === config.teams[i]) { %>
+						<option selected><%=config.teams[i]%></option>
+						<% } else { %>
+						<option><%=config.teams[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+		
+		</div>
+		
+		<div class="d-flex flex-row flex-wrap">
+
+			<div class="form-group">
+				<label for="rank">Rank:</label>
+				<br>
+				<select class="selectpicker" id="rank" name="rank">
+					<% for(let i = 0; i < config.ranks.length; i++) { %>
+						<% if(user.rank === config.ranks[i]) { %>
+						<option selected><%=config.ranks[i]%></option>
+						<% } else { %>
+						<option><%=config.ranks[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+
+			<div class="ml-3 form-group">
+				<label for="position">MOS:</label>
+				<br>
+				<select class="selectpicker" id="position" name="position">
+					<% for(let i = 0; i < config.roles.length; i++) { %>
+						<% if(user.position === config.roles[i]) { %>
+						<option selected><%=config.roles[i]%></option>
+						<% } else { %>
+						<option><%=config.roles[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+
+			<div class="ml-3 form-group">
+				<label for="sShops">S-Shops:</label>
+				<br>
+				<select class="selectpicker" id="sShops" multiple name="sShops">
+					<% for(let i = 0; i < config.sShops.length; i++) { %>
+						<% if(user.sShops === null) { %>
+							<option><%=config.sShops[i]%></option>
+						<% } else if(typeof user.sShops === "string" && user.sShops === config.sShops[i]) { %>
+							<option selected><%=config.sShops[i]%></option>
+						<% } else if(user.sShops.indexOf(config.sShops[i]) != -1) {%>
+							<option selected><%=config.sShops[i]%></option>
+						<% } else {%>
+							<option><%=config.sShops[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+		
+		</div>
+		
+		<div class="d-flex flex-row flex-wrap">
+
+			<div class="form-group">
+				<label for="tabs">Tabs:</label>
+				<br>
+				<select class="selectpicker" id="tabs" multiple name="tabs">
+					<% for(let i = 0; i < config.tabs.length; i++) { %>
+						<% if(user.tabs === null) { %>
+							<option><%=config.tabs[i]%></option>
+						<% } else if(typeof user.tabs === "string" && user.tabs === config.tabs[i]) { %>
+							<option selected><%=config.tabs[i]%></option>
+						<% } else if(user.tabs.indexOf(config.tabs[i]) != -1) {%>
+							<option selected><%=config.tabs[i]%></option>
+						<% } else {%>
+							<option><%=config.tabs[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+
+			<div class="ml-3 form-group">
+				<label for="awards">Awards:</label>
+				<br>
+				<select class="selectpicker" id="awards" multiple name="awards">
+					<% for(let i = 0; i < config.awards.length; i++) { %>
+						<% if(user.awards === null) { %>
+							<option><%=config.awards[i]%></option>
+						<% } else if(typeof user.awards === "string" && user.awards === config.awards[i]) { %>
+							<option selected><%=config.awards[i]%></option>
+						<% } else if(user.awards.indexOf(config.awards[i]) != -1) {%>
+							<option selected><%=config.awards[i]%></option>
+						<% } else {%>
+							<option><%=config.awards[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+
+			<div class="ml-3 form-group">
+				<label for="certs">Certifications:</label>
+				<br>
+				<select class="selectpicker" id="certs" multiple name="certifications">
+					<% for(let i = 0; i < config.certifications.length; i++) { %>
+						<% if(user.certifications === null) { %>
+							<option><%=config.certifications[i]%></option>
+						<% } else if(typeof user.certifications === "string" && user.certifications === config.certifications[i]) { %>
+							<option selected><%=config.certifications[i]%></option>
+						<% } else if(user.certifications.indexOf(config.certifications[i]) != -1) {%>
+							<option selected><%=config.certifications[i]%></option>
+						<% } else {%>
+							<option><%=config.certifications[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+		
+		</div>
 
         <div class="form-group">
-            <label for="platoon">Select Platoon</label>
-            <br>
-            <select class="selectpicker" id="platoon" name="platoon">
-                <% for(let i = 0; i < config.platoons.length; i++) { %>
-                    <% if(user.unit.platoon === config.platoons[i]) { %>
-                    <option selected><%=config.platoons[i]%></option>
-                    <% } else { %>
-                    <option><%=config.platoons[i]%></option>
-                    <% } %>
-                <% } %>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="squad">Select Squad</label>
-            <br>
-            <select class="selectpicker" id="squad" name="squad">
-                <% for(let i = 0; i < config.squads.length; i++) { %>
-                    <% if(user.unit.squad === config.squads[i]) { %>
-                    <option selected><%=config.squads[i]%></option>
-                    <% } else { %>
-                    <option><%=config.squads[i]%></option>
-                    <% } %>
-                <% } %>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="status">Change Status</label>
-            <select class="form-control" id="status" name="status">
+            <label for="status">Status:</label>
+			<br>
+            <select class="selectpicker" id="status" name="status">
                 <option><%=user.status%></option>
-                <option>Active</option>
+                <option>Active Duty</option>
                 <option>Leave of Absence</option>
                 <option>Away Without Leave</option>
                 <option>Reserve</option>
                 <option>Retired</option>
-                <option>none</option>
+                <option>None</option>
             </select>
         </div>
-
-        <div class="form-group">
-            <label for="rank">Select Rank</label>
-            <select class="form-control" id="rank" name="rank">
-                <option><%=user.rank%></option>
-                <option>PVT</option>
-                <option>PV2</option>
-                <option>PFC</option>
-                <option>SPC</option>
-                <option>CPL</option>
-                <option>SGT</option>
-                <option>SSG</option>
-                <option>SFC</option>
-                <option>MSG</option>
-                <option>1SG</option>
-                <option>SGM</option>
-                <option>CSM</option>
-                <option>WO1</option>
-                <option>CW2</option>
-                <option>CW3</option>
-                <option>CW4</option>
-                <option>CW5</option>
-                <option>2LT</option>
-                <option>1LT</option>
-                <option>CPT</option>
-                <option>none</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="certs">Select Certifications</label>
-            <br>
-            <select class="selectpicker" id="certs" multiple name="certifications">
-                <% for(let i = 0; i < config.certifications.length; i++) { %>
-                    <% if(user.certifications === null) { %>
-                        <option><%=config.certifications[i]%></option>
-                    <% } else if(typeof user.certifications === "string" && user.certifications === config.certifications[i]) { %>
-                        <option selected><%=config.certifications[i]%></option>
-                    <% } else if(user.certifications.indexOf(config.certifications[i]) != -1) {%>
-                        <option selected><%=config.certifications[i]%></option>
-                    <% } %>
-                <% } %>
-            </select>
-        </div>
-
-
-        <% if(currentUser.role.num === recruiter || currentUser.role.num === admin) { %>
-        <div class="form-group">
-            <label for="role">Select User's Group</label>
-            <select class="form-control" id="role" name="role">
-                <option><%=user.role.name%></option>
-                <option>Guest</option>
-                <option>Enlisted</option>
-                <option>NCO</option>
-                <option>Officer</option>
-                <% if(currentUser.role.num > recruiter) { %>
-                <option>Recruiter</option>
-                <option>Admin</option>
-                <% } %>
-            </select>
-        </div>
-        <% } %>        
+		<% if(currentUser.role.num > user.role.num || currentUser.id === user.id || currentUser.role.num === 5) { %>
+			<div class="form-group">
+				<label for="role">User Group:</label>
+				<br>
+				<select class="selectpicker" id="role" name="role">
+					<% for(let i = 0; i < config.userGroups.length; i++) { %>
+						<% if(user.role.name === config.userGroups[i] && (currentUser.role.num >= i || currentUser.role.num === 5)) { %>
+							<option selected><%=config.userGroups[i]%></option>
+						<% } else if(currentUser.role.num >= i || currentUser.role.num === 5) { %>
+							<option><%=config.userGroups[i]%></option>
+						<% } %>
+					<% } %>
+				</select>
+			</div> 
+		<% } %>     
 
         <input class="form-control" type="text" name="id" value="<%=user._id%>" hidden>
-        <div class="form-group"><button class="btn btn-primary" >Submit</button></div>
+        <div class="form-group"><button class="btn btn-success" >Submit Changes</button></div>
     </form>
 </div>
 
 
 <% include partials/footer %>
-

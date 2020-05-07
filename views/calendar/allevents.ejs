@@ -1,10 +1,11 @@
 <% include ../partials/header %>
 
-<div class="container shadow mt-3 p-3">
+<div class="container shadow mt-3 mb-5 p-3 white-transparent">
     <h1>All Events</h1>
     <hr>
     <div class="container-fluid mt-4">
         <div class="row justify-content-center">
+			<% let num = 1; %>
             <% if(events.length > 0) { %>
             <% events.forEach(function(event) { %>
             <div class="col-auto mb-3">
@@ -17,8 +18,32 @@
                             <a href="/calendar/event/<%=event._id%>" class="btn btn-primary btn-sm" style="margin: 1%;">View Event</a>
                             <a href="/calendar/event/edit/<%=event._id%>" class="btn btn-warning btn-sm" style="margin: 1%;">Edit Event</a>
                             <form action="/calendar/events/<%=event._id%>" method="post" style="margin: 1%;">
-                                <button class="btn btn-danger btn-sm">Delete Event</button>
-                            </form>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<%=num%>">
+									Delete Event
+								</button>
+
+								<!-- Modal -->
+								<div class="modal fade" id="delete<%=num%>" tabindex="-1" role="dialog">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Confirm Delete Event</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true" class="modal-span">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												This action cannot be undone.
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-danger btn-sm">Delete Event</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<%num++;%>
+							</form>
                         </div>
                     </div>
                 </div>
@@ -31,4 +56,5 @@
     </div>
 </div>
 
+<div class="fixed-bottom">
 <% include ../partials/footer %>
