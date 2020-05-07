@@ -68,7 +68,7 @@
 					<a class="nav-link" href="/faq/">F.A.Q.</a>
 				</li>
             <% } %>
-			<% if(config.modlistURL !== "") { %>
+			<% if(config.modlistURL !== "" || config.resourceLinks[0] !== "") { %>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					  Resources
@@ -85,7 +85,7 @@
 					</div>
 				</li>
 			<% } %>
-			<% if(config.a3unitsURL !== "" && config.steamgroupURL !== "" && config.donateURL !== "") { %>
+			<% if(config.a3unitsURL !== "" || config.steamgroupURL !== "" || config.donateURL !== "") { %>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="linksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					  Links
