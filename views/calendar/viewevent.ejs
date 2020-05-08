@@ -36,7 +36,44 @@
 </script>
 
     <div class="container shadow mt-3 pt-3 white-transparent">
-        <h1>Viewing <strong><%=event.title%></strong></h1>
+		<div class="d-flex justify-content-between">
+			<div class="mr-auto"><h1>Viewing <strong><%=event.title%></strong></h1></div>
+			<% if(currentUser) { %>
+				<% if(currentUser.role.num >= 2) { %>
+					<div>
+						<a href="/calendar/event/edit/<%=event._id%>" class="btn btn-warning mr-1">Edit Event</a>
+					</div>
+					<div>
+						<form action="/calendar/events/<%=event._id%>" method="post">
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+								Delete Event
+							</button>
+
+							<!-- Modal -->
+							<div class="modal fade" id="delete" tabindex="-1" role="dialog">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Confirm Delete Event</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true" class="modal-span">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											This action cannot be undone.
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-danger btn-sm">Delete Event</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				<% } %>
+			<% } %>
+		</div>
         <hr>
 		
 		<% if(success && success.length > 0) { %>
