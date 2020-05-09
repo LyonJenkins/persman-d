@@ -3,11 +3,7 @@ const express = require("express"), router = express.Router(), passport = requir
 const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0;
 
 router.get("/listusers", isLoggedIn, function (req, res) {
-    let companies = [];
-    // const companyObj = ({
-    //     name: "",
-    //     platoons: []
-    // });
+    let units = config.units;
     let platoons = [];
     // const platoonObj = ({
     //     name: "",
