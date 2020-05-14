@@ -22,16 +22,16 @@
 					</tr>
 					<tr>
 						<td style="text-align: center; color: black;">
-							<iframe src="http://free.timeanddate.com/clock/i6p85lc5/n137/fs16/ftb/th1/ta1" frameborder="0" width="113" height="20"></iframe>
+							<iframe src="https://free.timeanddate.com/clock/i6p85lc5/n137/fs16/ftb/th1/ta1" frameborder="0" width="113" height="20"></iframe>
 						</td>
 						<td style="text-align: center;">
-							<iframe src="http://free.timeanddate.com/clock/i6p85lc5/n24/fs16/ftb/th1/ta1" frameborder="0" width="113" height="20"></iframe>
+							<iframe src="https://free.timeanddate.com/clock/i6p85lc5/n24/fs16/ftb/th1/ta1" frameborder="0" width="113" height="20"></iframe>
 						</td>
 						<td style="text-align: center;">
-							<iframe src="http://free.timeanddate.com/clock/i6p85lc5/n179/fs16/ftb/th1/ta1" frameborder="0" width="113" height="20"></iframe>
+							<iframe src="https://free.timeanddate.com/clock/i6p85lc5/n179/fs16/ftb/th1/ta1" frameborder="0" width="113" height="20"></iframe>
 						</td>
 						<td style="text-align: center;">
-							<iframe src="http://free.timeanddate.com/clock/i6p85lc5/n37/fs16/ftb/th1/ta1" frameborder="0" width="113" height="20"></iframe>
+							<iframe src="https://free.timeanddate.com/clock/i6p85lc5/n37/fs16/ftb/th1/ta1" frameborder="0" width="113" height="20"></iframe>
 						</td>
 					</tr>
 					</tbody>
@@ -95,35 +95,32 @@
 		</div>
 	<% } %>
 	
+	<% if(events.length > 0){ %>
+		<br>
+		<h1 style="text-align: center;">Recently Added Events</h1>
+		<hr>
+
+		<div class="container-fluid mt-4">
+			<div class="row justify-content-center">
+				<% events.forEach(function(event) { %>
+				<div class="col-auto mb-3">
+					<div class="card" style="width: 20rem;">
+						<img class="card-img-top" src="<%=event.imageName%>" alt="Image Not Found">
+						<div class="card-body">
+							<h5 class="card-title"><%=event.title%></h5>
+							<p class="card-text"><%=event.start%> - <%=event.startTime%> EST</p>
+							<a href="/calendar/event/<%=event._id%>" class="btn btn-primary">View Event</a>
+						</div>
+					</div>
+				</div>
+				<% }) %>
+			</div>
+		</div>
+    <% } %>
     <hr>
-    <div>
+	<div>
         <p><%-config.landingText%></p>
     </div>
-	<br>
-	
-    <% if(events.length > 0){ %>
-    <br>
-    <br>
-    <h1 style="text-align: center;">Recently Added Events</h1>
-    <hr>
-
-    <div class="container-fluid mt-4">
-        <div class="row justify-content-center">
-            <% events.forEach(function(event) { %>
-            <div class="col-auto mb-3">
-                <div class="card" style="width: 20rem;">
-                    <img class="card-img-top" src="<%=event.imageName%>" alt="Image Not Found">
-                    <div class="card-body">
-                        <h5 class="card-title"><%=event.title%></h5>
-                        <p class="card-text"><%=event.start%> - <%=event.startTime%> EST</p>
-                        <a href="/calendar/event/<%=event._id%>" class="btn btn-primary">View Event</a>
-                    </div>
-                </div>
-            </div>
-            <% }) %>
-        </div>
-    </div>
-    <% } %>
 </div>
 
 <% include partials/footer %>

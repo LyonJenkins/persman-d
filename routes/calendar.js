@@ -183,7 +183,7 @@ router.post("/calendar/events/:id", isLoggedIn, function(req, res){
  }
 
 function isVisible(req, res, next) {
-    if (config.enableVisibility === "on") {
+    if (config.enableVisibility === "on" || req.isAuthenticated()) {
         return next();
     }
     res.redirect("/login");

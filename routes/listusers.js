@@ -70,15 +70,8 @@ router.get("/listusers", isVisible, function (req, res) {
     })
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-}
-
 function isVisible(req, res, next) {
-    if (config.enableVisibility === "on") {
+    if (config.enableVisibility === "on" || req.isAuthenticated()) {
         return next();
     }
     res.redirect("/login");
