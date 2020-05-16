@@ -275,7 +275,7 @@ router.post("/opcenter/:id/", isLoggedIn, function(req,res){
 });
 
 router.get("/settings", isLoggedIn, function(req,res){
-    if(req.user.role.num !== 5) return res.redirect("/");
+    if(req.user.role.num < 4) return res.redirect("/");
     res.render("opcenter/settings");
 });
 
