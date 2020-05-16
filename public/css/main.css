@@ -50,6 +50,7 @@ body {
 }
 
 .white-transparent {
+    background-color: rgb(255,255,255); /* Fall back if brower doesn't render transparency correctly */
     background-color: rgba(255,255,255,0.85);
 }
 
