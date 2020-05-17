@@ -280,7 +280,7 @@ router.get("/settings", isLoggedIn, function(req,res){
 });
 
 router.post("/settings", isLoggedIn, function(req,res){
-    if(req.user.role.num < 5) return res.redirect("/");
+    if(req.user.role.num < 4) return res.redirect("/");
 
     let enableApplication = req.body.enableApplication;
     let websiteName = req.body.websiteName;
