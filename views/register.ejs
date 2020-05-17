@@ -42,8 +42,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" id="password" required name="password" placeholder="enter a password" value="<%=password%>" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$">
-                            <small class="form-text muted-text">Minimum eight characters, at least one uppercase letter, one lowercase letter and one number.</small>
+                            <input type="password" class="form-control" id="password" required name="password" placeholder="enter a password" value="<%=password%>" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$">
+                            <small class="form-text muted-text">Minimum eight characters, at least one uppercase letter, one lowercase letter, and one number.</small>
                         </div>
                         <div class="" style="text-align:center;">
                             <input type="submit" value="Register" class="btn btn-primary">
