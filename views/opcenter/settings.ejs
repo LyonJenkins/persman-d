@@ -1,95 +1,422 @@
 <% include ../partials/header %>
-<div class="container shadow mt-3 p-3">
-    <h1>Website Settings</h1>
-    <hr>
-    <% if(error && error.length > 0) { %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%=error%>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <% } %>
+<div class="container shadow mt-3 p-3 white">
+	<form action="/settings" method="POST">
+		<div class="d-flex justify-content-between">
+			<div><h1>Website Settings</h1></div>
+			<div>
+				<div class="form-group">
+					<input type="submit" value="Submit Changes" class="btn btn btn-warning">
+				</div>
+			</div>
+		</div>
+		<hr>
 
-    <% if(success && success.length > 0) { %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <%=success%>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    <% } %>
-    <div>
-        <form action="/settings" method="POST">
-            <div class="custom-control custom-switch form-group">
-                <input type="checkbox" class="custom-control-input" id="application" name="enableApplication">
-                <label class="custom-control-label" for="application">Enable Application System</label>
-            </div>
-            <div class="custom-control custom-switch form-group">
-                <input type="checkbox" class="custom-control-input" id="retiredmembers" name="enableRetiredMembers">
-                <label class="custom-control-label" for="retiredmembers">Enable Retired Members table on the members page</label>
-            </div>
-            <div class="row form-group">
-                <div class="col-sm-3" style="margin-right: 0%">
-                    <input type="text" class="form-control" id="websitename" placeholder="enter your website name" name="websiteName" value="<%=config.websiteName%>">
-                </div>
-                <div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
-                    <label for="websitename">Website Name</label>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-sm-3" style="margin-right: 0%">
-                    <input type="text" class="form-control" id="landingText" placeholder="enter your new landing text" name="landingText" value="<%=config.landingText%>">
-                </div>
-                <div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
-                    <label for="landingText">Landing Text</label>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-9" style="margin-right: 0%">
-                    <input type="text" class="form-control" id="certifications" placeholder="your desired certifications" name="certifications" value="<%=config.certifications%>">
-                </div>
-                <div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
-                    <label for="certifications">Certifications, spaced out by commas</label>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-9" style="margin-right: 0%">
-                    <input type="text" class="form-control" id="roles" placeholder="your desired roles" name="roles" value="<%=config.roles%>">
-                </div>
-                <div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
-                    <label for="roles">Roles, spaced out by commas</label>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-9" style="margin-right: 0%">
-                    <input type="text" class="form-control" id="companies" placeholder="your desired companies" name="companies" value="<%=config.companies%>">
-                </div>
-                <div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
-                    <label for="companies">Companies, spaced out by commas (only one)</label>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-9" style="margin-right: 0%">
-                    <input type="text" class="form-control" id="platoons" placeholder="your desired platoons" name="platoons" value="<%=config.platoons%>">
-                </div>
-                <div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
-                    <label for="platoons">Platoons, spaced out by commas</label>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-md-9" style="margin-right: 0%">
-                    <input type="text" class="form-control" id="squads" placeholder="your desired squads" name="squads" value="<%=config.squads%>">
-                </div>
-                <div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
-                    <label for="squads">Squads, spaced out by commas</label>
-                </div>
-            </div>
-            <div style="text-align:center;" class="form-group">
-                <input type="submit" value="Submit Changes" class="btn btn-primary">
-            </div>
-        </form>
-    </div>
+		<% if(error && error.length > 0) { %>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<%=error%>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<% } %>
+
+		<% if(success && success.length > 0) { %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<%=success%>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<% } %>
+		<div class="accordion" id="accordionSettings">
+			<div class="card">
+				<div class="card-header" id="heading1">
+					<h2 class="mb-0">
+						<button class="btn btn-link btn-lg" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+							<i class="fas fa-cog fa-lg mr-2"></i>General
+						</button>
+					</h2>
+				</div>
+
+				<div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionSettings">
+					<div class="card-body">
+						<div class="row form-group">
+							<div class="col-sm-3" style="margin-right: 0%">
+								<input type="text" class="form-control" id="websiteName" placeholder="Enter your website name" name="websiteName" value="<%=config.websiteName%>" required>
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="websiteName">Website Name</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="websiteSubtitle" placeholder="Enter your website subtitle" name="websiteSubtitle" value="<%=config.websiteSubtitle%>">
+								<small>*Not used if the landing page carousel is used. (See Graphics Settings)</small>
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="websiteSubtitle">Website Subtitle</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<textarea rows="5" cols="100" rowclass="form-control" id="landingText" placeholder="Enter your new landing text" name="landingText"><%=config.landingText%></textarea>
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="landingText">Landing Text (<a href="https://www.w3schools.com/html/html_formatting.asp">HTML formatting<sup>?</sup></a>); leave empty to hide</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<textarea rows="5" cols="100" rowclass="form-control" id="faq" placeholder="Enter your FAQ page text" name="faq"><%=config.faq%></textarea>
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="faq">F.A.Q. Text (<a href="https://www.w3schools.com/html/html_formatting.asp">HTML formatting<sup>?</sup></a>)</label>
+							</div>
+						</div>
+						<small>*The following 2 fields are comma-seperated lists.</small>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="resourceLinks" placeholder="Enter your resource URLs" name="resourceLinks" value="<%=config.resourceLinks%>">
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="resourceLinks">Resource URLs</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="resourceTitles" placeholder="Enter your resource titles" name="resourceTitles" value="<%=config.resourceTitles%>">
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="resourceTitles">Resource Titles to Show Under "Resources" Dropdown</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="email" class="form-control" id="mailerEmail" placeholder="Enter your mailing email here" name="mailerEmail" value="<%=config.mailerEmail%>">
+								<small class="form-text text-muted">Enter the email that will act as the site mailer to handle password reset attempts.</small>
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="mailerEmail">Mailer Email (Gmail Only)</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="password" class="form-control" id="mailerPassword" placeholder="Enter your mailing email password here" name="mailerPassword" value="<%=config.mailerPassword%>">
+								<small class="form-text text-muted">You will likely need to generate a unique "app password" from Google to make this work.</small>
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="mailerPassword">Mailer Password</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="heading2">
+					<h2 class="mb-0">
+						<button class="btn btn-link btn-lg collapsed" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+							<i class="fas fa-images fa-lg mr-2"></i>Graphics
+						</button>
+					</h2>
+				</div>
+				<div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordionSettings">
+					<div class="card-body">
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="websitelogo" placeholder="Enter an image link" name="websiteLogo" value="<%=config.websiteLogo%>">
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="websitename">Website Logo URL</label>
+							</div>
+						</div>
+						<small>*All of the following are comma-seperated lists.</small>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="carouselImages" placeholder="Enter your carousel image URLs" name="carouselImages" value="<%=config.carouselImages%>">
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="carouselImages">Landing Page Carousel Image URLs (Recommended Size: 1080x390)</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="carouselTitles" placeholder="Enter your carousel image titles" name="carouselTitles" value="<%=config.carouselTitles%>">
+							</div>
+							<div class="col-sm-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="carouselTitles">Landing Page Carousel Titles</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="heading3">
+					<h2 class="mb-0">
+						<button class="btn btn-link btn-lg collapsed" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+							<i class="fas fa-link fa-lg mr-2"></i>Social Media / Links
+						</button>
+					</h2>
+				</div>
+				<div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionSettings">
+					<div class="card-body">
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="url" class="form-control" id="modlistURL" placeholder="A link to your mod list" name="modlistURL" value="<%=config.modlistURL%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="modlistURL"><i class="fas fa-list fa-lg"></i> Mod List URL</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="url" class="form-control" id="a3unitsURL" placeholder="A link to your Arma 3 Units page" name="a3unitsURL" value="<%=config.a3unitsURL%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="a3unitsURL"><i class="fas fa-shield-alt fa-lg"></i> Arma 3 Units URL</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="url" class="form-control" id="steamgroupURL" placeholder="A link to your Steam Group" name="steamgroupURL" value="<%=config.steamgroupURL%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="steamgroupURL"><i class="fab fa-steam fa-lg"></i> Steam Group URL</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="url" class="form-control" id="donateURL" placeholder="A link to your donations page" name="donateURL" value="<%=config.donateURL%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="donateURL"><i class="fas fa-donate fa-lg"></i> Donations URL</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="ts3URL" placeholder="ts.yourdomain.com" pattern="^((?!(http:\/\/|https:\/\/)).)+\..+\..+$" name="ts3URL" value="<%=config.ts3URL%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="ts3URL"><i class="fab fa-teamspeak fa-lg"></i> TeamSpeak 3 URL (No http(s)://)</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="url" class="form-control" id="discordURL" placeholder="https://discord.gg/???????" pattern="https:\/\/(discord\.gg|discordapp\.com\/invite)\/[a-zA-Z0-9]+" name="discordURL" value="<%=config.discordURL%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="discordURL"><i class="fab fa-discord fa-lg"></i> Discord Invite URL</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="url" class="form-control" id="youtubeURL" placeholder="A link to your YouTube channel" name="youtubeURL" value="<%=config.youtubeURL%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="youtubeURL"><i class="fab fa-youtube fa-lg"></i> YouTube URL</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="url" class="form-control" id="instagramURL" placeholder="A link to your Instagram" name="instagramURL" value="<%=config.instagramURL%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="instagramURL"><i class="fab fa-instagram fa-lg"></i> Instagram URL</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="heading4">
+					<h2 class="mb-0">
+						<button class="btn btn-link btn-lg collapsed" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+							<i class="fas fa-award fa-lg mr-2"></i>Operations Center
+						</button>
+					</h2>
+				</div>
+				<div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordionSettings">
+					<div class="card-body">
+						<div class="custom-control custom-switch form-group">
+							<input type="checkbox" class="custom-control-input" id="application" name="enableApplication">
+							<label class="custom-control-label" for="application">Enable Application System</label>
+						</div>
+						<div class="custom-control custom-switch form-group">
+							<input type="checkbox" class="custom-control-input" id="calltoaction" name="enableCallToAction">
+							<label class="custom-control-label" for="calltoaction">Enable Register Call to Action on Landing Page</label>
+						</div>
+						<div class="custom-control custom-switch form-group">
+							<input type="checkbox" class="custom-control-input" id="retiredmembers" name="enableRetiredMembers">
+							<label class="custom-control-label" for="retiredmembers">Enable Retired Members table on the members page</label>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="companies" placeholder="Your desired company name" name="companies" value="<%=config.companies%>" required>
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="companies">Company Name</label>
+							</div>
+						</div>
+						<small>*All of the following are comma-seperated lists. <p class="text-danger">Unless adding on to the end of a list, modifying these lists in production may negatively affect user's stats.</small>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="platoons" placeholder="Your desired platoons" name="platoons" value="<%=config.platoons%>" required>
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="platoons">Platoons, in order</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="squads" placeholder="Your desired squads" name="squads" value="<%=config.squads%>"required>
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="squads">Squads, in order</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="teams" placeholder="Your desired teams" name="teams" value="<%=config.teams%>" required>
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="teams">Teams, in order</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="sShops" placeholder="Your desired S-Shops" name="sShops" value="<%=config.sShops%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="sShops">S-Shops, in order</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="ranks" placeholder="Your desired ranks" name="ranks" value="<%=config.ranks%>" required>
+								<small>Logos for these ranks are .png's of the same name, in all lower case, placed in /ranks/(small/large)/</small>
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="ranks">Ranks, lowest to highest</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="roles" placeholder="Your desired roles" name="roles" value="<%=config.roles%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="roles">Roles</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="tabs" placeholder="Your desired tabs" name="tabs" value="<%=config.tabs%>">
+								<small>Logos for these tabs are .png's of the same name, in all lower case, placed in /tabs/(small/large)/</small>
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="tabs">Tabs, in order</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="tabDesc" placeholder="Your desired tab descriptions" name="tabDesc" value="<%=config.tabDesc%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="tabDesc">Tab descriptions, matching "Tabs" order</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="certifications" placeholder="Your desired certifications" name="certifications" value="<%=config.certifications%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="certifications">Certifications, in order</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="awards" placeholder="Your desired awards" name="awards" value="<%=config.awards%>">
+								<small>Logos for these awards are .png's of the same name, in all lower case, placed in /awards/</small>
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="awards">Awards, in order</label>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9" style="margin-right: 0%">
+								<input type="text" class="form-control" id="awardDesc" placeholder="Your desired award descriptions" name="awardDesc" value="<%=config.awardDesc%>">
+							</div>
+							<div class="col-md-3" style="padding-left: 0%; padding-top: .5%">
+								<label for="awardDesc">Award descriptions, matching "Awards" order</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="heading5">
+					<h2 class="mb-0">
+						<button class="btn btn-link btn-lg collapsed" type="button" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+							<i class="fas fa-user-friends fa-lg mr-2"></i>User Groups / Permissions
+						</button>
+					</h2>
+				</div>
+				<div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordionSettings">
+					<div class="card-body">
+						<div class="form-group">The following group names are both cosmetic (show on the user's profile) and also dictate permissions on the site.<br>
+						Permissions granted to the group are listed below the group name, and are inherited by any higher group.</div>
+						<div class="d-flex flex-row flex-wrap">
+							<div class="form-group">
+								<label for="userGroup0">Group 0 Name:</label>
+								<br>
+								<input type="text" class="form-control" id="userGroup0" placeholder="Enter name" name="userGroup0" value="<%=config.userGroups[0]%>" required>
+								<small class="form-text text-muted">Can submit an application</small>
+							</div>
+							<div class="ml-3 form-group">
+								<label for="userGroup1">Group 1 Name:</label>
+								<br>
+								<input type="text" class="form-control" id="userGroup1" placeholder="Enter name" name="userGroup1" value="<%=config.userGroups[1]%>" required>
+								<small class="form-text text-muted">Access to Operations Center &</small>
+								<small class="form-text text-muted">can register for events</small>
+							</div>
+							<div class="ml-3 form-group">
+								<label for="userGroup2">Group 2 Name:</label>
+								<br>
+								<input type="text" class="form-control" id="userGroup2" placeholder="Enter name" name="userGroup2" value="<%=config.userGroups[2]%>" required>
+								<small class="form-text text-muted">Can create/edit events</small>
+							</div>
+						</div>
+						<div class="d-flex flex-row flex-wrap">
+							<div class="form-group">
+								<label for="userGroup3">Group 3 Name:</label>
+								<br>
+								<input type="text" class="form-control" id="userGroup3" placeholder="Enter name" name="userGroup3" value="<%=config.userGroups[3]%>" required>
+								<small class="form-text text-muted">Can view/manage all users/requests</small>
+							</div>
+							<div class="ml-3 form-group">
+								<label for="userGroup4">Group 4 Name:</label>
+								<br>
+								<input type="text" class="form-control" id="userGroup4" placeholder="Enter name" name="userGroup4" value="<%=config.userGroups[4]%>" required>
+								<small class="form-text text-muted">Can edit site settings</small>
+								<small class="form-text text-muted">Can delete users</small>
+							</div>
+							<div class="ml-3 form-group">
+								<label for="userGroup5">Group 5 Name:</label>
+								<br>
+								<input type="text" class="form-control" id="userGroup5" placeholder="Enter name" name="userGroup5" value="<%=config.userGroups[5]%>" required>
+								<small class="form-text text-muted">Can manage Group 4 members</small>
+							</div>
+						</div>
+						<div class="custom-control custom-switch form-group">
+							<input type="checkbox" class="custom-control-input" id="visibility" name="enableVisibility">
+							<label class="custom-control-label" for="visibility">Enable Publicly Visible Members Page & Calendar</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="text-align:center;" class="form-group mt-4">
+			<input type="submit" value="Submit Changes" class="btn btn btn-warning">
+		</div>
+	</form>
 </div>
 
 
@@ -102,6 +429,18 @@
 <% if(config.enableRetiredMembers === "on") { %>
     <script>
         document.getElementById("retiredmembers").checked = true;
+    </script>
+<% } %>
+
+<% if(config.enableVisibility === "on") { %>
+    <script>
+        document.getElementById("visibility").checked = true;
+    </script>
+<% } %>
+
+<% if(config.enableCallToAction === "on") { %>
+    <script>
+        document.getElementById("calltoaction").checked = true;
     </script>
 <% } %>
 

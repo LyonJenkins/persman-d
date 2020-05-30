@@ -1,63 +1,99 @@
 <% include ../partials/header %>
 
-<div class="container shadow mt-3 p-3">
+<div class="container shadow mt-3 p-3 white">
     <form action="/opcenter/application/" method="POST">
 
         <h1>Create an Application</h1>
         <hr>
-
-        <%if(submitted) { %>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> Your application was successfully submitted.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        <% } %>
-
-
-        <label for="age">How old are you?</label>
+		
+        <small class="form-text text-muted">* Indicates required field.</small>
+		<br>
+		
+		<label for="name">Your Name:</label>
         <div class="form-group">
-            <input class="form-control" id="age" type="number" name="age" required>
-            <small class="form-text text-muted">In years, how old are you?</small>
+            <input class="form-control" id="name" type="text" name="name" value="<%= user.displayname %>" disabled>
+            <small class="form-text text-muted">If this is not the name you would like to use in the unit, please contact leadership after submitting your application to have it changed.</small>
         </div>
 
-        <label for="length">How many hours do you have in Arma 3?</label>
-        <div class="form-group"><input class="form-control" id="length" type="text" name="length" required>
-            <small class="form-text text-muted">How many hours do you have in Arma 3?</small>
-        </div>
-
-        <label for="reason">Why do you want to join the unit?</label>
-        <div class="form-group"><input class="form-control" id="reason" type="text" name="reason" required>
-            <small class="form-text text-muted">What is your reason for wanting to join the unit? Keep it short and simple, don't give your life story.</small>
-        </div>
-
-        <label for="findus">How did you find about us?</label>
         <div class="form-group">
-            <input class="form-control" id="findus" type="text" name="findus" required>
-            <small class="form-text text-muted">Tell us how you find our unit.</small>
+            <label for="country">*Country:</label>
+			<select class="form-control select-box-search" id="country" name="country">
+				<% include ../partials/country %>
+			</select>
         </div>
 
-        <label for="profile">Enter your Steam Profile link.</label>
+        <label for="age">*How old are you?</label>
         <div class="form-group">
-            <input class="form-control" id="profile" type="text" name="profile" required>
+            <input class="form-control" id="age" type="number" name="age" min="16" max="99" placeholder="your age in years" required>
+            <small class="form-text text-muted">Keep in mind, the minimum age to join the unit is 18 (unless you have predetermined, explicit permission from leadership).</small>
+        </div>
+
+        <label for="hours">*How many hours do you have in Arma 3?</label>
+        <div class="form-group">
+			<input class="form-control" id="hours" type="number" name="hours" placeholder="hours" required>
+        </div>
+
+        <label for="reason">*Why do you want to join the unit?</label>
+        <div class="form-group">
+			<textarea class="form-control" id="reason" name="reason" maxLength = "500" placeholder="I would like to join the unit because..." required></textarea>
+            <small class="form-text text-muted">What is your reason for wanting to join the unit? Keep it short and simple, don't give your life story. (Max. 500 characters)</small>
+        </div>
+
+        <div class="form-group">
+            <label for="position">*What position do you hope to obtain in the unit?</label>
+            <select class="form-control" id="position" name="position" placeholder="Select Position..." required>
+				<% for(let i = 0; i < config.roles.length; i++) { %>
+					<option><%=config.roles[i]%></option>
+				<% } %>
+            </select>
+            <small class="form-text text-muted">This is the position you would like to work towards and eventually obtain in the unit. It is not a final decision, and your placement will depend on position availability.</small>
+        </div>
+
+        <label for="positionReason">Why would you like that position?</label>
+        <div class="form-group">
+			<textarea class="form-control" id="positionReason" name="positionReason" maxLength = "500"></textarea>
+            <small class="form-text text-muted">If you would like, express why you would like that position / be a good candidate for that position. (Max. 500 characters)</small>
+        </div>
+
+        <label for="findUs">*How did you find out about us?</label>
+        <div class="form-group">
+            <input class="form-control" id="findUs" type="text" name="findUs" maxlength="100" required>
+            <small class="form-text text-muted">Tell us how you found our unit.</small>
+        </div>
+
+        <label for="steamProfile">*Enter your <a href="https://steamcommunity.com/" target="_blank">Steam Profile</a> link:</label>
+        <div class="form-group">
+            <input class="form-control" id="steamProfile" type="url" name="steamProfile" placeholder="https://steamcommunity.com/id/yourname OR https://steamcommunity.com/profiles/#################" pattern="(https:\/\/steamcommunity\.com\/id\/|https:\/\/steamcommunity\.com\/profiles\/).+" required>
             <small class="form-text text-muted">Copy your profile link from your Steam page so we can contact you if you get accepted.</small>
         </div>
 
-        <label for="arma3">Do you own a copy of Arma 3?</label>
+        <label for="arma3">*Do you own a copy of Arma 3?</label>
         <div class="form-group">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="arma3" id="yes" value="yes" required>
+                <input class="form-check-input" type="radio" name="arma3" id="yes" value="Yes" required>
                 <label class="form-check-label" for="yes">Yes</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="arma3" id="no" value="no" required>
+                <input class="form-check-input" type="radio" name="arma3" id="no" value="No" required>
                 <label class="form-check-label" for="no">No</label>
             </div>
             <small class="form-text text-muted">Do you own a legal and valid copy of Arma 3?</small>
         </div>
 
-        <label for="mic">Do you have a functioning microphone?</label>
+        <label for="language">*Are you proficient in the English language?</label>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="language" id="yes" value="Yes" required>
+                <label class="form-check-label" for="yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="language" id="no" value="No" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <small class="form-text text-muted">The main language of the unit is English.</small>
+        </div>
+
+        <label for="mic">*Do you own a functioning microphone?</label>
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="mic" id="yes" value="Yes" required>
@@ -67,19 +103,94 @@
                 <input class="form-check-input" type="radio" name="mic" id="no" value="No" required>
                 <label class="form-check-label" for="no">No</label>
             </div>
-            <small class="form-text text-muted">Do you own a functioning microphone?</small>
+            <small class="form-text text-muted">A microphone will be required for communications during operations.</small>
         </div>
 
+        <label for="ts3">*Do you have <a href="https://teamspeak.com/en/downloads/" target="_blank">TeamSpeak 3</a> downloaded?</label>
         <div class="form-group">
-            <label for="mos">What position do you want in the unit?</label>
-            <select class="form-control" id="mos" name="mos" required>
-                <option>Infantry</option>
-<!--                <option disabled>Medic</option>-->
-<!--                <option disabled>Aviator</option>-->
-            </select>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ts3" id="yes" value="Yes" required>
+                <label class="form-check-label" for="yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ts3" id="no" value="No" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <small class="form-text text-muted">TS3 is used for in-game communications and will be required if you join the unit.</small>
         </div>
 
-        <div class="form-group"><button class="btn btn-primary" >Submit</button></div>
+        <label for="tfar">*Do you have the TFAR Plugin installed for TeamSpeak 3?</label>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="tfar" id="yes" value="Yes" required>
+                <label class="form-check-label" for="yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="tfar" id="no" value="No" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <small class="form-text text-muted">TFAR is an Arma 3 mod that allows for radio communication through TS3. If you do not have the plugin installed, our instructors will help you get it installed once you are admitted to the unit.</small>
+        </div>
+
+        <label for="discord">*Do you use <a href="https://discordapp.com/download" target="_blank">Discord</a>?</label>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="discord" id="yes" value="Yes" required>
+                <label class="form-check-label" for="yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="discord" id="no" value="No" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <small class="form-text text-muted">Our unit does a lot of communication through Discord. While it is not required to have, it is <b>highly</b> recommended.</small>
+        </div>
+
+        <label for="discordUsername">Enter your Discord username (if applicable):</label>
+        <div class="form-group">
+            <input class="form-control" id="discordUsername" type="text" name="discordUsername" placeholder="Username#1234" pattern=".+#[0-9]{4}">
+            <small class="form-text text-muted">If you have Discord, enter your user name, including the unique, 4 digit, number identifier.</small>
+        </div>
+
+        <label for="ace">*Do you have any experience using the mod ACE and/or its medical system?</label>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ace" id="yes" value="Yes" required>
+                <label class="form-check-label" for="yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="ace" id="no" value="No" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <small class="form-text text-muted">If you do not know what ACE is, do not fret. It will be taught during basic training.</small>
+        </div>
+
+        <label for="youngLeadership">*Are you willing to work under the leadership of a person who may be younger than you?</label>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="youngLeadership" id="yes" value="Yes" required>
+                <label class="form-check-label" for="yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="youngLeadership" id="no" value="No" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <small class="form-text text-muted">While the age of our leadership is diverse, there may be a scenario where you may be attached to leadership younger than you.</small>
+        </div>
+
+        <label for="milsim">*Do you understand that this is a semi-realism mil-sim unit, and a certain level of tact/seriousness is expected of you during all official operations and certain leadership engagements?</label>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="milsim" id="yes" value="Yes" required>
+                <label class="form-check-label" for="yes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="milsim" id="no" value="No" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <small class="form-text text-muted">This affirms that you are able and willing to maintain tact within the unit during appropriate times. This also affirms that you understand that failure to do so may lead to being dishonorably discharged from the unit.</small>
+        </div>
+
+        <div class="form-group"><button class="btn btn-primary" >Submit Application for Review</button></div>
     </form>
 </div>
 

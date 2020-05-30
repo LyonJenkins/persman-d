@@ -1,10 +1,43 @@
 <% include ../partials/header %>
-<% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
 
-<div class="container shadow mt-3 p-3">
-    <h1>Operations Center</h1>
+<div class="container shadow mt-3 p-3 white-transparent">
+	<h1>Operations Center</h1>
     <hr>
-    <% if(currentUser.role.num >= enlisted) { %>
+
+	<%if(submitted === 1) { %>
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<strong>Success!</strong> Your request was successfully submitted.
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	<% } else if(submitted === 2) {%>
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<strong>Success!</strong> Your application was successfully submitted.
+			<br><br>
+			<i>Applications are typically reviewed within 48 hours, but may take up to a maximum of 7 days.</i>
+			<br><br>
+			<%if(config.ts3URL !== "") { %>
+				<strong>In the meantime, join our <a href="ts3server://<%=config.ts3URL%>">TS3</a>
+				<%if(config.discordURL !== "") { %>
+					or <a href="<%=config.discordURL%>" target="_blank">Discord</a>
+				<% } %>
+				! We would love to meet you to expedite the application process!</strong>
+				<br><br>
+			<% } %>
+			<small>
+				<ul>
+					<li>If your application is approved, your account will be automatically "enlisted", allowing you full access to the site.</li>
+					<li>If your application is denied, it may be due to insufficient or unfavorable answers in your application. If this happens, please feel free to submit another application if you believe it could be better.</li>
+				</ul>
+			</small>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	<% } %>
+	
+    <% if(currentUser.role.num >= 1) { %>
         <div class="card-deck">
             <div class="card text-center" style="width: 18rem;">
                 <div class="card-body">
@@ -13,7 +46,7 @@
                     <a href="/opcenter/discharge" class="card-btn btn btn-primary">Request a Discharge</a>
                 </div>
                 <div class="card-footer">
-                    <small>This action can be seen by enlisted and above.</small>
+                    <small>This action can be seen by <%=config.userGroups[1]%> and above.</small>
                 </div>
             </div>
             <div class="card text-center" style="width: 18rem;">
@@ -23,7 +56,7 @@
                     <a href="/opcenter/loa" class="card-btn btn btn-primary">Request a Leave of Absence</a>
                 </div>
                 <div class="card-footer">
-                    <small>This action can be seen by enlisted and above.</small>
+                    <small>This action can be seen by <%=config.userGroups[1]%> and above.</small>
                 </div>
             </div>
             <div class="card text-center" style="width: 18rem;">
@@ -39,59 +72,75 @@
         </div>
     <% } %>
 
-    <% if((currentUser.role.num === guest || currentUser.role.num === admin) && config.enableApplication === "on") { %>
+    <% if((currentUser.role.num === 0) && config.enableApplication === "on") { %>
         <div class="card-deck mt-2">
             <div class="card text-center" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"><strong>Submit An Application</strong></h5>
-                    <p class="card-text">Submit an application to join the 143rd Infantry Regiment.</p>
+                    <p class="card-text">Submit an application to join <%=config.websiteName%>.</p>
                     <a href="/opcenter/application" class="card-btn btn btn-primary">Create Application</a>
                 </div>
                 <div class="card-footer">
-                    <small>This action can be seen only by guests and administrators.</small>
+                    <small>This action can be seen only by <%=config.userGroups[0]%>s.</small>
                 </div>
             </div>
+			<div class="card text-center" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title"><strong>View Your Application</strong></h5>
+					<p class="card-text">If you already submitted an application, you can view it's status and details here.</p>
+					<a href="/opcenter/yourrequests" class="card-btn btn btn-primary">View Application</a>
+				</div>
+				<div class="card-footer">
+					<small>This action can be seen only by <%=config.userGroups[0]%>s.</small>
+				</div>
+			</div>
         </div>
     <% } %>
 </div>
 
 
-<% if(currentUser.role.num === admin || currentUser.role.num === recruiter) { %>
-    <div class="container shadow mt-3 p-3 mb-3 pb-3">
+<% if(currentUser.role.num >= 2) { %>
+    <div class="container shadow mt-3 p-3 mb-5 pb-3 white-transparent">
         <h1>Administration Center</h1>
         <hr>
         <div class="card-deck">
-            <div class="card text-center" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title"><strong>View Requests</strong></h5>
-                    <p class="card-text">View all user requests.</p>
-                    <a href="/opcenter/requests" class="card-btn btn btn-primary">View Requests</a>
-                </div>
-                <div class="card-footer">
-                    <small>This action can be seen only by administrators.</small>
-                </div>
-            </div>
-            <div class="card text-center" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title"><strong>Create Events</strong></h5>
-                    <p class="card-text">Create a new event.</p>
-                    <a href="/calendar/event" class="card-btn btn btn-primary">Create Event</a>
-                </div>
-                <div class="card-footer">
-                    <small>This action can be seen only by administrators.</small>
-                </div>
-            </div>
-            <div class="card text-center" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title"><strong>View Events</strong></h5>
-                    <p class="card-text">View all events.</p>
-                    <a href="/calendar/events" class="card-btn btn btn-primary">View Events</a>
-                </div>
-                <div class="card-footer">
-                    <small>This action can be seen only by administrators.</small>
-                </div>
-            </div>
+			<% if(currentUser.role.num >= 3) { %>
+				<div class="card text-center" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title"><strong>View Requests</strong></h5>
+						<p class="card-text">View all user requests.</p>
+						<a href="/opcenter/requests" class="card-btn btn btn-primary">View Requests</a>
+					</div>
+					<div class="card-footer">
+						<small>This action can be seen by <%=config.userGroups[3]%>s and above.</small>
+					</div>
+				</div>
+			<% } %>
+			<% if(currentUser.role.num >= 2) { %>
+				<div class="card text-center" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title"><strong>Create Events</strong></h5>
+						<p class="card-text">Create a new event.</p>
+						<a href="/calendar/event" class="card-btn btn btn-primary">Create Event</a>
+					</div>
+					<div class="card-footer">
+						<small>This action can be seen by <%=config.userGroups[2]%>s and above.</small>
+					</div>
+				</div>
+				<div class="card text-center" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title"><strong>View Events</strong></h5>
+						<p class="card-text">View all events.</p>
+						<a href="/calendar/events" class="card-btn btn btn-primary">View Events</a>
+					</div>
+					<div class="card-footer">
+						<small>This action can be seen by <%=config.userGroups[2]%>s and above.</small>
+					</div>
+				</div>
+			<% } %>
         </div>
     </div>
 <% } %>
+
+<div class="fixed-bottom">
 <% include ../partials/footer %>

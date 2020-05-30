@@ -17,7 +17,11 @@ const express = require("express"),
     path = require('path'),
     config = require('./settings.json');
 
-mongoose.connect("mongodb://localhost:27017/persman", {useNewUrlParser: true});
+const NODE_PORT = process.env.NODE_PORT || 3000;
+const MONGO_IP = process.env.MONGO_IP || 'localhost';
+const MONGO_PORT = process.env.MONGO_PORT || '27017';
+
+mongoose.connect("mongodb://" + MONGO_IP + ':' + MONGO_PORT + "/persman", {useNewUrlParser: true});
 app.use(bodyParser.urlencoded({extended: true}));
 mongoose.set('useFindAndModify', false);
 app.set("view engine", "ejs");
@@ -53,6 +57,6 @@ app.use(opCenterRoutes);
 app.use(userRoutes);
 app.use(calendarRoutes);
 
-app.listen(3000, function(){
+app.listen(NODE_PORT, function(){
    console.log("PERSMAN: ONLINE") ;
 });

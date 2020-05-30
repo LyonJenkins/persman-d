@@ -1,47 +1,309 @@
 <% include partials/header %>
 
-<div class="container shadow mt-3 pt-3" style="height: 15rem;">
-    <h1>Viewing user <strong><%= user.username %></strong></h1>
+<div class="container shadow mt-3 mb-5 p-3 white-transparent">
+	<div class="card mb-3">
+		<div class="row no-gutters">
+			<div class="col-md-1">
+				<img class="scale-down" src="/ranks/large/<%=user.rank.toLowerCase()%>.png" class="card-img" alt="<%=user.rank%>">
+			</div>
+			<div class="col-md-8 ml-2">
+				<div class="card-body">
+					<h1><strong><% if(user.rank.toLowerCase() !== "none") { %><%=user.rank%><% } %> <%=user.displayname%></strong>
+					<% if(user.status.toLowerCase() !== "none") { %>
+						<span class="<%=user.status%> ml-4"><%=user.status%></span>
+					<% } %>
+					</h1>
+					<p class="card-subtitle"><%=user.position%></p>
+					</div>
+			</div>
+		</div>
+	</div>
     <hr>
 
-    <div class="row">
-        <div class="col-4">
-            <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list"
-                   href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-            </div>
-        </div>
-        <div class="col-8">
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-profile" role="tabpanel"
-                     aria-labelledby="list-profile-list">
-                    <div class="row">
-                        <div class="col-sm-2"><span style="font-weight: bold;">Username</span></div>
-                        <div class="col-sm-8"><%= user.username %></div>
-                    </div>
-                    <% if(currentUser.role.num > 4) { %>
-                    <div class="row">
-                        <div class="col-sm-2"><span style="font-weight: bold;">User Email</span></div>
-                        <div class="col-sm-8"><%= user.email %></div>
-                    </div>
-                    <% } %>
-                    <div class="row">
-                        <div class="col-sm-2"><span style="font-weight: bold;">Group</span></div>
-                        <div class="col-sm-8"><%= user.role.name %></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2"><span style="font-weight: bold;">Unit</span></div>
-                        <div class="col-sm-8"><%= user.unit.squad %>, <%= user.unit.platoon %>
-                            , <%= user.unit.company %></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2"><span style="font-weight: bold;">MOS</span></div>
-                        <div class="col-sm-8"><%= user.position %></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-3">
+			<div class="list-group" id="list-tab" role="tablist">
+				<a class="list-group-item list-group-item-action text-center active" id="list-general" data-toggle="list" href="#general" role="tab" aria-controls="general">
+					<i class="fas fa-user fa-lg mr-2"></i>General
+				</a>
+				<a class="list-group-item list-group-item-action text-center" id="list-position" data-toggle="list" href="#position" role="tab" aria-controls="position">
+					<i class="fas fa-users fa-lg mr-2"></i>Unit Position
+				</a>
+				<a class="list-group-item list-group-item-action text-center" id="list-merits" data-toggle="list" href="#merits" role="tab" aria-controls="merits">
+					<i class="fas fa-award fa-lg mr-2"></i>Merits
+				</a>
+				<a class="list-group-item list-group-item-action text-center" id="list-profiles" data-toggle="list" href="#profiles" role="tab" aria-controls="profiles">
+					<i class="fas fa-id-card fa-lg mr-2"></i>Profiles
+				</a>
+			</div>
+		</div>
+		<div class="col-9">
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="list-general">
+					<div class="card mb-2">
+						<h5 class="card-header">Basic Information</h5>
+						<div class="card-body">
+							<ul class="list-group mb-2">
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="fas fa-user-tag fa-lg mr-2"></i>Name:</div>
+										<div><%= user.displayname %></div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="fas fa-award fa-lg mr-2"></i>Rank:</div>
+										<div><% if(user.rank.toLowerCase() !== "none") { %><%=user.rank%> <img src="/ranks/small/<%=user.rank.toLowerCase()%>.png" title="<%=user.rank%>"><% } %></div>
+									</div>
+								</li>
+								<% if(user.country) { %>
+									<li class="list-group-item">
+										<div class="d-flex justify-content-between">
+											<div><i class="fas fa-flag fa-lg mr-2"></i>Country:</div>
+											<div><%=user.country%> <span class="flag-icon flag-icon-<%=user.country.toLowerCase()%>"></span></div>
+										</div>
+									</li>
+								<% } %>
+								<% if(user.age) { %>
+									<li class="list-group-item">
+										<div class="d-flex justify-content-between">
+											<div><i class="fas fa-birthday-cake fa-lg mr-2"></i>Approx. Age:</div>
+											<div><%=user.age + (new Date().getYear() - user.registrationDate.getYear())%></div>
+										</div>
+									</li>
+								<% } %>
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="far fa-calendar-alt fa-lg mr-2"></i>Registration Date:</div>
+										<div><%= user.registrationDate.toDateString() %></div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="fas fa-clipboard fa-lg mr-2"></i>MOS:</div>
+										<div><%= user.position %></div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="fas fa-signal fa-lg mr-2"></i>Status:</div>
+										<div><span class="<%=user.status%>"><%=user.status%></span></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<% if(currentUser) { %>
+						<% if(currentUser.role.num >= 3) { %>
+							<div class="card">
+								<h5 class="card-header">Administration</h5>
+								<div class="card-body">
+									<ul class="list-group mb-2">
+										<li class="list-group-item">
+											<div class="d-flex justify-content-between">
+												<div><i class="fas fa-user fa-lg mr-2"></i>Username:</div>
+												<div><%= user.username %></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="d-flex justify-content-between">
+												<div><i class="fas fa-fingerprint fa-lg mr-2"></i>Unique ID:</div>
+												<div><%= user.id %></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="d-flex justify-content-between">
+												<div><i class="fas fa-envelope fa-lg mr-2"></i>Email:</div>
+												<div><%= user.email %></div>
+											</div>
+										</li>
+										<li class="list-group-item">
+											<div class="d-flex justify-content-between">
+												<div><i class="fas fa-users fa-lg mr-2"></i>Group:</div>
+												<div><%= user.role.name %></div>
+											</div>
+										</li>
+									</ul>
+									<div class="d-flex justify-content-center">
+										<div>
+											<form action="/user/edit/<%=user._id%>" method="get">
+												<button class="btn btn-warning">Edit User</button>
+											</form>
+										</div>
+										<% if(currentUser.role.num >= 4) { %>
+										<div class="ml-4">
+											<td class="align-middle">
+												<form action="/user/delete/<%=user._id%>" method="post">
+													<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+														Delete User
+													</button>
+
+													<!-- Modal -->
+													<div class="modal fade" id="delete" tabindex="-1" role="dialog">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title">Confirm Delete User</h5>
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true" class="modal-span">&times;</span>
+																	</button>
+																</div>
+																<div class="modal-body">
+																	This action cannot be undone.
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-danger btn-sm">Delete User</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</form>
+											</td>
+										</div>
+										<% } %>
+									</div>
+								</div>
+							</div>
+						<% } %>
+					<% } %>
+				</div>
+				<div class="tab-pane fade" id="position" role="tabpanel" aria-labelledby="list-position">
+					<div class="card mb-2">
+						<h5 class="card-header">Unit Position</h5>
+						<div class="card-body">
+							<ul class="list-group mb-2">
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="fas fa-certificate fa-lg mr-2"></i>Company:</div>
+										<div><%= user.unit.company %> Company</div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="fas fa-users fa-lg mr-2"></i>Platoon:</div>
+										<div><%= user.unit.platoon %></div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="fas fa-user-friends fa-lg mr-2"></i>Squad:</div>
+									<div><%= user.unit.squad %></div>
+									</div>
+								</li>
+								<li class="list-group-item">
+									<div class="d-flex justify-content-between">
+										<div><i class="fas fa-user-plus fa-lg mr-2"></i>Team:</div>
+										<div><%= user.unit.team %></div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<% if(user.sShops) { %>
+						<div class="card">
+							<h5 class="card-header">S-Shops</h5>
+							<div class="card-body">
+								<ul class="list-group mb-2">
+									<% for(let i = 0; i < user.sShops.length; i++) { %>
+										<li class="list-group-item">
+											<div class="text-center">
+												<%= user.sShops[i] %>
+											</div>
+										</li>
+									<% } %>
+								</ul>
+							</div>
+						</div>
+					<% } %>
+				</div>
+				<div class="tab-pane fade" id="merits" role="tabpanel" aria-labelledby="list-merits">
+				<div class="card mb-2">
+					<h5 class="card-header">Tabs</h5>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<% if(user.tabs) { %>
+									<% for(let i = 0; i < user.tabs.length; i++) { %>
+										<div class="col-md-6 col-lg-4 col-xl-4 py-2">
+											<div class="card h-100">
+												<img src="/tabs/large/<%=user.tabs[i]%>.png" class="card-img-top scale-down" alt="<%=user.tabs[i]%>">
+												<div class="card-body">
+													<h5 class="card-title"><%=user.tabs[i]%> Tab</h5>
+													<p class="card-text"><%=config.tabDesc[config.tabs.indexOf(user.tabs[i])]%></p>
+												</div>
+											</div>
+										</div>
+									<% } %>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card mb-2">
+					<h5 class="card-header">Awards</h5>
+					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<% if(user.awards) { %>
+									<% for(let i = 0; i < user.awards.length; i++) { %>
+										<div class="col-md-6 col-lg-4 col-xl-4 py-2">
+											<div class="card h-100">
+												<img src="/awards/<%=user.awards[i]%>.png" class="card-img-top scale-down" alt="<%=user.awards[i]%>">
+												<div class="card-body">
+													<h5 class="card-title"><%=user.awards[i]%> Tab</h5>
+													<p class="card-text"><%=config.awardDesc[config.awards.indexOf(user.awards[i])]%></p>
+												</div>
+											</div>
+										</div>
+									<% } %>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card mb-2">
+					<h5 class="card-header">Certifications</h5>
+					<div class="card-body">
+						<ul class="list-group list-group-flush">
+							<% if(user.certifications) { %>
+								<% for(let i = 0; i < user.certifications.length; i++) { %>
+									<li class="list-group-item text-center"><%=user.certifications[i]%></li>
+								<% } %>
+							<% } %>
+						</ul>
+					</div>
+				</div>
+				</div>
+				<div class="tab-pane fade" id="profiles" role="tabpanel" aria-labelledby="list-profiles">
+					<div class="card mb-2">
+						<h5 class="card-header">Profiles</h5>
+						<div class="card-body">
+							<ul class="list-group mb-2">
+								<% if(user.steamProfile) { %>
+									<li class="list-group-item">
+										<div class="d-flex justify-content-between">
+											<div><i class="fab fa-steam fa-lg mr-2" style="color: darkblue"></i>Steam:</div>
+											<div><a href="<%=user.steamProfile%>" title="Steam Profile" target="_blank"><%= user.steamProfile %></a></div>
+										</div>
+									</li>
+								<% } %>
+								<% if(user.discordUsername) { %>
+									<li class="list-group-item">
+										<div class="d-flex justify-content-between">
+											<div><i class="fab fa-discord fa-lg mr-2" style="color: darkslateblue"></i>Discord:</div>
+											<div><%= user.discordUsername %></div>
+										</div>
+									</li>
+								<% } %>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
+<div class="fixed-bottom">
 <% include partials/footer %>

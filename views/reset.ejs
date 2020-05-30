@@ -17,11 +17,12 @@
         <legend>Reset Password</legend>
         <div class="form-group">
             <label for="password">New Password</label>
-            <input type="password" name="password" value="" placeholder="New password" autofocus="autofocus" class="form-control"/>
+            <input type="password" name="password" placeholder="New password" autofocus class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required>
+            <small class="form-text muted-text">Minimum eight characters, at least one uppercase letter, one lowercase letter, and one number.</small>
         </div>
         <div class="form-group">
             <label for="confirm">Confirm Password</label>
-            <input type="password" name="confirm" value="" placeholder="Confirm password" class="form-control"/>
+            <input type="password" name="confirm" placeholder="Confirm password" class="form-control" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" required>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Update Password</button>

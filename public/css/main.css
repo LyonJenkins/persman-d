@@ -20,6 +20,8 @@ td {
 
 .card-text {
     font-size: 13px;
+	word-wrap: break-word;      /* IE 5.5-7 */
+	white-space: pre-wrap;      /* Modern browsers */
 }
 
 .table-header {
@@ -35,16 +37,24 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, .3);
 }
 
-/*body {*/
-/*    background-image: url("/images/background.jpg");*/
-/*    background-repeat: no-repeat;*/
-/*    background-position: right top;*/
-/*    background-attachment: fixed;*/
-/*    background-size: 100%;*/
-/*}*/
+body {
+    background-image: url("/images/background.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    background-size: 100%;
+}
 
 .white {
     background-color:white;
+}
+
+.white-transparent {
+    background-color: rgba(255,255,255,0.85) !important;
+}
+
+.scale-down {
+	object-fit: scale-down;
 }
 
 table.dataTable thead .sorting:after,
@@ -77,6 +87,18 @@ table {
     font-weight: 400;
 }
 
+.Reserve {
+    display: inline-block;
+    background-color: #663399; 
+    padding: .1rem .25rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+    color: white; 
+    border: 1px solid transparent;
+    font-weight: 400;
+}
+
 .Active {
     display: inline-block;
     background-color: #208710; 
@@ -90,6 +112,18 @@ table {
 }
 
 .Leave {
+    display: inline-block;
+    background-color: #CCCC00; 
+    color: white; 
+    padding: .1rem .25rem;
+    font-size: .875rem;
+    line-height: 1;
+    border-radius: .2rem;
+    border: 1px solid transparent;
+    font-weight: 400;
+}
+
+.Away {
     display: inline-block;
     background-color: #e87809; 
     color: white; 

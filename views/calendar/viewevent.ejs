@@ -1,5 +1,4 @@
 <% include ../partials/header %>
-<% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
 
 <script>
 
@@ -36,9 +35,56 @@
         });
 </script>
 
-    <div class="container shadow mt-3 pt-3">
-        <h1>Viewing <strong><%=event.title%></strong></h1>
+    <div class="container shadow mt-3 pt-3 white-transparent">
+		<div class="d-flex justify-content-between">
+			<div class="mr-auto"><h1>Viewing <strong><%=event.title%></strong></h1></div>
+			<% if(currentUser) { %>
+				<% if(currentUser.role.num >= 2) { %>
+					<div>
+						<a href="/calendar/event/edit/<%=event._id%>" class="btn btn-warning mr-1">Edit Event</a>
+					</div>
+					<div>
+						<form action="/calendar/events/<%=event._id%>" method="post">
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">
+								Delete Event
+							</button>
+
+							<!-- Modal -->
+							<div class="modal fade" id="delete" tabindex="-1" role="dialog">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Confirm Delete Event</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true" class="modal-span">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											This action cannot be undone.
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-danger btn-sm">Delete Event</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				<% } %>
+			<% } %>
+		</div>
         <hr>
+		
+		<% if(success && success.length > 0) { %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<%=success%>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<% } %>
+		
         <div class="row justify-content-center">
             <div class="col-sm-6">
                 <div class="card">
@@ -57,61 +103,70 @@
                 <div class="card-body text-center">
                     <h3 class="card-title text-left" style="font-weight: 600;">Event Information <span style="font-weight: 400;">- <%=event.start%> - <span><%=event.startTime%></span> EST | <span id="cst"></span> CST | <span id="pst"></span> PST | <span id="cet"></span> CET</span></h3>
                     <hr>
-                    <% if(currentUser.role.num >= enlisted) { %>
-                    <div class="container-fluid mt-4">
-                        <div class="row justify-content-center">
-                            <div class="col-auto mb-3">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><strong>Register</strong></h5>
-                                        <form action="/calendar/event/<%=event._id%>/users" method="POST">
-                                            <div class="form-group">
-                                                <button class="btn btn-success btn-sm">Register</button>
-                                                <input class="form-control" type="hidden" name="type" value="register">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small>This action can be seen by enlisted and above.</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto mb-3">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><strong>Unregister</strong></h5>
-                                        <form action="/calendar/event/<%=event._id%>/users" method="POST">
-                                            <div class="form-group">
-                                                <button class="btn btn-danger btn-sm">Unregister</button>
-                                                <input class="form-control" type="hidden" name="type" value="unregister">
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small>This action can be seen by enlisted and above.</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <% if(currentUser) { %>
+						<% if(currentUser.role.num >= 1) { %>
+						<div class="container-fluid mt-4">
+							<div class="row justify-content-center">
+								<div class="col-auto mb-3">
+									<div class="card text-center">
+										<div class="card-body">
+											<h5 class="card-title"><strong>Register</strong></h5>
+											<form action="/calendar/event/<%=event._id%>/users" method="POST">
+												<div class="form-group">
+													<button class="btn btn-success btn-sm">Register</button>
+													<input class="form-control" type="hidden" name="type" value="register">
+												</div>
+											</form>
+										</div>
+										<div class="card-footer">
+											<small>This action can be seen by <%=config.userGroups[1]%> and above.</small>
+										</div>
+									</div>
+								</div>
+								<div class="col-auto mb-3">
+									<div class="card text-center">
+										<div class="card-body">
+											<h5 class="card-title"><strong>Unregister</strong></h5>
+											<form action="/calendar/event/<%=event._id%>/users" method="POST">
+												<div class="form-group">
+													<button class="btn btn-danger btn-sm">Unregister</button>
+													<input class="form-control" type="hidden" name="type" value="unregister">
+												</div>
+											</form>
+										</div>
+										<div class="card-footer">
+											<small>This action can be seen by <%=config.userGroups[1]%> and above.</small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<% } %>
                     <% } %>
 
                     <div>
-                        <h4 class="card-title text-left" style="font-weight: 600;">Attending Users</h4>
+                        <h4 class="card-title text-left" style="font-weight: 600;">Attending Users (<%=list.length%>)</h4>
                         <hr>
-                        <table class="table table-sm table-bordered">
+						<input type="text" class="form-control" id="searchInput" onkeyup="searchFunction()" placeholder="Search by position (ex. 1st Platoon...)">
+                        <table class="table table-sm table-striped" id="searchTable">
                             <thead>
                             <tr>
-                                <th scope="col" class="usersTable">Username</th>
-                                <th scope="col" class="usersTable">Rank</th>
+                                <th scope="col" style="width: 5%">Rank</th>
+								<th scope="col" style="width: 25%">Name</th>
+								<th scope="col" style="width: 35%">Position</th>
+								<th scope="col" style="width: 10%">MOS</th>
+                                <th scope="col" style="width: 25%">Role</th>
                             </tr>
                             </thead>
                             <tbody>
                             <% list.forEach(function(user) { %>
-                            <tr>
-                                <td><a href="/user/<%=user._id%>"><%=user.username%></a></td>
-                                <td><%=user.rank%></td>
-                            </tr>
+								<tr>
+									<td class="align-middle"><img src="/ranks/small/<%=user.rank.toLowerCase()%>.png" title="<%=user.rank%>"></td>
+									<td class="align-middle"><a href="/user/<%=user._id%>"><% if(user.rank.toLowerCase() !== "none") { %><%=user.rank%><% } %> <%=user.displayname%></a></td>
+									<td class="align-middle"><%=user.unit.platoon%>, <%=user.unit.squad%>, <%=user.unit.team%></td>
+									<td class="align-middle"><%=user.position%></td>
+									<td class="align-middle"><%=user.role.name%></td>
+								</tr>
                             <% }) %>
                             </tbody>
                         </table>
@@ -123,6 +178,30 @@
             </div>
         </div>
 </div>
+
+<script>
+function searchFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("searchTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 
 <% include ../partials/footer %>
 

@@ -3,7 +3,7 @@
 <script>
 </script>
 
-<div class="container shadow mt-3 p-3">
+<div class="container shadow mt-3 p-3 white">
 
     <h3 style="text-align: center;">Viewing Leave of Absence</h3>
 
@@ -11,29 +11,27 @@
         <% if(users[i]._id == loa.ownerID) { %>
           <% var user = users[i]; %>
 
-        <table class="table white table-bordered table-sm">
+        <table class="table white table-sm table-striped text-center">
             <thead>
               <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Rank</th>
-                <th scope="col">MOS</th>
-                <th scope="col">Status</th>
-                <th scope="col">Unit</th>
+                <th scope="col" style="width: 5%">Rank</th>
+                <th scope="col" style="width: 20%">Name</th>
+                <th scope="col" style="width: 30%">Position</th>
+                <th scope="col" style="width: 25%">MOS</th>
+                <th scope="col" style="width: 20%">Status</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="align-middle"><a href="/user/<%=user._id%>"><%=user.username%><h1></a></td>
-                <td class="align-middle"><%=user.rank%></td>
+                <td class="align-middle"><img src="/ranks/small/<%=user.rank.toLowerCase()%>.png" title="<%=user.rank%>"></td>
+                <td class="align-middle"><a href="/user/<%=user._id%>"><% if(user.rank.toLowerCase() !== "none") { %><%=user.rank%><% } %> <%=user.displayname%></a></td>
+                <% if(user.unit.squad.toLowerCase() === "none" && user.unit.platoon.toLowerCase() === "none") { %>
+					<td class="align-middle">Not Assigned</td>
+				<% } else { %>
+					<td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></td>
+				<% } %>
                 <td class="align-middle"><%=user.position%></td>
                 <td class="align-middle"><span class="<%=user.status%>"><%=user.status%></span></td>
-                <% if(user.unit.squad == "none" && user.unit.platoon == "none" && user.unit.company == "none") { %>
-                <td class="align-middle"></td>
-                <% } else if(user.unit.squad == "") { %>
-                <td class="align-middle"><%=user.unit.platoon%>, <%=user.unit.company%></td>
-                <% } else { %>
-                <td class="align-middle"><%=user.unit.squad%>, <%=user.unit.platoon%>, <%=user.unit.company%></td>
-                <% } %>
               </tr>
         </table>
 
@@ -41,7 +39,7 @@
         <h1>Reason</h1>
         <hr>
             <div class="card-deck">
-                <div class="card text-center" style="width: 18rem;">
+                <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <p class="card-text"><%=loa.reason%></p>
                     </div>
@@ -66,7 +64,7 @@
                 </div>
         </div>
 
-        <% if(currentUser.role.num === 5) { %>
+        <% if(currentUser.role.num >= 3) { %>
         <br>
         <h1>Actions</h1>
         <hr>
@@ -97,7 +95,7 @@
                         <% } %>
                         <input class="form-control" type="hidden" name="requestType" value="Leave">
                         <input class="form-control" type="hidden" name="id" value="<%=loa._id%>">
-                        <input class="form-control" type="hidden" name="approve" value="1">
+                        <input class="form-control" type="hidden" name="approve" value="0">
                     </form>
                 </div>
             </div>

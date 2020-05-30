@@ -7,18 +7,31 @@
     <link href="/css/main.css" rel="stylesheet" type="text/css">
     <link href="/css/themes.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css">
     <script src="/moment-timezone/moment.js" crossorigin="anonymous"></script>
     <script src="/moment-timezone/moment-timezone.js" crossorigin="anonymous"></script>
     <script src="/moment-timezone/moment-timezone-with-data.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.select-box-search').select2();
+		});
+	</script>
 </head>
 <body class="themed">
 
-<nav class="navbar navbar-expand-lg shadow navbar-custom ">
-    <a class="navbar-brand" href="/"><%=config.websiteName%></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg shadow navbar-light white-transparent">
+    <a class="navbar-brand" href="/">
+		<% if(config.websiteLogo !== "") { %>
+			<img class="scale-down" src="<%=config.websiteLogo%>" alt="<%=config.websiteName%>" height="50" width="50"> <nbsp><nbsp>
+		<% } %>
+		<%=config.websiteName%>
+	</a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -26,9 +39,8 @@
             <!--                <li class="nav-item">-->
             <!--                    <a class="nav-link" href="">Forums</a>-->
             <!--                </li>-->
-            <% const admin = 5, recruiter = 4, officer = 3, nco = 2, enlisted = 1, guest = 0; %>
             <%if(currentUser) {%>
-                <% if(currentUser.role.num >= enlisted) { %>
+                <% if(currentUser.role.num >= 1 || config.enableVisibility === "on") { %>
                     <li class="nav-item">
                         <a class="nav-link" href="/listusers">Show Members</a>
                     </li>
@@ -38,19 +50,75 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/calendar/">Calendar</a>
                     </li>
-                    <% } else { %>
+                <% } else { %>
                     <li class="nav-item">
                         <a class="nav-link" href="/opcenter/">Operations Center</a>
                     </li>
                 <% } %>
-                <% if(currentUser.role.num > 4) { %>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/settings/">Website Settings</a>
-                    </li>
-                <% } %>
+            <% } else if(config.enableVisibility === "on") {%>
+				<li class="nav-item">
+					<a class="nav-link" href="/listusers">Show Members</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/calendar/">Calendar</a>
+				</li>
             <% } %>
+			<% if(config.faq !== "") { %>
+				<li class="nav-item">
+					<a class="nav-link" href="/faq/">F.A.Q.</a>
+				</li>
+            <% } %>
+			<% if(config.modlistURL !== "" || config.resourceLinks[0] !== "") { %>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  Resources
+					</a>
+					<div class="dropdown-menu" aria-labelledby="resourcesDropdown">
+						<% if(config.modlistURL !== "") { %>
+							<a class="dropdown-item" href="<%=config.modlistURL%>" target="_blank">Mod List</a>
+						<% } %>
+						<% if(config.resourceLinks[0] !== "") { %>
+							<% for(let i = 0; i < config.resourceLinks.length; i++) { %>
+								<a class="dropdown-item" href="<%=config.resourceLinks[i]%>" target="_blank"><%=config.resourceTitles[i]%></a>						
+							<% } %>					
+						<% } %>
+					</div>
+				</li>
+			<% } %>
+			<% if(config.a3unitsURL !== "" || config.steamgroupURL !== "" || config.donateURL !== "") { %>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="linksDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  Links
+					</a>
+					<div class="dropdown-menu" aria-labelledby="linksDropdown">
+					  <% if(config.a3unitsURL !== "") { %><a class="dropdown-item" href="<%=config.a3unitsURL%>" target="_blank">Arma 3 Units Page</a><% } %>
+					  <% if(config.steamgroupURL !== "") { %><a class="dropdown-item" href="<%=config.steamgroupURL%>" target="_blank">Steam Group</a><% } %>
+					  <% if(config.donateURL !== "") { %><a class="dropdown-item" href="<%=config.donateURL%>" target="_blank">Donate</a><% } %>
+					</div>
+				</li>
+			<% } %>
+			<% if(config.ts3URL !== "") { %>
+				<li class="nav-item">
+					<a class="nav-link" href="ts3server://<%=config.ts3URL%>" title="TeamSpeak3" target="_blank"><i class="fab fa-teamspeak fa-lg"></i> TeamSpeak</a>
+				</li>
+			<% } %>
+			<% if(config.discordURL !== "") { %>
+				<li class="nav-item">
+					<a class="nav-link" href="<%=config.discordURL%>" title="Discord" target="_blank"><i class="fab fa-discord fa-lg"></i> Discord</a>
+				</li>
+			<% } %>
+			<% if(config.youtubeURL !== "") { %>
+				<li class="nav-item">
+					<a class="nav-link" href="<%=config.youtubeURL%>" title="YouTube" target="_blank"><i class="fab fa-youtube fa-lg"></i></a>
+				</li>
+			<% } %>
+			<% if(config.instagramURL !== "") { %>
+				<li class="nav-item">
+					<a class="nav-link" href="<%=config.instagramURL%>" title="Instagram" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+				</li>
+			<% } %>
         </ul>
-        <ul class="navbar-nav ml-auto">
+		<ul class="navbar-nav ml-auto">
             <%if(!currentUser) { %>
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
@@ -59,12 +127,16 @@
                     <a class="nav-link" href="/register">Register</a>
                 </li>
             <% } else { %>
-            <span class="navbar-text"><a href="/user/<%=currentUser._id%>"><i class="fas fa-user-circle"></i><span style="padding-left: .25rem"><%=currentUser.username%></span></a></span>
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
-            </li>
-            <% }  %>
+				<% if(currentUser.role.num >= 4) { %>
+                    <li class="nav-item mr-1">
+                        <a class="nav-link" href="/settings/">Website Settings</a>
+                    </li>
+                <% } %>
+				<span class="navbar-text"><a href="/user/<%=currentUser._id%>"><i class="fas fa-user-circle"></i><span style="padding-left: .25rem"><% if(currentUser.rank.toLowerCase() !== "none") { %><%=currentUser.rank%> <% } %><%=currentUser.displayname%></span></a></span>
+				<li class="nav-item">
+					<a class="nav-link" href="/logout">Logout</a>
+				</li>
+            <% } %>
         </ul>
-
     </div>
 </nav>

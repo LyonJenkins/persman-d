@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<div class="container shadow mt-3 p-3">
+<div class="container shadow mt-3 p-3 white">
     <form action="/calendar/event" method="POST">
         <h1>Create event</h1>
         <hr>
@@ -12,8 +12,8 @@
 
         <div class="form-group">
             <label for="desc">Event Description</label>
-            <input id="desc" class="form-control" type="text" name="desc" placeholder="enter a description" required>
-            <small class="form-text text-muted">The max length of an event description is 160 characters.</small>
+            <textarea id="desc" class="form-control" name="desc" placeholder="enter a description" maxLength = "500" required></textarea>
+            <small class="form-text text-muted">The max length of an event description is 500 characters.</small>
         </div>
 
         <div class="form-group">
@@ -44,9 +44,5 @@
 
     </form>
 </div>
-
-<script>
-    document.getElementById("desc").maxLength = "160";
-</script>
 
 <% include ../partials/footer %>
